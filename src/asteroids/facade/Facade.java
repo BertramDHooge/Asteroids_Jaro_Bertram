@@ -2,6 +2,7 @@ package asteroids.facade;
 
 import asteroids.model.Ship;
 import asteroids.part1.facade.IFacade;
+import asteroids.util.IllegalRadiusException;
 import asteroids.util.ModelException;
 
 public class Facade implements IFacade  {
@@ -15,7 +16,7 @@ public class Facade implements IFacade  {
 	
 	@Override
 	public Ship createShip(double x, double y, double xVelocity, double yVelocity, double radius, double orientation)
-			throws ModelException {
+			throws ModelException, IllegalRadiusException {
 		return new Ship( x,  y,  xVelocity,  yVelocity,  radius,  orientation);
 	}
 

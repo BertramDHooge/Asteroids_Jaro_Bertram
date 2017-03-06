@@ -1,4 +1,7 @@
 package asteroids.model;
+
+import asteroids.util.*;
+
 public class Ship {
 
 	
@@ -15,37 +18,83 @@ public class Ship {
 	
 	public Ship() {
 	}
-
-	public Ship(double x, double y, double xVelocity, double yVelocity, double radius, double orientation) {
+	
+	/**
+	 * defensief
+	 * @param x
+	 * @param y
+	 * @param xVelocity
+	 * @param yVelocity
+	 * @param radius
+	 * nominaal
+	 * @param orientation
+	 */
+	
+	public Ship(double x, double y, double xVelocity, double yVelocity, double radius, double orientation) throws IllegalRadiusException {
 		this.x = x;
 		this.y = y;
 		this.xVelocity = xVelocity;
 		this.yVelocity = yVelocity;
-		this.radius = radius;
+		if (radius >= 10) {
+			this.radius = radius;
+		} 
+		else {
+			throw new IllegalRadiusException();
+		}
 		this.orientation = orientation;
 	}
+	
+	/**
+	 * defensief
+	 * @return
+	 */
 	
 	public double[] getPosition() {
 		return new double[] {x, y};
 		}
 	
+	/**
+	 * totaal
+	 * @return
+	 */
+	
 	public double[] getVelocity() {
 		return new double[] {xVelocity, yVelocity};
 	}
 
+	/**
+	 * defensief
+	 * @return
+	 */
+	
 	public double getRadius() {
 		return radius;
 	}
 
+	/**
+	 * nominaal
+	 * @return
+	 */
+	
 	public double getOrientation() {
 		return orientation;
 	}
-
+	
+	/**
+	 * defensief
+	 * @param dt
+	 */
+	
 	public void move(double dt) {
 		x += dt * xVelocity;
 		y += dt * yVelocity;
 	}
 
+	/**
+	 * totaal
+	 * @param amount
+	 */
+	
 	public void thrust(double amount) {
 		xVelocity += amount * Math.cos(orientation);
 		yVelocity += amount * Math.sin(orientation);
@@ -55,7 +104,13 @@ public class Ship {
 			yVelocity = (yVelocity * SPEED_OF_LIGHT) / Speed;
 		}
 	}
-
+	
+	
+	/**
+	 * nominaal
+	 * @param angle
+	 */
+	
 	public void turn(double angle) {
 		orientation += angle;
 		while (orientation > MAX_ANGLE){
@@ -67,11 +122,23 @@ public class Ship {
 			
 	}
 
+	/**
+	 * defensief
+	 * @param ship2
+	 * @return
+	 */
+	
 	public double getDistanceTo(Ship ship2) {	
 		ship2.getPosition();
 		double distance = 0;
 		return distance;
 	}
+	
+	/**
+	 * defensief
+	 * @param ship2
+	 * @return
+	 */
 	
 	public boolean overlap(Ship ship2) {
 		if (getDistanceTo(ship2) < 0){
@@ -80,10 +147,20 @@ public class Ship {
 		else return false;
 	}
 
+	/**
+	 * defensief
+	 * @return
+	 */
+	
 	public double getTimeToCollision() {
 		return 0;
 	}
 
+	/**
+	 * defensief
+	 * @return
+	 */
+	
 	public double[] getCollisionPosition() {
 		return null;
 	}
