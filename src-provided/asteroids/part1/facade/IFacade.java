@@ -1,7 +1,6 @@
 package asteroids.part1.facade;
 
 import asteroids.model.Ship;
-import asteroids.util.IllegalRadiusException;
 import asteroids.util.ModelException;
 
 /**
@@ -82,10 +81,9 @@ public interface IFacade {
 	/**
 	 * Create a new ship with the given position, velocity, radius and
 	 * orientation (in radians).
-	 * @throws IllegalRadiusException 
 	 */
 	public Ship createShip(double x, double y, double xVelocity, double yVelocity, double radius, double orientation)
-			throws ModelException, IllegalRadiusException;
+			throws ModelException;
 
 	/**
 	 * Return the position of <code>ship</code> as an array of length 2, with the

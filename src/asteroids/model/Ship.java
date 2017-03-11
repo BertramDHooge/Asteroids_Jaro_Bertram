@@ -30,18 +30,37 @@ public class Ship {
 	 * @param orientation
 	 */
 	
-	public Ship(double x, double y, double xVelocity, double yVelocity, double radius, double orientation) throws IllegalRadiusException {
-		this.x = x;
-		this.y = y;
-		this.xVelocity = xVelocity;
-		this.yVelocity = yVelocity;
+	public Ship(double x, double y, double xVelocity, double yVelocity, double radius, double orientation) throws ModelException {
+        assert assertOrientation(orientation);
+        this.orientation = orientation;
+        if (x < Double.POSITIVE_INFINITY && x > Double.NEGATIVE_INFINITY && y < Double.POSITIVE_INFINITY && y > Double.NEGATIVE_INFINITY) {
+            this.x = x;
+            this.y = y;
+        }
+		else {
+            throw new ModelException("Wrong coordinates!");
+        }
+        if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) < Math.pow(SPEED_OF_LIGHT, 2)) {
+            this.xVelocity = xVelocity;
+            this.yVelocity = yVelocity;
+        }
+        else if (xVelocity < 0) {
+            this.xVelocity = 0;
+        }
+        else if (yVelocity < 0) {
+            this.yVelocity = 0;
+        }
+        else {
+            double Speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
+            this.xVelocity = (xVelocity * SPEED_OF_LIGHT) / Speed;
+            this.yVelocity = (yVelocity * SPEED_OF_LIGHT) / Speed;
+        }
 		if (radius >= 10) {
 			this.radius = radius;
 		} 
 		else {
-			throw new IllegalRadiusException();
+			throw new ModelException("Wrong radius!");
 		}
-		this.orientation = orientation;
 	}
 	
 	/**
@@ -52,7 +71,7 @@ public class Ship {
 	public double[] getPosition() {
 		return new double[] {x, y};
 		}
-	
+
 	/**
 	 * totaal
 	 * @return
@@ -79,7 +98,19 @@ public class Ship {
 	public double getOrientation() {
 		return orientation;
 	}
-	
+
+    /**
+     *
+     * @param orientation
+     */
+
+    private boolean assertOrientation(double orientation) {
+        if (orientation <= MAX_ANGLE && orientation >= MIN_ANGLE) {
+            return true;
+        }
+        return false;
+    }
+
 	/**
 	 * defensief
 	 * @param dt
@@ -112,15 +143,16 @@ public class Ship {
 	 */
 	
 	public void turn(double angle) {
-		orientation += angle;
-		while (orientation > MAX_ANGLE){
-			orientation -= MAX_ANGLE;
-		}
-		while (orientation < MIN_ANGLE){
-			orientation += MAX_ANGLE;
-		}
-			
-	}
+//		orientation += angle;
+//		while (orientation > MAX_ANGLE){
+//			orientation -= MAX_ANGLE;
+//		}
+//		while (orientation < MIN_ANGLE){
+//			orientation += MAX_ANGLE;
+//		}
+        assert assertOrientation(orientation + angle);
+        orientation += angle;
+ 	}
 
 	/**
 	 * defensief
