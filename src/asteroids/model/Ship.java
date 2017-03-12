@@ -102,6 +102,11 @@ public class Ship {
 			double Speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
 			xVelocity = (xVelocity * SPEED_OF_LIGHT) / Speed;
 			yVelocity = (yVelocity * SPEED_OF_LIGHT) / Speed;
+		if (xVelocity*xVelocity + yVelocity*yVelocity < 0){
+			double MIN_SPEED = 0;
+			xVelocity = MIN_SPEED;
+			yVelocity = MIN_SPEED;			
+		}
 		}
 	}
 	
@@ -128,9 +133,14 @@ public class Ship {
 	 * @return
 	 */
 	
-	public double getDistanceTo(Ship ship2) {	
+	public double getDistanceBetween(Ship ship1, Ship ship2) {
+		ship1.getPosition();
+		ship1.getRadius();		
 		ship2.getPosition();
-		double distance = 0;
+		ship2.getRadius();
+		double xDistance = Math.abs(ship2.x - ship1.x);
+		double yDistance = Math.abs(ship2.y - ship1.y);
+		double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - (ship2.radius + ship1.radius);
 		return distance;
 	}
 	
@@ -140,8 +150,8 @@ public class Ship {
 	 * @return
 	 */
 	
-	public boolean overlap(Ship ship2) {
-		if (getDistanceTo(ship2) < 0){
+	public boolean overlap(Ship ship1, Ship ship2) {
+		if (getDistanceBetween(ship1, ship2) < 0){
 			return true;
 		}
 		else return false;
@@ -152,7 +162,11 @@ public class Ship {
 	 * @return
 	 */
 	
-	public double getTimeToCollision() {
+	public double getTimeToCollision(Ship ship1, Ship ship2) {
+		ship1.getPosition();
+		ship1.getVelocity();
+		ship2.getPosition();
+		ship2.getVelocity();		
 		return 0;
 	}
 
@@ -161,8 +175,13 @@ public class Ship {
 	 * @return
 	 */
 	
-	public double[] getCollisionPosition() {
-		return null;
+	public double[] getCollisionPosition(Ship ship1, Ship ship2) {
+		ship1.x += getTimeToCollision(ship1, ship2)*ship1.xVelocity;
+		ship1.y += getTimeToCollision(ship1, ship2)*ship1.yVelocity;
+		ship2.x += getTimeToCollision(ship1, ship2)*ship2.xVelocity;
+		ship2.y += getTimeToCollision(ship1, ship2)*ship2.yVelocity;
+		CollisionPosition = 
+		return double CollisionPosition;
 	}
 
 
