@@ -16,6 +16,7 @@ import javax.swing.Timer;
 
 import asteroids.model.Ship;
 import asteroids.part1.facade.IFacade;
+import asteroids.util.IllegalRadiusException;
 import asteroids.util.ModelException;
 import asteroids.util.internal.InternalUtils;
 
@@ -30,7 +31,7 @@ public class AsteroidsFrame extends JFrame {
 
 	private static final double THRUST_PER_SECOND = 150;
 
-	public AsteroidsFrame(final IFacade facade, int width, int height, boolean undecorated) {
+	public AsteroidsFrame(final IFacade facade, int width, int height, boolean undecorated) throws IllegalRadiusException {
 		super("Asteroids");
 		this.width = width;
 		this.height = height;
@@ -140,7 +141,7 @@ public class AsteroidsFrame extends JFrame {
 		return height;
 	}
 
-	private Set<Ship> initModel(IFacade facade) {
+	private Set<Ship> initModel(IFacade facade) throws IllegalRadiusException {
 		Set<Ship> ships = new HashSet<>();
 		try {
 			ships.add(facade.createShip(200, 400, 10, 0, 50, 0));
@@ -161,7 +162,7 @@ public class AsteroidsFrame extends JFrame {
 		timer.start();
 	}
 
-	public static void run(IFacade facade, boolean tryFullscreen) {
+	public static void run(IFacade facade, boolean tryFullscreen) throws IllegalRadiusException {
 
 		if (GraphicsEnvironment.isHeadless()) {
 			System.out.println("no screen found");

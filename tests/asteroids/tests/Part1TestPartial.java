@@ -9,6 +9,7 @@ import org.junit.Test;
 import asteroids.model.Ship;
 import asteroids.facade.Facade;
 import asteroids.part1.facade.IFacade;
+import asteroids.util.IllegalRadiusException;
 import asteroids.util.ModelException;
 
 public class Part1TestPartial {
@@ -23,7 +24,7 @@ public class Part1TestPartial {
 	}
 
 	@Test
-	public void testCreateShip() throws ModelException {
+	public void testCreateShip() throws ModelException, IllegalRadiusException {
 		Ship ship = facade.createShip(100, 200, 10, -10, 20, Math.PI);
 		assertNotNull(ship);
 		double[] position = facade.getShipPosition(ship);
@@ -34,17 +35,17 @@ public class Part1TestPartial {
 	}
 
 	@Test(expected = ModelException.class)
-	public void testCreateShipXIsNan() throws ModelException {
+	public void testCreateShipXIsNan() throws ModelException, IllegalRadiusException {
 		facade.createShip(Double.NaN, 200, 10, -10, 20, -Math.PI);
 	}
 
 	@Test(expected = ModelException.class)
-	public void testCreateShipRadiusNegative() throws ModelException {
+	public void testCreateShipRadiusNegative() throws ModelException, IllegalRadiusException {
 		facade.createShip(100, 200, 10, -10, -20, -Math.PI);
 	}
 
 	@Test
-	public void testMove() throws ModelException {
+	public void testMove() throws ModelException, IllegalRadiusException {
 		Ship ship = facade.createShip(100, 100, 30, -15, 20, 0);
 		facade.move(ship, 1);
 		double[] position = facade.getShipPosition(ship);
