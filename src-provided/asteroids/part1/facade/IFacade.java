@@ -1,7 +1,6 @@
 package asteroids.part1.facade;
 
 import asteroids.model.Ship;
-import asteroids.util.IllegalRadiusException;
 import asteroids.util.ModelException;
 
 /**
@@ -82,10 +81,9 @@ public interface IFacade {
 	/**
 	 * Create a new ship with the given position, velocity, radius and
 	 * orientation (in radians).
-	 * @throws IllegalRadiusException 
 	 */
 	public Ship createShip(double x, double y, double xVelocity, double yVelocity, double radius, double orientation)
-			throws ModelException, IllegalRadiusException;
+			throws ModelException;
 
 	/**
 	 * Return the position of <code>ship</code> as an array of length 2, with the
@@ -136,7 +134,7 @@ public interface IFacade {
 	 * result must be negative if the ships overlap. The distance between a ship
 	 * and itself is 0.
 	 */
-	public double getDistanceBetween(Ship ship1, Ship ship2) throws ModelException;
+	public double getDistanceTo(Ship ship1, Ship ship2) throws ModelException;
 
 	/**
 	 * Check whether <code>ship1</code> and <code>ship2</code> overlap. A ship
@@ -159,6 +157,7 @@ public interface IFacade {
 	 * The result of this method is either null or an array of length 2, where
 	 * the element at index 0 represents the x-coordinate and the element at
 	 * index 1 represents the y-coordinate.
+	 * @param ship2 
 	 */
 	public double[] getCollisionPosition(Ship ship1, Ship ship2) throws ModelException;
 }

@@ -1,8 +1,8 @@
 package asteroids.facade;
 
 import asteroids.model.Ship;
+import asteroids.model.ShipException;
 import asteroids.part1.facade.IFacade;
-import asteroids.util.IllegalRadiusException;
 import asteroids.util.ModelException;
 
 public class Facade implements IFacade  {
@@ -16,8 +16,12 @@ public class Facade implements IFacade  {
 	
 	@Override
 	public Ship createShip(double x, double y, double xVelocity, double yVelocity, double radius, double orientation)
-			throws ModelException, IllegalRadiusException {
-		return new Ship( x,  y,  xVelocity,  yVelocity,  radius,  orientation);
+			throws ModelException {
+		try{
+			return new Ship( x,  y,  xVelocity,  yVelocity,  radius,  orientation);
+		} catch (ShipException e){
+			throw new ModelException(e);
+		}
 	}
 
 	@Override
@@ -59,23 +63,54 @@ public class Facade implements IFacade  {
 	}
 
 	@Override
-	public double getDistanceBetween(Ship ship1, Ship ship2) throws ModelException {
-		return getDistanceBetween(ship1, ship2);
+	public double getDistanceTo(Ship ship1, Ship ship2) throws ModelException {
+		try {
+			try {
+				return ship1.getDistanceTo(ship2);
+			} catch (NullPointerException n) {
+				throw new ModelException(n);
+			}
+		} catch (ShipException e) {
+			throw new ModelException(e);
+		}
 	}
 
 	@Override
-	public boolean overlap(Ship ship1, Ship ship2){
-		return overlap(ship1, ship2);
+	public boolean overlap(Ship ship1, Ship ship2) throws ModelException{
+		try{
+			try {
+				return ship1.overlap(ship2);
+			} catch (NullPointerException n) {
+					throw new ModelException(n);
+			}
+		} catch (ShipException e) {
+			throw new ModelException(e);
+		}
 	}
-
 	@Override
 	public double getTimeToCollision(Ship ship1, Ship ship2) throws ModelException {
-		return ship1.getTimeToCollision();
+		try{
+			try{
+				return ship1.getTimeToCollision(ship2);
+			} catch (NullPointerException n) {
+					throw new ModelException(n);
+			}
+		} catch (ShipException e) {
+			throw new ModelException(e);
+		}
 	}
 
 	@Override
 	public double[] getCollisionPosition(Ship ship1, Ship ship2) throws ModelException {
-		return ship1.getCollisionPosition();
+		try{
+			try {
+				return ship1.getCollisionPosition(ship2);
+			} catch (NullPointerException n) {
+					throw new ModelException(n);
+			}
+		} catch (ShipException e) {
+			throw new ModelException(e);
+		}
 	}
 
 }
