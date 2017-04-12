@@ -43,57 +43,36 @@ public class Ship {
 	 * @post ...
 	 * 		| (x != IsNaN) && (y != IsNaN) && (xVelocity != IsNaN) && (yVelocity != IsNaN) && (radius != IsNaN) && (orientation != IsNaN)
      * @effect setPosition
-	 * @post ...
-	 * 		| new xVelocity == xVelocity
-	 * @post ...
-	 * 		| new yVelocity == yVelocity
-     * @post ...
-     * 		| if (radius >= 10)
-     * 		|		then new radius == radius
-	 * @post ...
-	 * 		| if (orientation < 0)
-	 * 		|		then while (this.orientation < 0)
-	 * 		| 			do (new this.orientation += 2*Math.PI)
-	 * 		|else if (orientation > 2*Math.PI)
-	 * 		|		then (new this.orientation % (2*Math.PI)
-	 * 		|else 
-	 * 		|		new this.orientation == orientation
+	 * @effect setVelocity
+     * @effect setRadius
+	 * @effect setOrientation
+     * @throws ShipException
 	 */
 	
 	public Ship(double x, double y, double xVelocity, double yVelocity, double radius, double orientation) throws ShipException {
 		if ((x <= 0 || x > 0) && (y <= 0 || y > 0) && (xVelocity <= 0 || xVelocity > 0) && (yVelocity <= 0 || yVelocity > 0) && (radius <= 0 || radius > 0) && (orientation <= 0 || orientation > 0)){
-			if (!assertOrientation(orientation)){
-				this.orientation = (orientation%(Math.PI*2));
-			}
-			this.orientation = orientation;
 			setPosition(x, y);
-	        if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) < Math.pow(SPEED_OF_LIGHT, 2)) {
-	            this.xVelocity = xVelocity;
-	            this.yVelocity = yVelocity;
-	        }
-	        else if (xVelocity < 0) {
-	            this.xVelocity = 0;
-	        }
-	        else if (yVelocity < 0) {
-	            this.yVelocity = 0;
-	        }
-	        else {
-	            double Speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
-	            this.xVelocity = (xVelocity * SPEED_OF_LIGHT) / Speed;
-	            this.yVelocity = (yVelocity * SPEED_OF_LIGHT) / Speed;
-	        }
-			if (radius >= 10) {
-				this.radius = radius;
-			} 
-			else {
-				throw new ShipException("Wrong radius!");
-			}
+            setVelocity(xVelocity, yVelocity);
+			setRadius(radius);
+            setOrientation(orientation);
 		}
 		else {
-			throw new ShipException("Values are nan!");
+			throw new ShipException("Values are NaN!");
 		}
 	}
 
+    /**
+     * Set the position of the ship
+     * @param x
+     *      x-coordinate
+     * @param y
+     *      y-coordinate
+     * @throws ShipException
+     * @post ...
+     *      | if (x < Double.POSITIVE_INFINITY && x > Double.NEGATIVE_INFINITY && y < Double.POSITIVE_INFINITY && y > Double.NEGATIVE_INFINITY)
+     * 		|   then new x == x &&
+     * 		|       new y == y
+     */
 
 	private void setPosition(double x, double y) throws ShipException{
         if (x < Double.POSITIVE_INFINITY && x > Double.NEGATIVE_INFINITY && y < Double.POSITIVE_INFINITY && y > Double.NEGATIVE_INFINITY) {
@@ -115,6 +94,43 @@ public class Ship {
 		return new double[] {x, y};
 		}
 
+    /**
+     * Set the velocity of the ship
+     * @param xVelocity
+     * @param yVelocity
+     * @post ...
+     *      | if (xVelocity < 0)
+     *      |   then xVelocity == 0 &&
+     * 		|   new xVelocity == xVelocity
+     * @post ...
+     * 		| if (yVelocity < 0)
+     *      |   then yVelocity == 0 &&
+     * 		|   new yVelocity == yVelocity
+     * @post ...
+     * 		|if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) > Math.pow(SPEED_OF_LIGHT, 2))
+     * 		|		then new Speed == Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2)) &&
+     * 		|		new xVelocity == (xVelocity * SPEED_OF_LIGHT) / Speed &&
+     *		|		new yVelocity == (yVelocity * SPEED_OF_LIGHT) / Speed
+     */
+
+    private void setVelocity(double xVelocity, double yVelocity) {
+        if (xVelocity < 0) {
+            xVelocity = 0;
+        }
+        if (yVelocity < 0) {
+            yVelocity = 0;
+        }
+        if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) > Math.pow(SPEED_OF_LIGHT, 2)){
+            double Speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
+            xVelocity = (xVelocity * SPEED_OF_LIGHT) / Speed;
+            yVelocity = (yVelocity * SPEED_OF_LIGHT) / Speed;
+        }
+        this.xVelocity = xVelocity;
+        this.yVelocity = yVelocity;
+
+    }
+
+
 	/**
 	 *  Return the velocity of ship as an array of length 2, with the velocity
 	 * along the X-axis at index 0 and the velocity along the Y-axis at index 1.
@@ -125,6 +141,24 @@ public class Ship {
 		return new double[] {xVelocity, yVelocity};
 	}
 
+    /**
+     * Set the radius of the ship
+     * @param radius
+     * @post ...
+     *      | if (radius >= 10)
+     *      |   then new radius == radius
+     * @exception ShipException
+     */
+
+	private void setRadius(double radius) throws ShipException {
+        if (radius >= 10) {
+            this.radius = radius;
+        }
+        else {
+            throw new ShipException("Wrong radius!");
+        }
+    }
+
 	/**
 	 * Return the radius of ship.
 	 * @return radius
@@ -133,6 +167,31 @@ public class Ship {
 	public double getRadius() {
 		return radius;
 	}
+
+    /**
+     * Set the orientation of the ship
+     * @param orientation
+     * @effect assertOrientation
+     * @post ...
+     *      | new orientation == orientation
+     * @post ...
+     * 		| while (orientation > MAX_ANGLE)
+     * 		|		do new orientation == orientation - MAX_ANGLE
+     * @post ...
+     * 		| while (orientation < MIN_ANGLE)
+     * 		|		do new orientation == orientation + MAX_ANGLE
+     */
+
+	private void setOrientation(double orientation) {
+        assert assertOrientation(orientation);
+        this.orientation = orientation;
+        while (this.orientation > MAX_ANGLE){
+            this.orientation -= MAX_ANGLE;
+        }
+        while (orientation < MIN_ANGLE){
+            this.orientation += MAX_ANGLE;
+        }
+    }
 
 	/**
 	 *Return the orientation of ship (in radians).
@@ -147,7 +206,7 @@ public class Ship {
      *Assert the orientation of the ship.
      * @param orientation
      * 		Orientation of the ship
-     * @post ...
+     * @return ...
      * 		|if (orientation <= MAX_ANGLE && orientation >= MIN_ANGLE)
      * 		|		then return true
      * 		|else return false
@@ -184,33 +243,14 @@ public class Ship {
 	 * @post ...
 	 * 		| if (amount < 0)
 	 * 		| 	then new amount == 0
-	 * @post ...
-	 * 		|new xVelocity == xVelocity + amount * Math.cos(orientation)
-	 * @post ...
-	 * 		|new yVelocity == yVelocity + amount * Math.sin(orientation)
-	 * @post ...
-	 * 		|if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) > Math.pow(SPEED_OF_LIGHT, 2))
-	 * 		|		then new Speed == Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2)) && 
-	 * 		|		xVelocity = (xVelocity * SPEED_OF_LIGHT) / Speed && 
-	 *		|		yVelocity = (yVelocity * SPEED_OF_LIGHT) / Speed
-	 * @post ...
-	 * 		| if (xVelocity*xVelocity + yVelocity*yVelocity < 0)
-	 * 		|		then new MIN_SPEED = 0 && 
-	 * 		|		xVelocity = MIN_SPEED &&
-	 * 		|		yVelocity = MIN_SPEED
+     * @effect setVelocity
 	 */
 	
 	public void thrust(double amount) {
 		if (amount < 0) {
 			amount = 0;
 		}
-		xVelocity += amount * Math.cos(orientation);
-		yVelocity += amount * Math.sin(orientation);
-		if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) > Math.pow(SPEED_OF_LIGHT, 2)){
-			double Speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
-			xVelocity = (xVelocity * SPEED_OF_LIGHT) / Speed;
-			yVelocity = (yVelocity * SPEED_OF_LIGHT) / Speed;
-		}
+		setVelocity(this.xVelocity + amount * Math.cos(orientation), this.yVelocity + amount * Math.sin(orientation));
 	}
 	
 	
@@ -220,28 +260,15 @@ public class Ship {
 	 * negative.
 	 * @param angle
 	 * 		Amount this ship turns.
-	 * @post ...
-	 * 		| new orientation == orientation + angle
-	 * @post ...
-	 * 		| while (orientation > MAX_ANGLE)
-	 * 		|		do new orientation == orientation - MAX_ANGLE
-	 * @post ...
-	 * 		| while (orientation < MIN_ANGLE)
-	 * 		|		do new orientation == orientation + MAX_ANGLE
+	 * @effect setOrientation
 	 */
 	
 	public void turn(double angle) {
-		orientation += angle;
-		while (orientation > MAX_ANGLE){
-			orientation -= MAX_ANGLE;
-		}
-		while (orientation < MIN_ANGLE){
-			orientation += MAX_ANGLE;
-		}
+		setOrientation(orientation + angle);
  	}
 
 	/**
-	 * Return the distance between this ship and ship.
+	 * Return the distance between this ship and other ship.
 	 * 
 	 * The absolute value of the result of this method is the minimum distance
 	 * either ship should move such that both ships are adjacent. Note that the
@@ -249,14 +276,15 @@ public class Ship {
 	 * and itself is 0.
 	 * @param ship
 	 * 		Ship to compare distance to.
-	 * @post ...
+     * @throws IllegalArgumentException
+	 * @return
 	 * 		| if (this == ship)
 	 * 		|		then return 0.0
-	 * @post ...
-	 * 		| new xDistance == (ship.x - this.x)
-	 * 		| new yDistance == (ship.y - this.y)
-	 * 		| new distance == Math.sqrt(xDistance*xDistance + yDistance*yDistance) - (ship.radius + this.radius)
-	 * @return distance
+     * 	    | else
+	 * 		|   new xDistance == (ship.x - this.x)
+	 * 		|   new yDistance == (ship.y - this.y)
+	 * 		|   new distance == Math.sqrt(xDistance*xDistance + yDistance*yDistance) - (ship.radius + this.radius)
+	 *      |   return distance
 	 */
 	
 	public double getDistanceTo(Ship ship) throws IllegalArgumentException {
@@ -273,15 +301,15 @@ public class Ship {
 	}
 	
 	/**
-	 * Check whether this ship and ship overlap. A ship
+	 * Check whether this ship and other ship overlap. A ship
 	 * always overlaps with itself.
 	 * @param ship
 	 * 		Ship to compare overlap to.
-	 * @post ...
+     * @throws IllegalArgumentException
+	 * @return
 	 * 		| if (getDistance(ship) < 0) || if (this == ship) 
 	 * 		|		then return true 
 	 * 		| else return false
-	 * @return
 	 */
 	
 	public boolean overlap(Ship ship) throws IllegalArgumentException {
@@ -299,24 +327,16 @@ public class Ship {
 
 	/**
 	 * Return the number of seconds until the first collision between
-	 * this ship and ship, or Double.POSITIVE_INFINITY if
+	 * this ship and other ship, or Double.POSITIVE_INFINITY if
 	 * they never collide. A ship never collides with itself.
 	 * @param ship
 	 * 		Ship to get time until collision to.
-	 * @post ...
-	 * 		| new currentDistance == getDistanceTo(ship)
-	 * 		| new newDistance == Math.sqrt(Math.pow((ship.x + ship.xVelocity * 0.001) - (this.x + this.xVelocity * 0.001), 2) + Math.pow((ship.y + ship.yVelocity * 0.001) - (this.y + (this.yVelocity * 0.001)), 2)) - (this.radius + ship.radius)
-	 * 		| if (currentDistance > newDistance)
-	 * 		| 		then new time == 0.001 &&
-	 * 		|		while (currentDistance > newDistance) 
-	 *		|			do new time == time + 0.001 &&
-	 *		| 			currentDistance == newDistance &&
-	 *		|			newDistance == Math.sqrt(Math.pow((ship.x + ship.xVelocity * (0.001 + time)) - (this.x + this.xVelocity * (0.001 + time)), 2) + Math.pow((ship.y + ship.yVelocity * (0.001 + time)) - (this.y + (this.yVelocity * (0.001 + time))), 2)) - (this.radius + ship.radius)
-	 * 		|		if (newDistance <= 0.0)
-	 * 		|			then return time
-	 * 		|		if (newDistance >= currentDistance)
-	 * 		|			then return Double.POSITIVE_INFINITY
+     * @throws IllegalArgumentException
 	 * @return
+     * 		|	if (newDistance <= 0.0)
+	 * 		|		then return time
+	 * 		|	if (newDistance >= currentDistance)
+	 * 		|		then return Double.POSITIVE_INFINITY
 	 */
 	
 	public double getTimeToCollision(Ship ship) throws IllegalArgumentException {
@@ -343,7 +363,7 @@ public class Ship {
 	}
 
 	/**
-	 * Return the first position where this ship and ship
+	 * Return the first position where this ship and other ship
 	 * collide, or null if they never collide. A ship never
 	 * collides with itself.
 	 * 
@@ -352,20 +372,12 @@ public class Ship {
 	 * index 1 represents the y-coordinate.
 	 * @param ship 
 	 * 		Ship to get collision point with.
-	 * @post ...
+     * @throws IllegalArgumentException
+	 * @return
 	 * 		| if (getTimeToCollision(ship) >= POSITIVE_INFINITY)
 	 *		|		then return null
-	 * @post ...
-	 *		| new time = getTimeToCollision(ship) &&
-	 *		| new thisX = this.x + time*this.xVelocity &&
-			| new thisY = this.y + time*this.yVelocity &&
-			| new shipX = ship.x + time*ship.xVelocity && 
-			| new shipY = ship.y + time*ship.yVelocity &&
-		 	| new distance = getDistanceTo(ship) + ship.radius + this.radius &&
-		 	| new T = this.radius / distance &&
-			| new xCollision = (1 - T) * thisX + T * shipX &&
-			| new yCollision = (1 - T) * thisY + T * shipY
-	 * @return new double[] {xCollision, yCollision}
+     *	    | else
+     *		|       return new double[] {xCollision, yCollision}
 	 */
 	
 	public double[] getCollisionPosition(Ship ship) throws IllegalArgumentException {

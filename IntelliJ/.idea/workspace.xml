@@ -63,10 +63,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IFacade.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="IFacade.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../src-provided/asteroids/part2/facade/IFacade.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
+            <state relative-caret-position="-58">
               <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
               <folding />
             </state>
@@ -93,13 +93,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Ship.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Ship.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Ship.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-177">
-              <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+            <state relative-caret-position="6222">
+              <caret line="374" column="39" selection-start-line="374" selection-start-column="39" selection-end-line="374" selection-end-column="39" />
               <folding>
-                <marker date="1491992967260" expanded="true" signature="568:1677" ph="/**...*/" />
+                <element signature="e#7320#7321#0" expanded="true" />
+                <element signature="e#7363#7364#0" expanded="true" />
+                <marker date="1491996299378" expanded="true" signature="6617:6884" ph="/**...*/" />
+                <marker date="1491996299378" expanded="true" signature="7367:8091" ph="/**...*/" />
+                <marker date="1491996299378" expanded="true" signature="8483:8795" ph="/**...*/" />
+                <marker date="1491996299378" expanded="true" signature="9052:9509" ph="/**...*/" />
+                <marker date="1491996299378" expanded="true" signature="10555:11175" ph="/**...*/" />
               </folding>
             </state>
           </provider>
@@ -892,7 +898,13 @@
         <state relative-caret-position="3366">
           <caret line="206" column="94" selection-start-line="206" selection-start-column="94" selection-end-line="206" selection-end-column="94" />
           <folding>
-            <marker date="1491992967260" expanded="true" signature="568:1677" ph="/**...*/" />
+            <element signature="e#7320#7321#0" expanded="true" />
+            <element signature="e#7363#7364#0" expanded="true" />
+            <marker date="1491996299378" expanded="true" signature="6617:6884" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="7367:8091" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="8483:8795" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="9052:9509" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="10555:11175" ph="/**...*/" />
           </folding>
         </state>
       </provider>
@@ -1015,7 +1027,13 @@
         <state relative-caret-position="3366">
           <caret line="206" column="94" selection-start-line="206" selection-start-column="94" selection-end-line="206" selection-end-column="94" />
           <folding>
-            <marker date="1491992967260" expanded="true" signature="568:1677" ph="/**...*/" />
+            <element signature="e#7320#7321#0" expanded="true" />
+            <element signature="e#7363#7364#0" expanded="true" />
+            <marker date="1491996299378" expanded="true" signature="6617:6884" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="7367:8091" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="8483:8795" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="9052:9509" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="10555:11175" ph="/**...*/" />
           </folding>
         </state>
       </provider>
@@ -1138,7 +1156,13 @@
         <state relative-caret-position="3825">
           <caret line="233" column="37" selection-start-line="233" selection-start-column="37" selection-end-line="233" selection-end-column="37" />
           <folding>
-            <marker date="1491992967260" expanded="true" signature="568:1677" ph="/**...*/" />
+            <element signature="e#7320#7321#0" expanded="true" />
+            <element signature="e#7363#7364#0" expanded="true" />
+            <marker date="1491996299378" expanded="true" signature="6617:6884" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="7367:8091" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="8483:8795" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="9052:9509" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="10555:11175" ph="/**...*/" />
           </folding>
         </state>
       </provider>
@@ -1370,14 +1394,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../src-provided/asteroids/part2/facade/IFacade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../src-provided/asteroids/part2/Part2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1388,11 +1404,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Ship.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-177">
-          <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+        <state relative-caret-position="6222">
+          <caret line="374" column="39" selection-start-line="374" selection-start-column="39" selection-end-line="374" selection-end-column="39" />
           <folding>
-            <marker date="1491992967260" expanded="true" signature="568:1677" ph="/**...*/" />
+            <element signature="e#7320#7321#0" expanded="true" />
+            <element signature="e#7363#7364#0" expanded="true" />
+            <marker date="1491996299378" expanded="true" signature="6617:6884" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="7367:8091" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="8483:8795" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="9052:9509" ph="/**...*/" />
+            <marker date="1491996299378" expanded="true" signature="10555:11175" ph="/**...*/" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src-provided/asteroids/part2/facade/IFacade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-58">
+          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
