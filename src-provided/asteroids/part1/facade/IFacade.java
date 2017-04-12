@@ -157,7 +157,6 @@ public interface IFacade {
 	 * The result of this method is either null or an array of length 2, where
 	 * the element at index 0 represents the x-coordinate and the element at
 	 * index 1 represents the y-coordinate.
-	 * @param ship2 
 	 */
 	public double[] getCollisionPosition(Ship ship1, Ship ship2) throws ModelException;
 }

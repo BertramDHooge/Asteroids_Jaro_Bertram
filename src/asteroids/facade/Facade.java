@@ -70,7 +70,7 @@ public class Facade implements IFacade  {
 			} catch (NullPointerException n) {
 				throw new ModelException(n);
 			}
-		} catch (ShipException e) {
+		} catch (IllegalArgumentException e) {
 			throw new ModelException(e);
 		}
 	}
@@ -83,7 +83,7 @@ public class Facade implements IFacade  {
 			} catch (NullPointerException n) {
 					throw new ModelException(n);
 			}
-		} catch (ShipException e) {
+		} catch (IllegalArgumentException e) {
 			throw new ModelException(e);
 		}
 	}
@@ -95,7 +95,7 @@ public class Facade implements IFacade  {
 			} catch (NullPointerException n) {
 					throw new ModelException(n);
 			}
-		} catch (ShipException e) {
+		} catch (IllegalArgumentException e) {
 			throw new ModelException(e);
 		}
 	}
@@ -108,7 +108,7 @@ public class Facade implements IFacade  {
 			} catch (NullPointerException n) {
 					throw new ModelException(n);
 			}
-		} catch (ShipException e) {
+		} catch (IllegalArgumentException e) {
 			throw new ModelException(e);
 		}
 	}

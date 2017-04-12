@@ -42,17 +42,14 @@ public class Ship {
 	 * 		Starting orientation for the new ship.
 	 * @post ...
 	 * 		| (x != IsNaN) && (y != IsNaN) && (xVelocity != IsNaN) && (yVelocity != IsNaN) && (radius != IsNaN) && (orientation != IsNaN)
-	 * @post ...
-	 * 		| new x == x
-	 * @post ...
-	 * 		| new y == y
+     * @effect setPosition
 	 * @post ...
 	 * 		| new xVelocity == xVelocity
 	 * @post ...
 	 * 		| new yVelocity == yVelocity
-	 * @post ...
-	 * 		| if (radius >= 10)
-	 * 		|		then new radius == radius
+     * @post ...
+     * 		| if (radius >= 10)
+     * 		|		then new radius == radius
 	 * @post ...
 	 * 		| if (orientation < 0)
 	 * 		|		then while (this.orientation < 0)
@@ -69,13 +66,7 @@ public class Ship {
 				this.orientation = (orientation%(Math.PI*2));
 			}
 			this.orientation = orientation;
-			if (x < Double.POSITIVE_INFINITY && x > Double.NEGATIVE_INFINITY && y < Double.POSITIVE_INFINITY && y > Double.NEGATIVE_INFINITY) {
-				this.x = x;
-				this.y = y;
-			}
-			else {
-	            throw new ShipException("Wrong coordinates!");
-	        }
+			setPosition(x, y);
 	        if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) < Math.pow(SPEED_OF_LIGHT, 2)) {
 	            this.xVelocity = xVelocity;
 	            this.yVelocity = yVelocity;
@@ -102,7 +93,18 @@ public class Ship {
 			throw new ShipException("Values are nan!");
 		}
 	}
-	
+
+
+	private void setPosition(double x, double y) throws ShipException{
+        if (x < Double.POSITIVE_INFINITY && x > Double.NEGATIVE_INFINITY && y < Double.POSITIVE_INFINITY && y > Double.NEGATIVE_INFINITY) {
+            this.x = x;
+            this.y = y;
+        }
+        else {
+            throw new ShipException("Wrong coordinates!");
+        }
+    }
+
 	/**
 	 * Return the position of ship as an array of length 2, with the
 	 * x-coordinate at index 0 and the y-coordinate at index 1.
@@ -257,9 +259,9 @@ public class Ship {
 	 * @return distance
 	 */
 	
-	public double getDistanceTo(Ship ship) throws ShipException {
+	public double getDistanceTo(Ship ship) throws IllegalArgumentException {
 		if (ship == null){
-			throw new ShipException("Ship does not exist!!!");
+			throw new IllegalArgumentException();
 		}
 		if (this == ship){
 			return 0.0;
@@ -282,9 +284,9 @@ public class Ship {
 	 * @return
 	 */
 	
-	public boolean overlap(Ship ship) throws ShipException {
+	public boolean overlap(Ship ship) throws IllegalArgumentException {
 		if (ship == null){
-			throw new ShipException("Ship does not exist!!!");
+			throw new IllegalArgumentException();
 		}
 		if (getDistanceTo(ship) < 0){
 			return true;
@@ -317,9 +319,9 @@ public class Ship {
 	 * @return
 	 */
 	
-	public double getTimeToCollision(Ship ship) throws ShipException {
+	public double getTimeToCollision(Ship ship) throws IllegalArgumentException {
 		if (ship == null){
-			throw new ShipException("Ship does not exist!!!");
+			throw new IllegalArgumentException();
 		}
 		double currentDistance = getDistanceTo(ship);
 		double newDistance = Math.sqrt(Math.pow((ship.x + ship.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((ship.y + ship.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + ship.radius);
@@ -366,9 +368,9 @@ public class Ship {
 	 * @return new double[] {xCollision, yCollision}
 	 */
 	
-	public double[] getCollisionPosition(Ship ship) throws ShipException {
+	public double[] getCollisionPosition(Ship ship) throws IllegalArgumentException {
 		if (ship == null){
-			throw new ShipException("Ship does not exist!!!");
+			throw new IllegalArgumentException();
 		}
 		double time = getTimeToCollision(ship);
 		if (getTimeToCollision(ship) >= Double.POSITIVE_INFINITY){
