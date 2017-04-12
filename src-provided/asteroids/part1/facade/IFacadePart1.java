@@ -67,7 +67,7 @@ import asteroids.util.ModelException;
  * </ul>
  *
  */
-public interface IFacade {
+public interface IFacadePart1 {
 
 	/**
 	 * Create a new ship with a default position, velocity, radius and

@@ -25,13 +25,13 @@ import asteroids.model.Bullet;
 import asteroids.model.Ship;
 import asteroids.model.World;
 import asteroids.part2.CollisionListener;
-import asteroids.part2.facade.IFacade;
+import asteroids.part2.facade.IFacadePart2;
 import asteroids.util.ModelException;
 import asteroids.util.internal.InternalUtils;
 import asteroids.util.internal.ResourceUtils;
 
 @SuppressWarnings("serial")
-public class WorldView2<F extends IFacade> extends JPanel implements KeyListener, ActionListener, CollisionListener {
+public class WorldView2<F extends IFacadePart2> extends JPanel implements KeyListener, ActionListener, CollisionListener {
 
 	private static final int TIMER_DELAY = 1000 / 30;
 

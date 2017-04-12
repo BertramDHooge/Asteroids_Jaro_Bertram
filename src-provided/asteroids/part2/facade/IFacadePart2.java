@@ -41,9 +41,9 @@ import asteroids.util.ModelException;
  * <li>Your <code>Facade</code> class should offer a <b>default constructor</b>.
  * </li>
  * 
- * <li><b>Each non-deprecated method</b> defined in this {@link IFacade}
+ * <li><b>Each non-deprecated method</b> defined in this {@link IFacadePart2}
  * interface and the interface from part 1 (
- * {@link asteroids.part1.facade.IFacade}) must be implemented by your Facade
+ * {@link asteroids.part1.facade.IFacadePart1}) must be implemented by your Facade
  * class.
  * 
  * <li>The methods {@link #createShip()},
@@ -78,7 +78,7 @@ import asteroids.util.ModelException;
  * </ul>
  *
  */
-public interface IFacade extends asteroids.part1.facade.IFacade {
+public interface IFacadePart2 extends asteroids.part1.facade.IFacadePart1 {
 
 	/**************
 	 * SHIP: Basic methods
@@ -102,7 +102,7 @@ public interface IFacade extends asteroids.part1.facade.IFacade {
 	 * 
 	 * @deprecated Since part 2 of the project. This behavior is now triggered
 	 *             through the
-	 *             {@link IFacade#createShip(double, double, double, double, double, double, double)}
+	 *             {@link IFacadePart2#createShip(double, double, double, double, double, double, double)}
 	 *             method (which includes the mass as an additional parameter).
 	 */
 	@Override
@@ -401,8 +401,8 @@ public interface IFacade extends asteroids.part1.facade.IFacade {
 	 * 
 	 * @deprecated Since part 2 of the project. This behavior is now triggered
 	 *             through the combination of
-	 *             {@link IFacade#setThrusterActive(Ship, boolean)} and
-	 *             {@link IFacade#evolve(World, double, CollisionListener)}
+	 *             {@link IFacadePart2#setThrusterActive(Ship, boolean)} and
+	 *             {@link IFacadePart2#evolve(World, double, CollisionListener)}
 	 *             methods.
 	 */
 	@Override

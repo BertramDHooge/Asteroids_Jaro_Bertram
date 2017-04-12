@@ -5,19 +5,19 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import asteroids.facade.Facade;
+import asteroids.facade.FacadePart1;
 import asteroids.model.Ship;
-import asteroids.part1.facade.IFacade;
+import asteroids.part1.facade.IFacadePart1;
 import asteroids.util.ModelException;
 
 public class Part_1_test {
 	private static final double EPSILON = 0.0001;
 
-	IFacade facade;
+	IFacadePart1 facade;
 
 	@Before
 	public void setUp() {
-		facade = new Facade();
+		facade = new FacadePart1();
 	}
 	@Test(expected = ModelException.class)
 	public void testCreateShipYIsNan() throws ModelException {

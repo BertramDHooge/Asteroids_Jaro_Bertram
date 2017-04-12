@@ -7,19 +7,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import asteroids.model.Ship;
-import asteroids.facade.Facade;
-import asteroids.part1.facade.IFacade;
+import asteroids.facade.FacadePart1;
+import asteroids.part1.facade.IFacadePart1;
 import asteroids.util.ModelException;
 
 public class Part1TestPartial {
 	
 	private static final double EPSILON = 0.0001;
 
-	IFacade facade;
+	IFacadePart1 facade;
 
 	@Before
 	public void setUp() {
-		facade = new Facade();
+		facade = new FacadePart1();
 	}
 
 	@Test

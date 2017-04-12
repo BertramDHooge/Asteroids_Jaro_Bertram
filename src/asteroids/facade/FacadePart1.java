@@ -2,10 +2,10 @@ package asteroids.facade;
 
 import asteroids.model.Ship;
 import asteroids.model.ShipException;
-import asteroids.part1.facade.IFacade;
+import asteroids.part1.facade.IFacadePart1;
 import asteroids.util.ModelException;
 
-public class Facade implements IFacade  {
+public class FacadePart1 implements IFacadePart1  {
 
 	@Override
 	public Ship createShip() throws ModelException {
