@@ -13,6 +13,7 @@ public class World {
     private double height;
     private Set<Ship> ships;
     private Set<Bullet> bullets;
+    private boolean terminated = false;
 
     /**
      * Creates a world with a width and a height
@@ -72,11 +73,16 @@ public class World {
 
     public void addShipToWorld(Ship ship) throws WorldException{
         double check = ship.getRadius() * 99/100;
-        if (ship.getPosition()[0] >= check && ship.getPosition()[1] >= check && this.getSize()[0] - ship.getPosition()[0] >= check && this.getSize()[1]- ship.getPosition()[1] >= check) {
-            this.ships.add(ship);
+        if (ship.getWorld() == null) {
+            if (ship.getPosition()[0] >= check && ship.getPosition()[1] >= check && this.getSize()[0] - ship.getPosition()[0] >= check && this.getSize()[1] - ship.getPosition()[1] >= check) {
+                this.ships.add(ship);
+                ship.world = this;
+            } else {
+                throw new WorldException("Ship not located between boundaries");
+            }
         }
         else {
-            throw new WorldException("Ship not located between boundaries");
+            throw new WorldException("Ship already has a world!");
         }
     }
 
@@ -114,11 +120,15 @@ public class World {
 
     public void addBulletToWorld(Bullet bullet) throws WorldException{
         double check = bullet.getRadius() * 99/100;
-        if (bullet.getPosition()[0] >= check && bullet.getPosition()[1] >= check && this.getSize()[0] - bullet.getPosition()[0] >= check && this.getSize()[1] - bullet.getPosition()[1] >= check) {
-            this.bullets.add(bullet);
+        if (bullet.getWorld() == null) {
+            if (bullet.getPosition()[0] >= check && bullet.getPosition()[1] >= check && this.getSize()[0] - bullet.getPosition()[0] >= check && this.getSize()[1] - bullet.getPosition()[1] >= check) {
+                this.bullets.add(bullet);
+            } else {
+                throw new WorldException("Bullet not located between boundaries");
+            }
         }
         else {
-            throw new WorldException("Bullet not located between boundaries");
+            throw new WorldException("Bullet is already located in a world!");
         }
     }
 
@@ -145,4 +155,21 @@ public class World {
      */
 
     public Set<? extends Bullet> getBullets() {return bullets;}
+
+    /**
+     * Terminates the World.
+     */
+
+    public void terminate() {
+        this.terminated = true;
+    }
+
+    /**
+     * Returns the state of the world.
+     * @return
+     */
+
+    public boolean isTerminated() {
+        return terminated;
+    }
 }

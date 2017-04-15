@@ -1,7 +1,7 @@
 package asteroids.facade;
 
+import asteroids.model.EntityException;
 import asteroids.model.Ship;
-import asteroids.model.ShipException;
 import asteroids.part1.facade.IFacadePart1;
 import asteroids.util.ModelException;
 
@@ -18,8 +18,8 @@ public class FacadePart1 implements IFacadePart1  {
 	public Ship createShip(double x, double y, double xVelocity, double yVelocity, double radius, double orientation)
 			throws ModelException {
 		try{
-			return new Ship( x,  y,  xVelocity,  yVelocity,  radius,  orientation);
-		} catch (ShipException e){
+			return new Ship(x, y, xVelocity, yVelocity, radius, orientation);
+		} catch (EntityException e){
 			throw new ModelException(e);
 		}
 	}
@@ -53,7 +53,7 @@ public class FacadePart1 implements IFacadePart1  {
 	@Override
 	public void thrust(Ship ship, double amount) throws ModelException {
 		// TODO Auto-generated method stub
-		ship.thrust(amount);
+
 	}
 
 	@Override
