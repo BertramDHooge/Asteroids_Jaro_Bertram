@@ -309,6 +309,5 @@ public class Entity {
     public double getTimeToCollisionBoundary() {
         double width = this.getWorld().getSize()[0];
         double height = this.getWorld().getSize()[1];
-        
     }
 }
