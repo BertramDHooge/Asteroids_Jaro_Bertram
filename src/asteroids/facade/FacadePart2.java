@@ -104,7 +104,7 @@ public class FacadePart2 implements IFacadePart2{
 	@Override
 	public void terminateShip(Ship ship) throws ModelException {
 		// TODO Auto-generated method stub
-		ship.terminateShip();
+		ship.terminate();
 	}
 
 	@Override
@@ -116,92 +116,97 @@ public class FacadePart2 implements IFacadePart2{
 	@Override
 	public double getShipMass(Ship ship) throws ModelException {
 		// TODO Auto-generated method stub
-		return ship.getShipMass();
+		return ship.getMass();
 	}
 
 	@Override
 	public World getShipWorld(Ship ship) throws ModelException {
 		// TODO Auto-generated method stub
-		return ship.getShipWorld();
+		return ship.getWorld();
 	}
 
 	@Override
 	public boolean isShipThrusterActive(Ship ship) throws ModelException {
 		// TODO Auto-generated method stub
-		return ship.isShipThrusterActive();
+		return ship.isThrusterActive();
 	}
 
 	@Override
 	public void setThrusterActive(Ship ship, boolean active) throws ModelException {
-		// TODO Auto-generated method stub
-		ship.setThrusterActive();
+		// TODO Auto-generated method
+        if (active) {
+            ship.thrustOn();
+        }
+        else {
+            ship.thrustOff();
+        }
 	}
 
 	@Override
 	public double getShipAcceleration(Ship ship) throws ModelException {
 		// TODO Auto-generated method stub
-		return ship.getShipAccelerator();
+		return ship.getAcceleration();
 	}
 
 	@Override
 	public Bullet createBullet(double x, double y, double xVelocity, double yVelocity, double radius)
 			throws ModelException {
 		// TODO Auto-generated method stub
-		return new Bullet( x,  y,  xVelocity,  yVelocity,  radius);
+		return new Bullet(x,  y,  xVelocity,  yVelocity,  radius);
 	}
 
 	@Override
 	public void terminateBullet(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		bullet.terminateBullet();
+		bullet.terminate();
 	}
 
 	@Override
 	public boolean isTerminatedBullet(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		return bullet.isTerminatedBullet();
+		return bullet.isTerminated();
 	}
 
 	@Override
 	public double[] getBulletPosition(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		return bullet.getBulletPosition();
+		return bullet.getPosition();
 	}
 
 	@Override
 	public double[] getBulletVelocity(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		return bullet.getBulletVelocity();
+		return bullet.getVelocity();
 	}
 
 	@Override
 	public double getBulletRadius(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		return bullet.getBulletRadius();
+		return bullet.getRadius();
 	}
 
 	@Override
 	public double getBulletMass(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		return bullet.getBulletMass();
+		return bullet.getMass();
 	}
 
 	@Override
 	public World getBulletWorld(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		return bullet.getBulletWorld();
+		return bullet.getWorld();
 	}
 
 	@Override
 	public Ship getBulletShip(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		return bullet.getBulletShip();
+		return bullet.getShip();
 	}
 
 	@Override
 	public Ship getBulletSource(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		return bullet.getBulletSource();
+		return bullet.getSource();
 	}
 
 	@Override

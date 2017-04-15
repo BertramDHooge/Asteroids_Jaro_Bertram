@@ -10,15 +10,20 @@ public class Ship {
 	private double yVelocity;
 	private double radius;
 	private double orientation;
+    private double mass;
+    private boolean thrust = false;
+    private boolean terminated;
+    private World world;
 	private static final double SPEED_OF_LIGHT = 300000;
 	private static final double MAX_ANGLE = 2 * Math.PI;
 	private static final double MIN_ANGLE = 0;
+    private static final double MASS_DENSITY = 1.42*Math.pow(10,12);
 	
 	/**
 	 * Create a new ship with a default position, velocity, radius and
 	 * direction.
 	 * 
-	 * Result is a unit circle centered on <code>(0, 0)</code> facing right. Its
+	 * Result is a unit circle centered on (0, 0) facing right. Its
 	 * speed is zero.
 	 */
 	
@@ -40,21 +45,25 @@ public class Ship {
 	 * 		Radius for the new ship.
 	 * @param orientation
 	 * 		Starting orientation for the new ship.
+     * @param mass
+     *      Mass for the new ship
 	 * @post ...
-	 * 		| (x != IsNaN) && (y != IsNaN) && (xVelocity != IsNaN) && (yVelocity != IsNaN) && (radius != IsNaN) && (orientation != IsNaN)
+	 * 		| (x != IsNaN) && (y != IsNaN) && (xVelocity != IsNaN) && (yVelocity != IsNaN) && (radius != IsNaN) && (orientation != IsNaN) && (mass != IsNaN)
      * @effect setPosition
 	 * @effect setVelocity
      * @effect setRadius
 	 * @effect setOrientation
+     * @effect setMass
      * @throws ShipException
 	 */
 	
-	public Ship(double x, double y, double xVelocity, double yVelocity, double radius, double orientation) throws ShipException {
-		if ((x <= 0 || x > 0) && (y <= 0 || y > 0) && (xVelocity <= 0 || xVelocity > 0) && (yVelocity <= 0 || yVelocity > 0) && (radius <= 0 || radius > 0) && (orientation <= 0 || orientation > 0)){
+	public Ship(double x, double y, double xVelocity, double yVelocity, double radius, double orientation, double mass) throws ShipException {
+		if ((x <= 0 || x > 0) && (y <= 0 || y > 0) && (xVelocity <= 0 || xVelocity > 0) && (yVelocity <= 0 || yVelocity > 0) && (radius <= 0 || radius > 0) && (orientation <= 0 || orientation > 0) && (mass <= 0 || mass > 0)){
 			setPosition(x, y);
             setVelocity(xVelocity, yVelocity);
 			setRadius(radius);
             setOrientation(orientation);
+            setMass(mass);
 		}
 		else {
 			throw new ShipException("Values are NaN!");
@@ -219,6 +228,33 @@ public class Ship {
         return false;
     }
 
+    /**
+     * Sets the mass of the ship
+     * @param mass
+     *      Specified mass for the ship
+     * @post ...
+     *      | if (mass >= 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY)
+     *      |   then new mass == mass
+     *      | else
+     *      |   then new mass == 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY
+     */
+
+    private void setMass(double mass) {
+        if (mass >= 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY) {
+            this.mass = mass;
+        }
+        else {
+            this.mass = 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
+        }
+    }
+
+    /**
+     * Returns the mass of the ship
+     * @return this.mass
+     */
+
+    public double getMass() {return this.mass;}
+
 	/**
 	 * Update ship's position, assuming it moves dt
 	 * seconds at its current velocity.
@@ -235,24 +271,56 @@ public class Ship {
 		y += dt * yVelocity;
 	}
 
-	/**
-	 * Update ship's velocity based on its current velocity, its
-	 * direction and the given amount.
-	 * @param amount
-	 * 		Amount of change to this ship's velocity.
-	 * @post ...
-	 * 		| if (amount < 0)
-	 * 		| 	then new amount == 0
-     * @effect setVelocity
-	 */
-	
-	public void thrust(double amount) {
-		if (amount < 0) {
-			amount = 0;
-		}
-		setVelocity(this.xVelocity + amount * Math.cos(orientation), this.yVelocity + amount * Math.sin(orientation));
-	}
-	
+//	/**
+//	 * Update ship's velocity based on its current velocity, its
+//	 * direction and the given amount.
+//	 * @param amount
+//	 * 		Amount of change to this ship's velocity.
+//	 * @post ...
+//	 * 		| if (amount < 0)
+//	 * 		| 	then new amount == 0
+//     * @effect setVelocity
+//	 */
+//
+//	public void thrust(double amount) {
+//		if (amount < 0) {
+//			amount = 0;
+//		}
+//		setVelocity(this.xVelocity + amount * Math.cos(orientation), this.yVelocity + amount * Math.sin(orientation));
+//	}
+
+    /**
+     * Turn the thruster on.
+     */
+
+    public void thrustOn() {
+        this.thrust = true;
+    }
+
+    /**
+     * Turn the thruster off.
+     */
+
+    public void thrustOff() {
+        this.thrust = false;
+    }
+
+    /**
+     * Returns true when the thruster is activated and false when it's deactivated.
+     * @return
+     */
+
+    public boolean isThrusterActive() {return this.thrust;}
+
+    /**
+     * Returns the acceleration of the ship
+     * @return a
+     */
+
+    public double getAcceleration() {
+        double a = (1.1*Math.pow(10, 21))/this.mass;
+        return a;
+    }
 	
 	/**
 	 * Update the direction of ship by adding angle
@@ -266,6 +334,28 @@ public class Ship {
 	public void turn(double angle) {
 		setOrientation(orientation + angle);
  	}
+
+    /**
+     * Terminates the ship.
+     */
+
+ 	public void terminate() {
+        this.terminated = true;
+    }
+
+    /**
+     * Returns the state of the ship.
+     * @return
+     */
+
+    public boolean isTerminated() {return this.terminated;}
+
+    /**
+     * Returns the world where the ship is in. If the ship isn't in a world, this will return null.
+     * @return
+     */
+
+    public World getWorld() {return this.world;}
 
 	/**
 	 * Return the distance between this ship and other ship.
