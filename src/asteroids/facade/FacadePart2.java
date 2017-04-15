@@ -338,7 +338,7 @@ public class FacadePart2 implements IFacadePart2{
 	@Override
 	public double getTimeCollisionBoundary(Object object) throws ModelException {
 		// TODO Auto-generated method stub
-		return object.getTimeToCollisionBoundary();
+		return ((Entity) object).getTimeToCollisionBoundary();
 	}
 
 	@Override

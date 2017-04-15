@@ -181,7 +181,7 @@ public class Entity {
      * either ship should move such that both ships are adjacent. Note that the
      * result must be negative if the ships overlap. The distance between a ship
      * and itself is 0.
-     * @param ship
+     * @param entity
      * 		Ship to compare distance to.
      * @throws IllegalArgumentException
      * @return
@@ -194,16 +194,16 @@ public class Entity {
      *      |   return distance
      */
 
-    public double getDistanceTo(Ship ship) throws IllegalArgumentException {
-        if (ship == null){
+    public double getDistanceTo(Entity entity) throws IllegalArgumentException {
+        if (entity == null){
             throw new IllegalArgumentException();
         }
-        if (this == ship){
+        if (this == entity){
             return 0.0;
         }
-        double xDistance = (ship.x - this.x);
-        double yDistance = (ship.y - this.y);
-        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - (ship.radius + this.radius);
+        double xDistance = (entity.x - this.x);
+        double yDistance = (entity.y - this.y);
+        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - (entity.radius + this.radius);
         return distance;
     }
 
@@ -309,6 +309,77 @@ public class Entity {
     public double getTimeToCollisionBoundary() {
         double width = this.getWorld().getSize()[0];
         double height = this.getWorld().getSize()[1];
-        
+        double timeX;
+        double timeY;
+        if (this.xVelocity > 0){
+        	timeX = ((width - this.x) - this.radius) / this.xVelocity; 
+        }
+        else if (this.xVelocity < 0){
+        	timeX = (this.x - this.radius) / this.xVelocity; 
+        }
+        else{
+        	timeX = Double.POSITIVE_INFINITY;
+        }
+        if (this.yVelocity > 0){
+        	timeY = ((height - this.y) - this.radius) / this.yVelocity; 
+        }
+        else if (this.yVelocity < 0){
+        	timeY = (this.y - this.radius) / this.yVelocity;
+        }
+        else{
+        	timeY = Double.POSITIVE_INFINITY;
+        }
+       if (timeX <= timeY){
+    	   return timeX;
+       }
+       else {
+    	   return timeY;
+       }
     }
+    
+    public double[] getPositionCollisionBoundary() {
+    	double time = this.getTimeToCollisionBoundary();
+    	double thisX = (this.x + time*this.xVelocity);
+        double thisY = this.y + time*this.yVelocity;
+        if (thisX - radius == 0){
+        	return new double[] {thisX - radius, thisY};
+        }
+        if (thisX + radius == this.getWorld().getSize()[0]){
+        	return new double[] {thisX + radius, thisY};
+        }
+        if (thisY - radius == 0){
+        	return new double[] {thisX, thisY - radius};
+        }
+        if (thisY+ radius == this.getWorld().getSize()[1]){
+        	return new double[] {thisX, thisY + radius};
+        }
+        else {
+        	return null;
+        }
+    }
+    
+    public double getTimeCollisionEntity(Entity entity) throws IllegalArgumentException {
+    	 if (entity == null){
+             throw new IllegalArgumentException();
+         }
+         double currentDistance = getDistanceTo(entity);
+         double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + entity.radius);
+         if (currentDistance > newDistance){
+             double time = 0.00;
+             while (currentDistance > newDistance && newDistance > 0.0){
+                 time += 0.01;
+                 currentDistance = newDistance;
+                 newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * (0.01 + time)) - (this.x + this.xVelocity * (0.01 + time)), 2) + Math.pow((entity.y + entity.yVelocity * (0.01 + time)) - (this.y + this.yVelocity * (0.01 + time)), 2)) - (this.radius + entity.radius);
+             }
+             if (newDistance <= 0.0){
+                 return time;
+             }
+             if (newDistance >= currentDistance){
+                 return Double.POSITIVE_INFINITY;
+             }
+         }
+         return Double.POSITIVE_INFINITY;
+
+    }
+    
 }
