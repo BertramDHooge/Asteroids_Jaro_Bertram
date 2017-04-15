@@ -18,7 +18,7 @@ public class Part2 {
 			}
 		}
 
-		IFacadePart2 facade = new asteroids.facade.FacadePart1();
+		IFacadePart2 facade = new asteroids.facade.FacadePart2();
 		AsteroidsFrame2.run(facade, tryFullscreen, enableSound);
 	}
 }
