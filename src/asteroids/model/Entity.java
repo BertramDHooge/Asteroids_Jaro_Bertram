@@ -331,7 +331,7 @@ public class Entity {
         	timeX = (this.x - this.radius) / this.xVelocity; 
         }
         else{
-        	timeX = Double.POSITIVE_INFINITY;
+        	timeX = Double.POSITIVE_INFINITY;	
         }
         if (this.yVelocity > 0){
         	timeY = ((height - this.y) - this.radius) / this.yVelocity; 
