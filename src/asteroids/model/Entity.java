@@ -252,6 +252,9 @@ public class Entity {
         if (ship == null){
             throw new IllegalArgumentException();
         }
+        if (this.xVelocity == ship.xVelocity && this.yVelocity == ship.yVelocity){
+        	return Double.POSITIVE_INFINITY;
+        }
         double currentDistance = getDistanceTo(ship);
         double newDistance = Math.sqrt(Math.pow((ship.x + ship.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((ship.y + ship.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + ship.radius);
         if (currentDistance > newDistance){
@@ -268,9 +271,13 @@ public class Entity {
                 return Double.POSITIVE_INFINITY;
             }
         }
-        return Double.POSITIVE_INFINITY;
+        if (this.xVelocity == ship.xVelocity && this.yVelocity == ship.yVelocity){
+        	return Double.POSITIVE_INFINITY;
+        }
+        else{
+        	return Double.POSITIVE_INFINITY;
+        	}
     }
-
     /**
      * Return the first position where this ship and other ship
      * collide, or null if they never collide. A ship never
@@ -412,6 +419,9 @@ public class Entity {
 //        }
         double currentDistance = getDistanceTo(entity);
         double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + entity.radius);
+        if (this.xVelocity == entity.xVelocity && this.yVelocity == entity.yVelocity){
+        	return Double.POSITIVE_INFINITY;
+        }
         if (currentDistance > newDistance){
             double time = 0.00;
             while (currentDistance > newDistance && newDistance > 0.0){

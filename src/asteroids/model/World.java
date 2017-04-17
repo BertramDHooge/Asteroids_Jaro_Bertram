@@ -254,6 +254,7 @@ public class World {
         double t = dt;
         while (t > 0) {
             double next = getTimeNextCollision();
+
             if (next < t) {
                 for (Ship ship : ships) {
                     ship.move(t);
