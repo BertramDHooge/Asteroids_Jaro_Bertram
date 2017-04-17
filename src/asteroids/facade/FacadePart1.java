@@ -18,7 +18,7 @@ public class FacadePart1 implements IFacadePart1  {
 	public Ship createShip(double x, double y, double xVelocity, double yVelocity, double radius, double orientation)
 			throws ModelException {
 		try{
-			return new Ship(x, y, xVelocity, yVelocity, radius, orientation);
+			return new Ship(x, y, xVelocity, yVelocity, radius, orientation, 20);
 		} catch (EntityException e){
 			throw new ModelException(e);
 		}

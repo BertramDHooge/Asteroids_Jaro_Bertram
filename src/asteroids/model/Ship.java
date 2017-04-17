@@ -2,15 +2,16 @@ package asteroids.model;
 
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Ship extends Entity {
 
 	private double orientation;
     private double totalMass;
-    private boolean thrust = false;
+    private boolean thruster = false;
     private boolean terminated;
-    private Set<Bullet> bullets;
+    private Set<Bullet> bullets = new HashSet<>();
 	private static final double MAX_ANGLE = 2 * Math.PI;
 	private static final double MIN_ANGLE = 0;
     private static final double MASS_DENSITY = 1.42*Math.pow(10,12);
@@ -130,28 +131,22 @@ public class Ship extends Entity {
         return totalMass;
     }
 
-	/**
-	 * Update ship's position, assuming it moves dt
-	 * seconds at its current velocity.
-	 * @param dt
-	 * 		Amount of time this ship moves.
-	 * @post ...
-	 * 		|new x == x + (dt * xVelocity)
-	 * @post ...
-	 * 		|new y == y + (dt * yVelocity)
-	 */
-	
-	public void move(double dt) {
-		x += dt * xVelocity;
-		y += dt * yVelocity;
-	}
+    public void thrust(double a) {
+        xVelocity += a * Math.cos(orientation);
+        yVelocity += a * Math. sin(orientation);
+        if (Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2)) > SPEED_OF_LIGHT) {
+            double speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
+            xVelocity = (xVelocity * SPEED_OF_LIGHT) / speed;
+            yVelocity = (yVelocity * SPEED_OF_LIGHT) / speed;
+        }
+    }
 
     /**
      * Turn the thruster on.
      */
 
     public void thrustOn() {
-        this.thrust = true;
+        this.thruster = true;
     }
 
     /**
@@ -159,7 +154,7 @@ public class Ship extends Entity {
      */
 
     public void thrustOff() {
-        this.thrust = false;
+        this.thruster = false;
     }
 
     /**
@@ -167,7 +162,7 @@ public class Ship extends Entity {
      * @return
      */
 
-    public boolean isThrusterActive() {return this.thrust;}
+    public boolean isThrusterActive() {return this.thruster;}
 
     /**
      * Returns the acceleration of the ship
@@ -270,7 +265,20 @@ public class Ship extends Entity {
         }
     }
 
+    /**
+     * Terminates the ship
+     */
 
+    public void terminate() {
+        this.terminated = true;
+    }
+
+    /**
+     * Returns the state of the ship.
+     * @return
+     */
+
+    public boolean isTerminated() {return this.terminated;}
 
 
 

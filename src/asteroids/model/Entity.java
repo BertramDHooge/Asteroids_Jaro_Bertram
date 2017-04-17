@@ -106,11 +106,20 @@ public class Entity {
      */
 
     protected void setRadius(double radius) throws EntityException {
-        if (radius >= 10) {
-            this.radius = radius;
+        if (this instanceof Bullet) {
+            if (radius >= 1) {
+                this.radius = radius;
+            }
+            else {
+                throw new EntityException("Wrong radius!");
+            }
         }
         else {
-            throw new EntityException("Wrong radius!");
+            if (radius >= 10) {
+                this.radius = radius;
+            } else {
+                throw new EntityException("Wrong radius!");
+            }
         }
     }
 
@@ -151,6 +160,22 @@ public class Entity {
     public double getMass() {return this.mass;}
 
     /**
+     * Update ship's position, assuming it moves dt
+     * seconds at its current velocity.
+     * @param dt
+     * 		Amount of time this ship moves.
+     * @post ...
+     * 		|new x == x + (dt * xVelocity)
+     * @post ...
+     * 		|new y == y + (dt * yVelocity)
+     */
+
+    public void move(double dt) {
+        x += dt * xVelocity;
+        y += dt * yVelocity;
+    }
+
+    /**
      * Returns the world the bullet belongs to (returns null if it is loaded in a ship or to the unbounded two-dimensional space).
      * @return
      */
@@ -158,21 +183,6 @@ public class Entity {
     public World getWorld() {
         return this.world;
     }
-
-    /**
-     * Terminates the bullet
-     */
-
-    public void terminate() {
-        this.terminated = true;
-    }
-
-    /**
-     * Returns the state of the bullet.
-     * @return
-     */
-
-    public boolean isTerminated() {return this.terminated;}
 
     /**
      * Return the distance between this ship and other ship.
@@ -203,7 +213,7 @@ public class Entity {
         }
         double xDistance = (entity.x - this.x);
         double yDistance = (entity.y - this.y);
-        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - (entity.radius + this.radius);
+        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - 99/100*(entity.radius + this.radius);
         return distance;
     }
 
@@ -223,8 +233,7 @@ public class Entity {
         if (entity == null){
             throw new IllegalArgumentException();
         }
-        double radii = (entity.radius + this.radius) * 1/100;
-        if (getDistanceTo(entity) + radii < 0){
+        if (getDistanceTo(entity) < 0){
             return true;
         }
         if (this == entity){
@@ -308,6 +317,9 @@ public class Entity {
     }
 
     public double getTimeToCollisionBoundary() {
+        if (this.getWorld() == null) {
+            return Double.POSITIVE_INFINITY;
+        }
         double width = this.getWorld().getSize()[0];
         double height = this.getWorld().getSize()[1];
         double timeX;
@@ -330,16 +342,19 @@ public class Entity {
         else{
         	timeY = Double.POSITIVE_INFINITY;
         }
-       if (timeX <= timeY){
+        if (timeX <= timeY){
     	   return timeX;
-       }
-       else {
+        }
+        else {
     	   return timeY;
-       }
+        }
     }
     
     public double[] getPositionCollisionBoundary() {
     	double time = this.getTimeToCollisionBoundary();
+        if (time == Double.POSITIVE_INFINITY) {
+            return null;
+        }
     	double thisX = (this.x + time*this.xVelocity);
         double thisY = this.y + time*this.yVelocity;
         if (thisX - radius == 0){

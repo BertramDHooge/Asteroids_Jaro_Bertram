@@ -374,8 +374,12 @@ public class FacadePart2 implements IFacadePart2{
 	@Override
 	public void evolve(World world, double dt, CollisionListener collisionListener) throws ModelException {
 		// TODO Auto-generated method stub
-		world.evolve(dt, collisionListener);
-	}
+        try {
+            world.evolve(dt, collisionListener);
+        } catch (WorldException e) {
+            throw new ModelException(e);
+        }
+    }
 
 	@Override
 	public Object getEntityAt(World world, double x, double y) throws ModelException {
