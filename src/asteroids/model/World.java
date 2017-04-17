@@ -174,6 +174,6 @@ public class World {
     }
 
     public double getTimeNextCollision() {
-        
+
     }
 }
