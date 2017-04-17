@@ -9,7 +9,7 @@ import org.junit.Test;
 import asteroids.model.Bullet;
 import asteroids.model.Ship;
 import asteroids.model.World;
-import asteroids.facade.FacadePart1;
+import asteroids.facade.FacadePart2;
 import asteroids.part2.facade.IFacadePart2;
 import asteroids.util.ModelException;
 
@@ -21,7 +21,7 @@ public class Part2TestPartial {
 
 	@Before
 	public void setUp() {
-		facade = new FacadePart1();
+		facade = new FacadePart2();
 	}
 
 	@Test

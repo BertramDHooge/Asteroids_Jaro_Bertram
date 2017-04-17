@@ -344,13 +344,13 @@ public class FacadePart2 implements IFacadePart2{
 	@Override
 	public double[] getPositionCollisionBoundary(Object object) throws ModelException {
 		// TODO Auto-generated method stub
-		return object.getPositionCollisionBoundary();
+		return ((Entity) object).getPositionCollisionBoundary();
 	}
 
 	@Override
 	public double getTimeCollisionEntity(Object entity1, Object entity2) throws ModelException {
 		// TODO Auto-generated method stub
-		return entity1.getTimeCollisionEntity(entity2);
+		return ((Entity) entity1).getTimeCollisionEntity((Entity) entity2);
 	}
 
 	@Override

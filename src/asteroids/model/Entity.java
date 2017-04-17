@@ -309,8 +309,6 @@ public class Entity {
     public double getTimeToCollisionBoundary() {
         double width = this.getWorld().getSize()[0];
         double height = this.getWorld().getSize()[1];
-<<<<<<< HEAD
-=======
         double timeX;
         double timeY;
         if (this.xVelocity > 0){
@@ -365,13 +363,13 @@ public class Entity {
              throw new IllegalArgumentException();
          }
          double currentDistance = getDistanceTo(entity);
-         double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.001) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + entity.radius);
+         double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + entity.radius);
          if (currentDistance > newDistance){
              double time = 0.00;
              while (currentDistance > newDistance && newDistance > 0.0){
                  time += 0.01;
                  currentDistance = newDistance;
-                 newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * (0.001 + time)) - (this.x + this.xVelocity * (0.01 + time)), 2) + Math.pow((entity.y + entity.yVelocity * (0.01 + time)) - (this.y + this.yVelocity * (0.01 + time)), 2)) - (this.radius + entity.radius);
+                 newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * (0.01 + time)) - (this.x + this.xVelocity * (0.01 + time)), 2) + Math.pow((entity.y + entity.yVelocity * (0.01 + time)) - (this.y + this.yVelocity * (0.01 + time)), 2)) - (this.radius + entity.radius);
              }
              if (newDistance <= 0.0){
                  return time;
@@ -382,8 +380,7 @@ public class Entity {
          }
          return Double.POSITIVE_INFINITY;
 
->>>>>>> 1e6051a5dc6c452b264cb77074a96851f3cf8607
     }
- 
+    
     
 }
