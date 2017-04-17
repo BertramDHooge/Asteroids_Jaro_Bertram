@@ -266,11 +266,28 @@ public class World {
                             ((Bullet)nextCollision[0]).addBounce();
                         }
                     }
-                    double[] pos = nextCollision[0].getPositionCollisionBoundary();
+                    double[] pos = {0.0, 0.0};
+                    double thisX = nextCollision[0].x + next*nextCollision[0].xVelocity;
+                    double thisY = nextCollision[0].y + next*nextCollision[0].yVelocity;
+                    double rounding = 0.0000001;
+                    if (thisX - nextCollision[0].getRadius() >= -rounding && thisX - nextCollision[0].getRadius() <= rounding){
+                         pos[1] = thisY;
+                    }
+                    if (thisX + nextCollision[0].getRadius() >= this.width - rounding && thisX + nextCollision[0].getRadius() <= this.width + rounding){
+                        pos[0] = this.width;
+                        pos[1] = thisY;
+                    }
+                    if (thisY - nextCollision[0].getRadius() >= -rounding && thisY - nextCollision[0].getRadius() <= rounding){
+                        pos[0] = thisX;
+                    }
+                    if (thisY + nextCollision[0].getRadius() >= this.height - rounding && thisY + nextCollision[0].getRadius() <= this.height + rounding){
+                        pos[0] = thisX;
+                        pos[1] = this.height;
+                    }
                     if (pos[0] <= 0 || pos[0] >= this.width) {
                         nextCollision[0].setVelocity(-1* nextCollision[0].getVelocity()[0], nextCollision[0].getVelocity()[1]);
                     }
-                    else {
+                    else if (pos[1] <= 0 || pos[1] >= this.height){
                         nextCollision[0].setVelocity(nextCollision[0].getVelocity()[0], -1 * nextCollision[0].getVelocity()[1]);
                     }
                 }
