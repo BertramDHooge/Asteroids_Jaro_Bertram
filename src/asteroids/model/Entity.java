@@ -205,7 +205,7 @@ public class Entity {
         }
         double xDistance = (entity.x - this.x);
         double yDistance = (entity.y - this.y);
-        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - 99/100*(entity.radius + this.radius);
+        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - 0.99*(entity.radius + this.radius);
         return distance;
     }
 
