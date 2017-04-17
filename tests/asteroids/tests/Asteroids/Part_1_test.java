@@ -1,4 +1,4 @@
-package asteroids.tests;
+package Asteroids;
 
 import static org.junit.Assert.*;
 

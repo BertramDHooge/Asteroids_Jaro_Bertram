@@ -69,12 +69,6 @@ public class Entity {
      */
 
     protected void setVelocity(double xVelocity, double yVelocity) {
-        if (xVelocity < 0) {
-            xVelocity = 0;
-        }
-        if (yVelocity < 0) {
-            yVelocity = 0;
-        }
         if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) > Math.pow(SPEED_OF_LIGHT, 2)){
             double Speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
             xVelocity = (xVelocity * SPEED_OF_LIGHT) / Speed;
@@ -343,10 +337,26 @@ public class Entity {
         	timeY = Double.POSITIVE_INFINITY;
         }
         if (timeX <= timeY){
-    	   return timeX;
+    	    if (timeX >= 0) {
+                return timeX;
+            }
+            else if (timeY >= 0) {
+                return timeY;
+            }
+            else {
+                return 0.0;
+            }
         }
         else {
-    	   return timeY;
+            if (timeY >= 0) {
+                return timeY;
+            }
+            else if (timeX >= 0) {
+                return timeX;
+            }
+            else {
+                return 0.0;
+            }
         }
     }
     
@@ -378,21 +388,46 @@ public class Entity {
         if (entity == null){
              throw new IllegalArgumentException();
         }
-        double[] r = {entity.x - this.x, entity.y - this.y};
-        double[] v = {entity.xVelocity - this.xVelocity, entity.yVelocity - this.yVelocity};
-        double rr = r[0]*r[0]+r[1]*r[0];
-        double vv = v[0]*v[0]+v[1]*v[0];
-        double vr = v[0]*r[0]+v[1]*r[1];
-        double d = vr*vr-vv*(rr-this.getDistanceTo(entity));
-        if (vr >= 0) {
-            return Double.POSITIVE_INFINITY;
+//        double[] r = {entity.x - this.x, entity.y - this.y};
+//        double[] v = {entity.xVelocity - this.xVelocity, entity.yVelocity - this.yVelocity};
+//        double rr = r[0]*r[0]+r[1]*r[1];
+//        double vv = v[0]*v[0]+v[1]*v[1];
+//        if (vv == 0) {
+//            return Double.POSITIVE_INFINITY;
+//        }
+//        double vr = v[0]*r[0]+v[1]*r[1];
+//        double d = vr*vr-vv*(rr-Math.pow(entity.getDistanceTo(this),2));
+//        double value1 = (vr + Math.sqrt(d));
+//        double value = -1 * (value1 / vv);
+//        if (vr >= 0) {
+//            return Double.POSITIVE_INFINITY;
+//        }
+//        else if (d <= 0) {
+//            return Double.POSITIVE_INFINITY;
+//        }
+//        else if (value <= 0) {
+//            return Double.POSITIVE_INFINITY;
+//        }
+//        else {
+//            return value;
+//        }
+        double currentDistance = getDistanceTo(entity);
+        double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + entity.radius);
+        if (currentDistance > newDistance){
+            double time = 0.00;
+            while (currentDistance > newDistance && newDistance > 0.0){
+                time += 0.01;
+                currentDistance = newDistance;
+                newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * (0.01 + time)) - (this.x + this.xVelocity * (0.01 + time)), 2) + Math.pow((entity.y + entity.yVelocity * (0.01 + time)) - (this.y + this.yVelocity * (0.01 + time)), 2)) - (this.radius + entity.radius);
+            }
+            if (newDistance <= 0.0){
+                return time;
+            }
+            if (newDistance >= currentDistance){
+                return Double.POSITIVE_INFINITY;
+            }
         }
-        else if (d <= 0) {
-            return Double.POSITIVE_INFINITY;
-        }
-        else {
-            return -((vr+Math.sqrt(d))/vv);
-        }
+        return Double.POSITIVE_INFINITY;
     }
     public double[] getPositionCollisionEntity(Entity entity) throws IllegalArgumentException {
         if (entity == null){
