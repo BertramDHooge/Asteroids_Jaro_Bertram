@@ -225,7 +225,8 @@ public class Entity {
         if (entity == null){
             throw new IllegalArgumentException();
         }
-        if (getDistanceTo(entity) < 0){
+        double d = getDistanceTo(entity);
+        if (d < 0){
             return true;
         }
         if (this == entity){

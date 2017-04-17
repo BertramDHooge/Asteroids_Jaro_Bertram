@@ -78,7 +78,7 @@ public class World {
         if (ship == null) {
             throw new IllegalArgumentException();
         }
-        double check = ship.getRadius() * 99/100;
+        double check = ship.getRadius() * 0.99;
         if (ship.getWorld() == null) {
             if (ship.getPosition()[0] >= check && ship.getPosition()[1] >= check && this.getSize()[0] - ship.getPosition()[0] >= check && this.getSize()[1] - ship.getPosition()[1] >= check) {
                 boolean checkOverlap = false;
@@ -143,7 +143,7 @@ public class World {
         if (bullet == null) {
             throw new IllegalArgumentException();
         }
-        double check = bullet.getRadius() * 99/100;
+        double check = bullet.getRadius() * 0.99;
         if (bullet.getWorld() == null) {
             if (bullet.getPosition()[0] >= check && bullet.getPosition()[1] >= check && this.getSize()[0] - bullet.getPosition()[0] >= check && this.getSize()[1] - bullet.getPosition()[1] >= check) {
                 boolean checkOverlap = false;
@@ -254,7 +254,6 @@ public class World {
         double t = dt;
         while (t > 0) {
             double next = getTimeNextCollision();
-
             if (next < t) {
                 if (nextCollision[1] == null) {
                     if (nextCollision[0] instanceof Bullet) {
