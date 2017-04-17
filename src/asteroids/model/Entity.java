@@ -76,9 +76,7 @@ public class Entity {
         }
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
-
     }
-
 
     /**
      *  Return the velocity of ship as an array of length 2, with the velocity
@@ -344,7 +342,7 @@ public class Entity {
                 return timeY;
             }
             else {
-                return 0.0;
+                return Double.POSITIVE_INFINITY;
             }
         }
         else {
@@ -355,7 +353,7 @@ public class Entity {
                 return timeX;
             }
             else {
-                return 0.0;
+                return Double.POSITIVE_INFINITY;
             }
         }
     }
@@ -365,19 +363,20 @@ public class Entity {
         if (time == Double.POSITIVE_INFINITY) {
             return null;
         }
-    	double thisX = (this.x + time*this.xVelocity);
+    	double thisX = this.x + time*this.xVelocity;
         double thisY = this.y + time*this.yVelocity;
-        if (thisX - radius == 0){
-        	return new double[] {thisX - radius, thisY};
+        double rounding = 0.0000001;
+        if (thisX - radius >= -rounding && thisX - radius <= rounding){
+        	return new double[] {0.0, thisY};
         }
-        if (thisX + radius == this.getWorld().getSize()[0]){
-        	return new double[] {thisX + radius, thisY};
+        if (thisX + radius >= this.getWorld().getSize()[0] - rounding && thisX + radius <= this.getWorld().getSize()[0] + rounding){
+        	return new double[] {this.getWorld().getSize()[0], thisY};
         }
-        if (thisY - radius == 0){
-        	return new double[] {thisX, thisY - radius};
+        if (thisY - radius >= -rounding && thisY - radius <= rounding){
+        	return new double[] {thisX, 0.0};
         }
-        if (thisY+ radius == this.getWorld().getSize()[1]){
-        	return new double[] {thisX, thisY + radius};
+        if (thisY + radius >= this.getWorld().getSize()[1] - rounding && thisY + radius <= this.getWorld().getSize()[1] + rounding){
+        	return new double[] {thisX, this.getWorld().getSize()[1]};
         }
         else {
         	return null;

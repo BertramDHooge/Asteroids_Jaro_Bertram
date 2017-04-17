@@ -80,7 +80,7 @@ public class World {
         }
         double check = ship.getRadius() * 99/100;
         if (ship.getWorld() == null) {
-            if (ship.getPosition()[0] >= check && ship.getPosition()[1] >= check && this.getSize()[0] - ship.getPosition()[0] >= check && this.getSize()[1] - ship.getPosition()[1] >= check) {
+            if (ship.getPosition()[0] > check && ship.getPosition()[1] > check && this.getSize()[0] - ship.getPosition()[0] > check && this.getSize()[1] - ship.getPosition()[1] > check) {
                 boolean checkOverlap = false;
                 for (Entity entity : entities) {
                     boolean overlap = ship.overlap(entity);
@@ -145,7 +145,7 @@ public class World {
         }
         double check = bullet.getRadius() * 99/100;
         if (bullet.getWorld() == null) {
-            if (bullet.getPosition()[0] >= check && bullet.getPosition()[1] >= check && this.getSize()[0] - bullet.getPosition()[0] >= check && this.getSize()[1] - bullet.getPosition()[1] >= check) {
+            if (bullet.getPosition()[0] > check && bullet.getPosition()[1] > check && this.getSize()[0] - bullet.getPosition()[0] > check && this.getSize()[1] - bullet.getPosition()[1] > check) {
                 boolean checkOverlap = false;
                 for (Entity entity : entities) {
                     if (!checkOverlap && bullet.overlap(entity)) {
@@ -255,6 +255,15 @@ public class World {
         while (t > 0) {
             double next = getTimeNextCollision();
             if (next < t) {
+                for (Ship ship : ships) {
+                    ship.move(t);
+                    if (ship.isThrusterActive()) {
+                        ship.thrust(ship.getAcceleration());
+                    }
+                }
+                for (Bullet bullet : bullets) {
+                    bullet.move(t);
+                }
                 if (nextCollision[1] == null) {
                     if (nextCollision[0] instanceof Bullet) {
                         if (((Bullet)nextCollision[0]).getBounces() >= 2) {
@@ -266,11 +275,30 @@ public class World {
                             ((Bullet)nextCollision[0]).addBounce();
                         }
                     }
-                    double[] pos = nextCollision[0].getPositionCollisionBoundary();
+                    double thisX = nextCollision[0].x + next*nextCollision[0].xVelocity;
+                    double thisY = nextCollision[0].y + next*nextCollision[0].yVelocity;
+                    double rounding = 0.0000001;
+                    double[] pos = {0.0, 0.0};
+                    if (thisX - nextCollision[0].getRadius() >= -rounding && thisX - nextCollision[0].getRadius() <= rounding){
+                        pos[0] = 0.0;
+                        pos[1] = thisY;
+                    }
+                    if (thisX + nextCollision[0].getRadius() >= this.width - rounding && thisX + nextCollision[0].getRadius() <= this.width + rounding){
+                        pos[0] = this.width;
+                        pos[1] = thisY;
+                    }
+                    if (thisY - nextCollision[0].getRadius() >= -rounding && thisY - nextCollision[0].getRadius() <= rounding){
+                        pos[0] = thisX;
+                        pos[1] = 0.0;
+                    }
+                    if (thisY + nextCollision[0].getRadius() >= this.height - rounding && thisY + nextCollision[0].getRadius() <= this.height + rounding){
+                        pos[0] = thisX;
+                        pos[1] = this.height;
+                    }
                     if (pos[0] <= 0 || pos[0] >= this.width) {
                         nextCollision[0].setVelocity(-1* nextCollision[0].getVelocity()[0], nextCollision[0].getVelocity()[1]);
                     }
-                    else {
+                    else if (pos[1] <= 0 || pos[1] >= this.height) {
                         nextCollision[0].setVelocity(nextCollision[0].getVelocity()[0], -1 * nextCollision[0].getVelocity()[1]);
                     }
                 }
@@ -324,8 +352,8 @@ public class World {
         double j = (2 * mass1 * mass2 * vr) / (entity1.getDistanceTo(entity2)*(mass1 + mass2));
         double jx = j*r[0] / entity1.getDistanceTo(entity2);
         double jy = j*r[1] / entity1.getDistanceTo(entity2);
-        entity1.setVelocity(entity1.getVelocity()[0]-jx/mass1, entity1.getVelocity()[1]-jy/mass1);
-        entity2.setVelocity(entity2.getVelocity()[0]+jx/mass2, entity2.getVelocity()[1]+jy/mass2);
+        entity1.setVelocity(entity1.getVelocity()[0]+jx/mass1, entity1.getVelocity()[1]+jy/mass1);
+        entity2.setVelocity(entity2.getVelocity()[0]-jx/mass2, entity2.getVelocity()[1]-jy/mass2);
     }
 
     public Object getEntityAt(double x, double y) {

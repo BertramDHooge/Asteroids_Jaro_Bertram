@@ -132,13 +132,7 @@ public class Ship extends Entity {
     }
 
     public void thrust(double a) {
-        xVelocity += a * Math.cos(orientation);
-        yVelocity += a * Math. sin(orientation);
-        if (Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2)) > SPEED_OF_LIGHT) {
-            double speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
-            xVelocity = (xVelocity * SPEED_OF_LIGHT) / speed;
-            yVelocity = (yVelocity * SPEED_OF_LIGHT) / speed;
-        }
+        this.setVelocity(xVelocity + a * Math.cos(orientation), yVelocity + a * Math. sin(orientation));
     }
 
     /**

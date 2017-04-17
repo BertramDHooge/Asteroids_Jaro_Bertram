@@ -255,7 +255,7 @@ public class FacadePart2 implements IFacadePart2{
         try {
             world.addShipToWorld(ship);
         } catch (WorldException e) {
-            throw new ModelException(e);
+            e.printStackTrace();
         }
 	}
 
