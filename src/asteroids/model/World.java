@@ -156,6 +156,7 @@ public class World {
                 if (!checkOverlap) {
                     this.bullets.add(bullet);
                     this.entities.add(bullet);
+                    bullet.world = this;
                 }
                 else {
                     throw new WorldException("Bullet overlaps");
@@ -181,6 +182,7 @@ public class World {
         if (bullets.contains(bullet)) {
             bullets.remove(bullet);
             entities.remove(bullet);
+            bullet.world = null;
         }
         else {
             throw new WorldException("Bullet is not in the world");
