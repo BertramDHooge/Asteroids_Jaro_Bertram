@@ -81,9 +81,22 @@ public class World {
         double check = ship.getRadius() * 99/100;
         if (ship.getWorld() == null) {
             if (ship.getPosition()[0] >= check && ship.getPosition()[1] >= check && this.getSize()[0] - ship.getPosition()[0] >= check && this.getSize()[1] - ship.getPosition()[1] >= check) {
-                this.ships.add(ship);
-                this.entities.add(ship);
-                ship.world = this;
+                boolean checkOverlap = false;
+                for (Entity entity : entities) {
+                    boolean overlap = ship.overlap(entity);
+                    if (overlap) {
+                        checkOverlap = true;
+                        break;
+                    }
+                }
+                if (!checkOverlap) {
+                    this.ships.add(ship);
+                    this.entities.add(ship);
+                    ship.world = this;
+                }
+                else {
+                    throw new WorldException("Ship overlaps");
+                }
             } else {
                 throw new WorldException("Ship not located between boundaries");
             }
@@ -133,8 +146,21 @@ public class World {
         double check = bullet.getRadius() * 99/100;
         if (bullet.getWorld() == null) {
             if (bullet.getPosition()[0] >= check && bullet.getPosition()[1] >= check && this.getSize()[0] - bullet.getPosition()[0] >= check && this.getSize()[1] - bullet.getPosition()[1] >= check) {
-                this.bullets.add(bullet);
-                this.entities.add(bullet);
+                boolean checkOverlap = false;
+                for (Entity entity : entities) {
+                    if (!checkOverlap && bullet.overlap(entity)) {
+                        checkOverlap = true;
+                        break;
+                    }
+                }
+                if (!checkOverlap) {
+                    this.bullets.add(bullet);
+                    this.entities.add(bullet);
+                    bullet.world = this;
+                }
+                else {
+                    throw new WorldException("Bullet overlaps");
+                }
             } else {
                 throw new WorldException("Bullet not located between boundaries");
             }
@@ -156,6 +182,7 @@ public class World {
         if (bullets.contains(bullet)) {
             bullets.remove(bullet);
             entities.remove(bullet);
+            bullet.world = null;
         }
         else {
             throw new WorldException("Bullet is not in the world");
@@ -226,7 +253,8 @@ public class World {
     public void evolve(double dt, CollisionListener collisionListener) throws WorldException {
         double t = dt;
         while (t > 0) {
-            if (getTimeNextCollision() < t) {
+            double next = getTimeNextCollision();
+            if (next < t) {
                 if (nextCollision[1] == null) {
                     if (nextCollision[0] instanceof Bullet) {
                         if (((Bullet)nextCollision[0]).getBounces() >= 2) {
