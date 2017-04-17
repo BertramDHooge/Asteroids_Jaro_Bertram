@@ -268,10 +268,10 @@ public class World {
                     }
                     double[] pos = nextCollision[0].getPositionCollisionBoundary();
                     if (pos[0] <= 0 || pos[0] >= this.width) {
-                        nextCollision[0].setVelocity(-nextCollision[0].getVelocity()[0], nextCollision[0].getVelocity()[1]);
+                        nextCollision[0].setVelocity(-1* nextCollision[0].getVelocity()[0], nextCollision[0].getVelocity()[1]);
                     }
                     else {
-                        nextCollision[0].setVelocity(nextCollision[0].getVelocity()[0], -nextCollision[0].getVelocity()[1]);
+                        nextCollision[0].setVelocity(nextCollision[0].getVelocity()[0], -1 * nextCollision[0].getVelocity()[1]);
                     }
                 }
                 else if (nextCollision[0] instanceof Ship && nextCollision[1] instanceof Ship) {
