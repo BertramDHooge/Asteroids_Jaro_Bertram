@@ -254,6 +254,7 @@ public class World {
         double t = dt;
         while (t > 0) {
             double next = getTimeNextCollision();
+
             if (next < t) {
                 if (nextCollision[1] == null) {
                     if (nextCollision[0] instanceof Bullet) {
