@@ -210,7 +210,7 @@ public class Entity {
     /**
      * Check whether this ship and other ship overlap. A ship
      * always overlaps with itself.
-     * @param ship
+     * @param entity
      * 		Ship to compare overlap to.
      * @throws IllegalArgumentException
      * @return
@@ -219,14 +219,15 @@ public class Entity {
      * 		| else return false
      */
 
-    public boolean overlap(Ship ship) throws IllegalArgumentException {
-        if (ship == null){
+    public boolean overlap(Entity entity) throws IllegalArgumentException {
+        if (entity == null){
             throw new IllegalArgumentException();
         }
-        if (getDistanceTo(ship) < 0){
+        double radii = (entity.radius + this.radius) * 1/100;
+        if (getDistanceTo(entity) + radii < 0){
             return true;
         }
-        if (this == ship){
+        if (this == entity){
             return true;
         }
         else return false;
@@ -309,8 +310,6 @@ public class Entity {
     public double getTimeToCollisionBoundary() {
         double width = this.getWorld().getSize()[0];
         double height = this.getWorld().getSize()[1];
-<<<<<<< HEAD
-=======
         double timeX;
         double timeY;
         if (this.xVelocity > 0){
@@ -361,28 +360,41 @@ public class Entity {
     }
     
     public double getTimeCollisionEntity(Entity entity) throws IllegalArgumentException {
-    	 if (entity == null){
+        if (entity == null){
              throw new IllegalArgumentException();
-         }
-         double currentDistance = getDistanceTo(entity);
-         double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + entity.radius);
-         if (currentDistance > newDistance){
-             double time = 0.00;
-             while (currentDistance > newDistance && newDistance > 0.0){
-                 time += 0.01;
-                 currentDistance = newDistance;
-                 newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * (0.01 + time)) - (this.x + this.xVelocity * (0.01 + time)), 2) + Math.pow((entity.y + entity.yVelocity * (0.01 + time)) - (this.y + this.yVelocity * (0.01 + time)), 2)) - (this.radius + entity.radius);
-             }
-             if (newDistance <= 0.0){
-                 return time;
-             }
-             if (newDistance >= currentDistance){
-                 return Double.POSITIVE_INFINITY;
-             }
-         }
-         return Double.POSITIVE_INFINITY;
-
->>>>>>> 1e6051a5dc6c452b264cb77074a96851f3cf8607
+        }
+        double[] r = {entity.x - this.x, entity.y - this.y};
+        double[] v = {entity.xVelocity - this.xVelocity, entity.yVelocity - this.yVelocity};
+        double rr = r[0]*r[0]+r[1]*r[0];
+        double vv = v[0]*v[0]+v[1]*v[0];
+        double vr = v[0]*r[0]+v[1]*r[1];
+        double d = vr*vr-vv*(rr-this.getDistanceTo(entity));
+        if (vr >= 0) {
+            return Double.POSITIVE_INFINITY;
+        }
+        else if (d <= 0) {
+            return Double.POSITIVE_INFINITY;
+        }
+        else {
+            return -((vr+Math.sqrt(d))/vv);
+        }
     }
-    
+    public double[] getPositionCollisionEntity(Entity entity) throws IllegalArgumentException {
+        if (entity == null){
+            throw new IllegalArgumentException();
+        }
+        double time = getTimeCollisionEntity(entity);
+        if (getTimeCollisionEntity(entity) >= Double.POSITIVE_INFINITY){
+            return null;
+        }
+        double thisX = this.x + time*this.xVelocity;
+        double thisY = this.y + time*this.yVelocity;
+        double shipX = entity.x + time*entity.xVelocity;
+        double shipY = entity.y + time*entity.yVelocity;
+        double distance = Math.sqrt(Math.pow(shipX - thisX, 2) + Math.pow(shipY - thisY, 2));
+        double T = (entity.radius / distance);
+        double xCollision = (1 - T) * shipX + T * thisX;
+        double yCollision = (1 - T) * shipY + T * thisY;
+        return new double[] {xCollision, yCollision};
+    }
 }

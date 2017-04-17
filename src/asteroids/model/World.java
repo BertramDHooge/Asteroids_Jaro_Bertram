@@ -172,4 +172,8 @@ public class World {
     public boolean isTerminated() {
         return terminated;
     }
+
+    public double getTimeNextCollision() {
+        
+    }
 }
