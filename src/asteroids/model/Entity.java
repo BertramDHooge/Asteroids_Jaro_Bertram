@@ -205,7 +205,7 @@ public class Entity {
         }
         double xDistance = (entity.x - this.x);
         double yDistance = (entity.y - this.y);
-        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - 99/100*(entity.radius + this.radius);
+        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - 0.99*(entity.radius + this.radius);
         return distance;
     }
 
@@ -225,7 +225,8 @@ public class Entity {
         if (entity == null){
             throw new IllegalArgumentException();
         }
-        if (getDistanceTo(entity) < 0){
+        double d = getDistanceTo(entity);
+        if (d < 0){
             return true;
         }
         if (this == entity){
