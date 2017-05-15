@@ -11,8 +11,8 @@ public class Entity {
     protected double yVelocity;
     protected double radius;
     protected double mass;
+    protected double boundary = 0;
     protected World world = null;
-    protected boolean terminated;
     protected static final double SPEED_OF_LIGHT = 300000;
 
 
@@ -125,26 +125,6 @@ public class Entity {
     }
 
     /**
-     * Sets the mass of the ship
-     * @param mass
-     *      Specified mass for the ship
-     * @post ...
-     *      | if (mass >= 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY)
-     *      |   then new mass == mass
-     *      | else
-     *      |   then new mass == 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY
-     */
-
-    protected void setMass(double mass, double MASS_DENSITY) {
-        if (mass >= 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY) {
-            this.mass = mass;
-        }
-        else {
-            this.mass = 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
-        }
-    }
-
-    /**
      * Returns the mass of the ship
      * @return this.mass
      */
@@ -174,6 +154,10 @@ public class Entity {
 
     public World getWorld() {
         return this.world;
+    }
+
+    protected void terminate() throws WorldException{
+
     }
 
     /**
@@ -344,9 +328,21 @@ public class Entity {
         }
         if (timeX <= timeY){
     	    if (timeX >= 0) {
+                if (this.xVelocity < 0) {
+                    this.boundary = 1;
+                }
+                else {
+                    this.boundary = 3;
+                }
                 return timeX;
             }
             else if (timeY >= 0) {
+                if (this.yVelocity < 0) {
+                    this.boundary = 4;
+                }
+                else {
+                    this.boundary = 2;
+                }
                 return timeY;
             }
             else {
@@ -355,9 +351,21 @@ public class Entity {
         }
         else {
             if (timeY >= 0) {
+                if (this.yVelocity < 0) {
+                    this.boundary = 4;
+                }
+                else {
+                    this.boundary = 2;
+                }
                 return timeY;
             }
             else if (timeX >= 0) {
+                if (this.xVelocity > 0) {
+                    this.boundary = 1;
+                }
+                else {
+                    this.boundary = 3;
+                }
                 return timeX;
             }
             else {
@@ -395,17 +403,22 @@ public class Entity {
         if (entity == null){
              throw new IllegalArgumentException();
         }
-//        double[] r = {entity.x - this.x, entity.y - this.y};
-//        double[] v = {entity.xVelocity - this.xVelocity, entity.yVelocity - this.yVelocity};
-//        double rr = r[0]*r[0]+r[1]*r[1];
-//        double vv = v[0]*v[0]+v[1]*v[1];
+        double[] r = {entity.x - this.x, entity.y - this.y};
+        double[] v = {entity.xVelocity - this.xVelocity, entity.yVelocity - this.yVelocity};
+        double rr = r[0]*r[0]+r[1]*r[1];
+        double vv = v[0]*v[0]+v[1]*v[1];
+        double time = rr/vv;
+        if (vv == 0) {
+            return Double.POSITIVE_INFINITY;
+        }
+        return time;
 //        if (vv == 0) {
 //            return Double.POSITIVE_INFINITY;
 //        }
 //        double vr = v[0]*r[0]+v[1]*r[1];
 //        double d = vr*vr-vv*(rr-Math.pow(entity.getDistanceTo(this),2));
 //        double value1 = (vr + Math.sqrt(d));
-//        double value = -1 * (value1 / vv);
+//        double value = ((double)-1) * (value1 / vv);
 //        if (vr >= 0) {
 //            return Double.POSITIVE_INFINITY;
 //        }
@@ -418,8 +431,8 @@ public class Entity {
 //        else {
 //            return value;
 //        }
-        double currentDistance = getDistanceTo(entity);
-        double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + entity.radius);
+        /*double currentDistance = getDistanceTo(entity);
+        double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - 0.99*(this.radius + entity.radius);
         if (this.xVelocity == entity.xVelocity && this.yVelocity == entity.yVelocity){
         	return Double.POSITIVE_INFINITY;
         }
@@ -428,7 +441,7 @@ public class Entity {
             while (currentDistance > newDistance && newDistance > 0.0){
                 time += 0.01;
                 currentDistance = newDistance;
-                newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * (0.01 + time)) - (this.x + this.xVelocity * (0.01 + time)), 2) + Math.pow((entity.y + entity.yVelocity * (0.01 + time)) - (this.y + this.yVelocity * (0.01 + time)), 2)) - (this.radius + entity.radius);
+                newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * (0.01 + time)) - (this.x + this.xVelocity * (0.01 + time)), 2) + Math.pow((entity.y + entity.yVelocity * (0.01 + time)) - (this.y + this.yVelocity * (0.01 + time)), 2)) - 0.99*(this.radius + entity.radius);
             }
             if (newDistance <= 0.0){
                 return time;
@@ -437,7 +450,7 @@ public class Entity {
                 return Double.POSITIVE_INFINITY;
             }
         }
-        return Double.POSITIVE_INFINITY;
+        return Double.POSITIVE_INFINITY;*/
     }
     public double[] getPositionCollisionEntity(Entity entity) throws IllegalArgumentException {
         if (entity == null){

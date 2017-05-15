@@ -6,6 +6,7 @@ package asteroids.model;
 public class Bullet extends Entity {
 
     protected Ship ship;
+    protected Ship source;
     protected int bounces = 0;
     private static final double MASS_DENSITY = 7.8*Math.pow(10,12);
 
@@ -80,15 +81,28 @@ public class Bullet extends Entity {
      */
 
     public Ship getSource() {
-        return this.ship;
+        return this.source;
     }
 
     /**
      * Terminates the bullet
      */
-
-    public void terminate() {
-        this.terminated = true;
+    @Override
+    public void terminate() throws WorldException{
+        if (this.world != null){
+            this.world.bullets.remove(this);
+            this.world.entities.remove(this);
+        }
+        this.world = null;
+        this.ship = null;
+        this.source = null;
+        this.x = Double.NaN;
+        this.y = Double.NaN;
+        this.xVelocity = Double.NaN;
+        this.yVelocity = Double.NaN;
+        this.radius = Double.NaN;
+        this.mass = Double.NaN;
+        this.bounces = 0;
     }
 
     /**
@@ -96,5 +110,12 @@ public class Bullet extends Entity {
      * @return
      */
 
-    public boolean isTerminated() {return this.terminated;}
+    public boolean isTerminated() {
+        if ((this.x <= 0 || this.x > 0) && (this.y <= 0 || this.y > 0)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }

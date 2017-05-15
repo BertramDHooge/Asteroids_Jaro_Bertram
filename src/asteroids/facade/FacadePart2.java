@@ -100,8 +100,12 @@ public class FacadePart2 implements IFacadePart2{
 	@Override
 	public void terminateShip(Ship ship) throws ModelException {
 		// TODO Auto-generated method stub
-		ship.terminate();
-	}
+        try {
+            ship.terminate();
+        } catch (WorldException e) {
+            throw new ModelException(e);
+        }
+    }
 
 	@Override
 	public boolean isTerminatedShip(Ship ship) throws ModelException {
@@ -158,8 +162,12 @@ public class FacadePart2 implements IFacadePart2{
 	@Override
 	public void terminateBullet(Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		bullet.terminate();
-	}
+        try {
+            bullet.terminate();
+        } catch (WorldException e) {
+            throw new ModelException(e);
+        }
+    }
 
 	@Override
 	public boolean isTerminatedBullet(Bullet bullet) throws ModelException {
@@ -222,8 +230,12 @@ public class FacadePart2 implements IFacadePart2{
 	@Override
 	public void terminateWorld(World world) throws ModelException {
 		// TODO Auto-generated method stub
-		world.terminate();
-	}
+        try {
+            world.terminate();
+        } catch (WorldException e) {
+            throw new ModelException(e);
+        }
+    }
 
 	@Override
 	public boolean isTerminatedWorld(World world) throws ModelException {

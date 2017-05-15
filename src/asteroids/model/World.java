@@ -12,11 +12,10 @@ public class World {
 
     private double width;
     private double height;
-    private Set<Ship> ships = new HashSet<>();
-    private Set<Bullet> bullets = new HashSet<>();
-    private Set<Entity> entities = new HashSet<>();
+    protected Set<Ship> ships = new HashSet<>();
+    protected Set<Bullet> bullets = new HashSet<>();
+    protected Set<Entity> entities = new HashSet<>();
     private Entity[] nextCollision = {null, null};
-    private boolean terminated = false;
 
     /**
      * Creates a world with a width and a height
@@ -147,19 +146,22 @@ public class World {
         if (bullet.getWorld() == null) {
             if (bullet.getPosition()[0] >= check && bullet.getPosition()[1] >= check && this.getSize()[0] - bullet.getPosition()[0] >= check && this.getSize()[1] - bullet.getPosition()[1] >= check) {
                 boolean checkOverlap = false;
+                Entity ent = null;
                 for (Entity entity : entities) {
                     if (!checkOverlap && bullet.overlap(entity)) {
                         checkOverlap = true;
+                        ent = entity;
                         break;
                     }
                 }
-                if (!checkOverlap) {
+                if ((!checkOverlap) || (ent != bullet.source)) {
                     this.bullets.add(bullet);
                     this.entities.add(bullet);
                     bullet.world = this;
                 }
                 else {
-                    throw new WorldException("Bullet overlaps");
+                    bullet.terminate();
+                    ent.terminate();
                 }
             } else {
                 throw new WorldException("Bullet not located between boundaries");
@@ -200,8 +202,19 @@ public class World {
      * Terminates the World.
      */
 
-    public void terminate() {
-        this.terminated = true;
+    public void terminate() throws WorldException {
+        for (Ship ship: ships) {
+            ship.world = null;
+        }
+        for (Bullet bullet: bullets) {
+            bullet.world = null;
+        }
+        this.width = Double.NaN;
+        this.height = Double.NaN;
+        this.ships = null;
+        this.bullets = null;
+        this.entities = null;
+        this.nextCollision = null;
     }
 
     /**
@@ -210,7 +223,12 @@ public class World {
      */
 
     public boolean isTerminated() {
-        return terminated;
+        if ((width <= 0 || width > 0) && (height <=0 || height > 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public double getTimeNextCollision() {
@@ -223,6 +241,8 @@ public class World {
                 this.nextCollision[0] = entity1;
                 this.nextCollision[1] = null;
             }
+        }
+        for (Entity entity1 : entities) {
             for (Entity entity2 : entities) {
                 if (entity1 != entity2) {
                     nextTime = entity1.getTimeCollisionEntity(entity2);
@@ -255,10 +275,37 @@ public class World {
         while (t > 0) {
             double next = getTimeNextCollision();
             if (next < t) {
+                double nextMove = next;
+                while (nextMove > .5) {
+                    for (Ship ship : ships) {
+                        ship.move(.5);
+                        if (ship.isThrusterActive()) {
+                            ship.thrust(t, ship.getAcceleration());
+                        }
+                    }
+                    for (Bullet bullet : bullets) {
+                        bullet.move(.5);
+                    }
+                    nextMove -= .5;
+                    try {
+                        wait(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                for (Ship ship : ships) {
+                    ship.move(nextMove);
+                    if (ship.isThrusterActive()) {
+                        ship.thrust(next, ship.getAcceleration());
+                    }
+                }
+                for (Bullet bullet : bullets) {
+                    bullet.move(nextMove);
+                }
                 if (nextCollision[1] == null) {
                     if (nextCollision[0] instanceof Bullet) {
                         if (((Bullet)nextCollision[0]).getBounces() >= 2) {
-                            ((Bullet)nextCollision[0]).terminate();
+                            nextCollision[0].terminate();
                             t -= getTimeNextCollision();
                             continue;
                         }
@@ -266,29 +313,11 @@ public class World {
                             ((Bullet)nextCollision[0]).addBounce();
                         }
                     }
-                    double[] pos = {0.0, 0.0};
-                    double thisX = nextCollision[0].x + next*nextCollision[0].xVelocity;
-                    double thisY = nextCollision[0].y + next*nextCollision[0].yVelocity;
-                    double rounding = 0.0000001;
-                    if (thisX - nextCollision[0].getRadius() >= -rounding && thisX - nextCollision[0].getRadius() <= rounding){
-                         pos[1] = thisY;
+                    if (nextCollision[0].boundary == 1 || nextCollision[0].boundary == 3) {
+                        nextCollision[0].setVelocity(((double)-1) * nextCollision[0].getVelocity()[0], nextCollision[0].getVelocity()[1]);
                     }
-                    if (thisX + nextCollision[0].getRadius() >= this.width - rounding && thisX + nextCollision[0].getRadius() <= this.width + rounding){
-                        pos[0] = this.width;
-                        pos[1] = thisY;
-                    }
-                    if (thisY - nextCollision[0].getRadius() >= -rounding && thisY - nextCollision[0].getRadius() <= rounding){
-                        pos[0] = thisX;
-                    }
-                    if (thisY + nextCollision[0].getRadius() >= this.height - rounding && thisY + nextCollision[0].getRadius() <= this.height + rounding){
-                        pos[0] = thisX;
-                        pos[1] = this.height;
-                    }
-                    if (pos[0] <= 0 || pos[0] >= this.width) {
-                        nextCollision[0].setVelocity(-1* nextCollision[0].getVelocity()[0], nextCollision[0].getVelocity()[1]);
-                    }
-                    else if (pos[1] <= 0 || pos[1] >= this.height){
-                        nextCollision[0].setVelocity(nextCollision[0].getVelocity()[0], -1 * nextCollision[0].getVelocity()[1]);
+                    else if (nextCollision[0].boundary == 2 || nextCollision[0].boundary == 4){
+                        nextCollision[0].setVelocity(nextCollision[0].getVelocity()[0], ((double)-1) * nextCollision[0].getVelocity()[1]);
                     }
                 }
                 else if (nextCollision[0] instanceof Ship && nextCollision[1] instanceof Ship) {
@@ -299,8 +328,8 @@ public class World {
                         ((Ship)nextCollision[0]).loadBullet((Bullet)nextCollision[1]);
                     }
                     else {
-                        ((Ship)nextCollision[0]).terminate();
-                        ((Bullet)nextCollision[1]).terminate();
+                        nextCollision[0].terminate();
+                        nextCollision[1].terminate();
                     }
                 }
                 else if (nextCollision[0] instanceof  Bullet && nextCollision[1] instanceof Ship) {
@@ -308,21 +337,38 @@ public class World {
                         ((Ship)nextCollision[1]).loadBullet((Bullet)nextCollision[0]);
                     }
                     else {
-                        ((Ship)nextCollision[1]).terminate();
-                        ((Bullet)nextCollision[0]).terminate();
+                        nextCollision[1].terminate();
+                        nextCollision[0].terminate();
                     }
                 }
                 else {
-                    ((Bullet)nextCollision[0]).terminate();
-                    ((Bullet)nextCollision[1]).terminate();
+                    nextCollision[0].terminate();
+                    nextCollision[1].terminate();
                 }
                 t -= getTimeNextCollision();
             }
             else {
+                while (t > .5) {
+                    for (Ship ship : ships) {
+                        ship.move(.5);
+                        if (ship.isThrusterActive()) {
+                            ship.thrust(t, ship.getAcceleration());
+                        }
+                    }
+                    for (Bullet bullet : bullets) {
+                        bullet.move(.5);
+                    }
+                    t -= .5;
+                    try {
+                        wait(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 for (Ship ship : ships) {
                     ship.move(t);
                     if (ship.isThrusterActive()) {
-                        ship.thrust(ship.getAcceleration());
+                        ship.thrust(t, ship.getAcceleration());
                     }
                 }
                 for (Bullet bullet : bullets) {
@@ -335,14 +381,15 @@ public class World {
     private void resolveCollision(Entity entity1, Entity entity2) {
         double[] r = {entity2.x - entity1.x, entity2.y - entity1.y};
         double[] v = {entity2.xVelocity - entity1.xVelocity, entity2.yVelocity - entity1.yVelocity};
+        double rr = r[0]*r[0]+r[1]*r[1]-0.99*(entity1.getRadius()+entity2.getRadius());
         double vr = v[0]*r[0]+v[1]*r[1];
         double mass1 = ((Ship) entity1).getTotalMass();
         double mass2 = ((Ship) entity2).getTotalMass();
-        double j = (2 * mass1 * mass2 * vr) / (entity1.getDistanceTo(entity2)*(mass1 + mass2));
-        double jx = j*r[0] / entity1.getDistanceTo(entity2);
-        double jy = j*r[1] / entity1.getDistanceTo(entity2);
-        entity1.setVelocity(entity1.getVelocity()[0]-jx/mass1, entity1.getVelocity()[1]-jy/mass1);
-        entity2.setVelocity(entity2.getVelocity()[0]+jx/mass2, entity2.getVelocity()[1]+jy/mass2);
+        double j = (2 * mass1 * mass2 * vr) / (rr*(mass1 + mass2));
+        double jx = j*r[0] / rr;
+        double jy = j*r[1] / rr;
+        entity1.setVelocity(-(entity1.getVelocity()[0]+jx/mass1), -(entity1.getVelocity()[1]+jy/mass1));
+        entity2.setVelocity(-(entity2.getVelocity()[0]-jx/mass2), -(entity2.getVelocity()[1]-jy/mass2));
     }
 
     public Object getEntityAt(double x, double y) {

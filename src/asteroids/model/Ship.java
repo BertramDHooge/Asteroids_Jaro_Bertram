@@ -7,10 +7,9 @@ import java.util.Set;
 
 public class Ship extends Entity {
 
-	private double orientation;
+	protected double orientation;
     private double totalMass;
     private boolean thruster = false;
-    private boolean terminated;
     private Set<Bullet> bullets = new HashSet<>();
 	private static final double MAX_ANGLE = 2 * Math.PI;
 	private static final double MIN_ANGLE = 0;
@@ -60,7 +59,7 @@ public class Ship extends Entity {
             setVelocity(xVelocity, yVelocity);
 			setRadius(radius);
             setOrientation(orientation);
-            setMass(mass, MASS_DENSITY);
+            setMass(mass);
 		}
 		else {
 			throw new EntityException("Values are NaN!");
@@ -119,6 +118,26 @@ public class Ship extends Entity {
     }
 
     /**
+     * Sets the mass of the ship
+     * @param mass
+     *      Specified mass for the ship
+     * @post ...
+     *      | if (mass >= 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY)
+     *      |   then new mass == mass
+     *      | else
+     *      |   then new mass == 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY
+     */
+
+    protected void setMass(double mass) {
+        if (mass >= 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY) {
+            this.mass = mass;
+        }
+        else {
+            this.mass = 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
+        }
+    }
+
+    /**
      * Returns the total mass(ship+bullets) of the ship.
      * @return
      */
@@ -131,8 +150,8 @@ public class Ship extends Entity {
         return totalMass;
     }
 
-    public void thrust(double a) {
-        this.setVelocity(xVelocity + a * Math.cos(orientation), yVelocity + a * Math. sin(orientation));
+    public void thrust(double dt, double a) {
+        this.setVelocity(xVelocity + a * Math.cos(orientation) * dt, yVelocity + a * Math.sin(orientation) * dt);
     }
 
     /**
@@ -164,7 +183,7 @@ public class Ship extends Entity {
      */
 
     public double getAcceleration() {
-        double a = (1.1*Math.pow(10, 21))/this.mass;
+        double a = (1.1*Math.pow(10, 21))/this.getTotalMass();
         return a;
     }
 	
@@ -206,6 +225,7 @@ public class Ship extends Entity {
         this.bullets.add(bullet);
         bullet.ship = this;
         bullet.world = null;
+        bullet.source = this;
     }
 
     /**
@@ -220,6 +240,7 @@ public class Ship extends Entity {
         for (Bullet bullet : bullets) {
             bullet.ship = this;
             bullet.world = null;
+            bullet.source = this;
         }
     }
 
@@ -253,8 +274,8 @@ public class Ship extends Entity {
                 break;
             }
             this.removeBullet(bullet);
-            bullet.setPosition(this.x + Math.sin(orientation)*radius, this.y + Math.cos(orientation)*radius);
-            bullet.setVelocity(Math.sin(orientation)*250, Math.cos(orientation)*250);
+            bullet.setPosition(this.x + Math.sin(orientation)*1.01*(radius+bullet.radius), this.y + Math.cos(orientation)*1.01*(radius+bullet.radius));
+            bullet.setVelocity(Math.cos(orientation)*250, Math.sin(orientation)*250);
             this.world.addBulletToWorld(bullet);
         }
     }
@@ -262,9 +283,22 @@ public class Ship extends Entity {
     /**
      * Terminates the ship
      */
-
-    public void terminate() {
-        this.terminated = true;
+    @Override
+    public void terminate() throws WorldException{
+        if (this.world != null) {
+            world.removeShipFromWorld(this);
+        }
+        for (Bullet bullet : bullets) {
+            bullet.terminate();
+        }
+        this.world = null;
+        this.x = Double.NaN;
+        this.y = Double.NaN;
+        this.xVelocity = Double.NaN;
+        this.yVelocity = Double.NaN;
+        this.orientation = Double.NaN;
+        this.radius = Double.NaN;
+        this.mass = Double.NaN;
     }
 
     /**
@@ -272,9 +306,12 @@ public class Ship extends Entity {
      * @return
      */
 
-    public boolean isTerminated() {return this.terminated;}
-
-
-
-
+    public boolean isTerminated() {
+        if ((this.x <= 0 || this.x > 0) && (this.y <= 0 || this.y > 0)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }
