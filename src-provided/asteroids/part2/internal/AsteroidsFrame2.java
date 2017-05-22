@@ -12,11 +12,11 @@ import javax.swing.JFrame;
 import asteroids.model.Bullet;
 import asteroids.model.Ship;
 import asteroids.model.World;
-import asteroids.part2.facade.IFacadePart2;
+import asteroids.part2.facade.IFacade;
 import asteroids.util.ModelException;
 
 @SuppressWarnings("serial")
-public class AsteroidsFrame2<F extends IFacadePart2> extends JFrame {
+public class AsteroidsFrame2<F extends IFacade> extends JFrame {
 
 	private AsteroidsMenu2 menu;
 	private F facade;
@@ -151,10 +151,10 @@ public class AsteroidsFrame2<F extends IFacadePart2> extends JFrame {
 		switchContent(menu);
 	}
 
-	public static void run(IFacadePart2 facade, boolean tryFullscreen, boolean enableSound) {
+	public static void run(IFacade facade, boolean tryFullscreen, boolean enableSound) {
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice screen = env.getDefaultScreenDevice();
-		AsteroidsFrame2<IFacadePart2> asteroids;
+		AsteroidsFrame2<IFacade> asteroids;
 		Sound sound = enableSound ? new FileSoundManager("asteroids/resources/sounds.txt") : new NullSound();
 
 		if (tryFullscreen && screen.isFullScreenSupported()) {

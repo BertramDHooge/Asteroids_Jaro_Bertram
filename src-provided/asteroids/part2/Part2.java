@@ -1,6 +1,6 @@
 package asteroids.part2;
 
-import asteroids.part2.facade.IFacadePart2;
+import asteroids.part2.facade.IFacade;
 import asteroids.part2.internal.AsteroidsFrame2;
 
 public class Part2 {
@@ -18,7 +18,7 @@ public class Part2 {
 			}
 		}
 
-		IFacadePart2 facade = new asteroids.facade.FacadePart2();
+		IFacade facade = new asteroids.facade.Facade();
 		AsteroidsFrame2.run(facade, tryFullscreen, enableSound);
 	}
 }

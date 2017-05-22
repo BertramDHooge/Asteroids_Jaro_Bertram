@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import asteroids.model.Bullet;
-import asteroids.part2.facade.IFacadePart2;
+import asteroids.part2.facade.IFacade;
 import asteroids.util.ModelException;
 
-public class BulletVisualization<F extends IFacadePart2> extends Visualization<F, Bullet> {
+public class BulletVisualization<F extends IFacade> extends Visualization<F, Bullet> {
 
 	public BulletVisualization(Color color, Bullet bullet) {
 		super(color, bullet, null);

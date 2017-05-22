@@ -10,10 +10,10 @@ import java.util.function.Supplier;
 import asteroids.model.Bullet;
 import asteroids.model.Ship;
 import asteroids.model.World;
-import asteroids.part2.facade.IFacadePart2;
+import asteroids.part2.facade.IFacade;
 import asteroids.util.ModelException;
 
-public class CollisionVisualization<F extends IFacadePart2> extends Visualization<F, Ship> {
+public class CollisionVisualization<F extends IFacade> extends Visualization<F, Ship> {
 
 	private Supplier<Boolean> showCollisions;
 

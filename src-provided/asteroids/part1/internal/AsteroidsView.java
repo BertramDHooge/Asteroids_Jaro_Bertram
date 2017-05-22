@@ -12,7 +12,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 
 import asteroids.model.Ship;
-import asteroids.part1.facade.IFacadePart1;
+import asteroids.part1.facade.IFacade;
 import asteroids.util.ModelException;
 
 import static java.lang.Math.*;
@@ -21,13 +21,13 @@ import static java.lang.Math.*;
 public class AsteroidsView extends JPanel {
 
 	private Set<Ship> ships;
-	private IFacadePart1 facade;
+	private IFacade facade;
 	private Ship selected;
 	private Iterator<Ship> iterator;
 	private boolean thrust = false;
 	private boolean showCollisions = false;
 
-	public AsteroidsView(Set<Ship> ships, IFacadePart1 facade) {
+	public AsteroidsView(Set<Ship> ships, IFacade facade) {
 		super(true);
 		this.ships = ships;
 		this.iterator = ships.iterator();

@@ -25,13 +25,13 @@ import asteroids.model.Bullet;
 import asteroids.model.Ship;
 import asteroids.model.World;
 import asteroids.part2.CollisionListener;
-import asteroids.part2.facade.IFacadePart2;
+import asteroids.part2.facade.IFacade;
 import asteroids.util.ModelException;
 import asteroids.util.internal.InternalUtils;
 import asteroids.util.internal.ResourceUtils;
 
 @SuppressWarnings("serial")
-public class WorldView2<F extends IFacadePart2> extends JPanel implements KeyListener, ActionListener, CollisionListener {
+public class WorldView2<F extends IFacade> extends JPanel implements KeyListener, ActionListener, CollisionListener {
 
 	private static final int TIMER_DELAY = 1000 / 30;
 
@@ -203,7 +203,7 @@ public class WorldView2<F extends IFacadePart2> extends JPanel implements KeyLis
 	protected Visualization<F, Bullet> createBulletVisualization(Bullet bullet) {
 		Ship ship = null;
 		try {
-			ship = facade.getBulletShip(bullet);
+			ship = facade.getBulletSource(bullet);
 		} catch (ModelException e) {
 			handleError(e);
 		}
@@ -302,9 +302,7 @@ public class WorldView2<F extends IFacadePart2> extends JPanel implements KeyLis
 		try {
 			if (fire && isPlayerActive(player)) {
 				facade.fireBullet(player);
-				for (Ship enemy : facade.getWorldShips(world))
-					if ((enemy != player) && (Math.random() > 0.75))
-						facade.fireBullet(enemy);
+				doFireEnemy();
 				game.getSound().play("torpedo");
 			}
 		} catch (ModelException exc) {
@@ -312,6 +310,12 @@ public class WorldView2<F extends IFacadePart2> extends JPanel implements KeyLis
 		} finally {
 			fire = false;
 		}
+	}
+
+	protected void doFireEnemy() throws ModelException {
+		for (Ship enemy : facade.getWorldShips(world))
+			if ((enemy != player) && (Math.random() > 0.75))
+				facade.fireBullet(enemy);
 	}
 
 	protected boolean isPlayerActive(Ship ship) {
@@ -338,6 +342,7 @@ public class WorldView2<F extends IFacadePart2> extends JPanel implements KeyLis
 	}
 
 	private void doTurn() {
+		double deltaAngle = this.deltaAngle;
 		if (!Double.isNaN(deltaAngle)) {
 			try {
 				if (deltaAngle != 0) {
@@ -352,6 +357,7 @@ public class WorldView2<F extends IFacadePart2> extends JPanel implements KeyLis
 
 	private void evolveWorld(long millisSinceLastEvolve) {
 		try {
+			millisSinceLastEvolve = Math.max(5, millisSinceLastEvolve);
 			facade.evolve(world, millisSinceLastEvolve / 1000., this);
 		} catch (ModelException exc) {
 			handleError(exc);
