@@ -221,7 +221,10 @@ public class Ship extends Entity {
      * @see implementation
      */
 
-    public void loadBullet(Bullet bullet) {
+    public void loadBullet(Bullet bullet) throws WorldException {
+        if (bullet.world != null) {
+            bullet.world.removeBulletFromWorld(bullet);
+        }
         this.bullets.add(bullet);
         bullet.ship = this;
         bullet.world = null;
@@ -235,9 +238,12 @@ public class Ship extends Entity {
      * @see implementation
      */
 
-    public void loadBullets(Collection<Bullet> bullets) {
+    public void loadBullets(Collection<Bullet> bullets) throws WorldException {
         this.bullets.addAll(bullets);
         for (Bullet bullet : bullets) {
+            if (bullet.world != null) {
+                bullet.world.removeBulletFromWorld(bullet);
+            }
             bullet.ship = this;
             bullet.world = null;
             bullet.source = this;
@@ -274,7 +280,8 @@ public class Ship extends Entity {
                 break;
             }
             this.removeBullet(bullet);
-            bullet.setPosition(this.x + Math.sin(orientation)*1.01*(radius+bullet.radius), this.y + Math.cos(orientation)*1.01*(radius+bullet.radius));
+            bullet.source = this;
+            bullet.setPosition(this.x + Math.cos(orientation) * 1.011 * (radius+bullet.radius), this.y + Math.sin(orientation) * 1.011 * (radius+bullet.radius));
             bullet.setVelocity(Math.cos(orientation)*250, Math.sin(orientation)*250);
             this.world.addBulletToWorld(bullet);
         }

@@ -316,14 +316,22 @@ public class FacadePart2 implements IFacadePart2{
 	@Override
 	public void loadBulletOnShip(Ship ship, Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
-		ship.loadBullet(bullet);
-	}
+        try {
+            ship.loadBullet(bullet);
+        } catch (WorldException e) {
+            throw new ModelException(e);
+        }
+    }
 
 	@Override
 	public void loadBulletsOnShip(Ship ship, Collection<Bullet> bullets) throws ModelException {
 		// TODO Auto-generated method stub
-		ship.loadBullets(bullets);
-	}
+        try {
+            ship.loadBullets(bullets);
+        } catch (WorldException e) {
+            throw new ModelException(e);
+        }
+    }
 
 	@Override
 	public void removeBulletFromShip(Ship ship, Bullet bullet) throws ModelException {
