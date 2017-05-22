@@ -209,7 +209,21 @@ public class Entity {
         if (entity == null){
             throw new IllegalArgumentException();
         }
-        double d = getDistanceTo(entity);
+        double d = getDistanceTo(entity) + 0.99*(this.radius + entity.radius);
+        if (d > 0.99*(this.radius + entity.radius) && d < 1.01*(this.radius + entity.radius)){
+            return true;
+        }
+        if (this == entity){
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean overlapAddToWorld(Entity entity) {
+        if (entity == null){
+            throw new IllegalArgumentException();
+        }
+        double d = Math.hypot(entity.x-this.x,entity.y-this.y)-(entity.radius+this.radius);
         if (d < 0){
             return true;
         }
@@ -308,23 +322,30 @@ public class Entity {
         double height = this.getWorld().getSize()[1];
         double timeX;
         double timeY;
+        double radius = this.radius * 1.01;
         if (this.xVelocity > 0){
-        	timeX = ((width - this.x) - this.radius) / this.xVelocity; 
+        	timeX = ((width - this.x) - radius) / this.xVelocity;
         }
         else if (this.xVelocity < 0){
-        	timeX = (this.x - this.radius) / this.xVelocity; 
+        	timeX = (this.x - radius) / this.xVelocity;
         }
         else{
         	timeX = Double.POSITIVE_INFINITY;
         }
         if (this.yVelocity > 0){
-        	timeY = ((height - this.y) - this.radius) / this.yVelocity; 
+        	timeY = ((height - this.y) - radius) / this.yVelocity;
         }
         else if (this.yVelocity < 0){
-        	timeY = (this.y - this.radius) / this.yVelocity;
+        	timeY = (this.y - radius) / this.yVelocity;
         }
         else{
         	timeY = Double.POSITIVE_INFINITY;
+        }
+        if (timeX <= 0.05 && timeX > 0) {
+            timeX = 0;
+        }
+        if (timeY <= 0.05 && timeY > 0) {
+            timeY = 0;
         }
         if (timeX <= timeY){
     	    if (timeX >= 0) {
@@ -382,6 +403,7 @@ public class Entity {
     	double thisX = this.x + time*this.xVelocity;
         double thisY = this.y + time*this.yVelocity;
         double rounding = 0.0000001;
+        double radius = this.radius*0.99;
         if (thisX - radius >= -rounding && thisX - radius <= rounding){
         	return new double[] {0.0, thisY};
         }
@@ -403,34 +425,34 @@ public class Entity {
         if (entity == null){
              throw new IllegalArgumentException();
         }
+        double cd = (Math.hypot(entity.x-this.x, entity.y-this.y) - (this.radius + entity.radius));
+        double nd = (Math.hypot((entity.x + 0.000001*entity.xVelocity)-(this.x + 0.000001*this.xVelocity), (entity.y + 0.000001*entity.yVelocity) - (this.y + 0.000001*this.yVelocity)) - (this.radius + entity.radius));
+        if (cd <= nd) {
+            return Double.POSITIVE_INFINITY;
+        }
         double[] r = {entity.x - this.x, entity.y - this.y};
         double[] v = {entity.xVelocity - this.xVelocity, entity.yVelocity - this.yVelocity};
         double rr = r[0]*r[0]+r[1]*r[1];
         double vv = v[0]*v[0]+v[1]*v[1];
-        double time = rr/vv;
         if (vv == 0) {
             return Double.POSITIVE_INFINITY;
         }
-        return time;
-//        if (vv == 0) {
-//            return Double.POSITIVE_INFINITY;
-//        }
-//        double vr = v[0]*r[0]+v[1]*r[1];
-//        double d = vr*vr-vv*(rr-Math.pow(entity.getDistanceTo(this),2));
-//        double value1 = (vr + Math.sqrt(d));
-//        double value = ((double)-1) * (value1 / vv);
-//        if (vr >= 0) {
-//            return Double.POSITIVE_INFINITY;
-//        }
-//        else if (d <= 0) {
-//            return Double.POSITIVE_INFINITY;
-//        }
-//        else if (value <= 0) {
-//            return Double.POSITIVE_INFINITY;
-//        }
-//        else {
-//            return value;
-//        }
+        double vr = v[0]*r[0]+v[1]*r[1];
+        double d = vr*vr-vv*(rr-Math.pow(entity.radius + this.radius,2));
+        double value1 = (vr + Math.sqrt(d));
+        double value = ((double)-1) * (value1 / vv);
+        if (vr >= 0) {
+            return Double.POSITIVE_INFINITY;
+        }
+        else if (d <= 0) {
+            return Double.POSITIVE_INFINITY;
+        }
+        else if (value <= 0) {
+            return Double.POSITIVE_INFINITY;
+        }
+        else {
+            return value;
+        }
         /*double currentDistance = getDistanceTo(entity);
         double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - 0.99*(this.radius + entity.radius);
         if (this.xVelocity == entity.xVelocity && this.yVelocity == entity.yVelocity){
