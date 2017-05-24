@@ -70,7 +70,8 @@ public class Planetoid extends MinorPlanets {
         newY = y + Math.sin(orientation) * radius / 2;
         newVelX = Math.cos(orientation)*speed*1.5;
         newVelY = Math.sin(orientation)*speed*1.5;
-        Asteroid ast2 = new Asteroid(newX*1.01, newY*1.01, newVelX, newVelY, radius / 2);
+        Asteroid ast2 = new Asteroid(newX*1.01, newY*1.01
+                , newVelX, newVelY, radius / 2);
         ast2.addEntityToWorld(world);
     }
 
