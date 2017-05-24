@@ -14,8 +14,9 @@ public class Ship extends Entity {
 	private static final double MAX_ANGLE = 2 * Math.PI;
 	private static final double MIN_ANGLE = 0;
     private static final double MASS_DENSITY = 1.42*Math.pow(10,12);
-	
-	/**
+    private double MAX_SPEED = SPEED_OF_LIGHT;
+
+    /**
 	 * Create a new ship with a default position, velocity, radius and
 	 * direction.
 	 * 
@@ -161,6 +162,16 @@ public class Ship extends Entity {
             totalMass += bullet.getMass();
         }
         return totalMass;
+    }
+
+    public double getMAX_SPEED() {
+        return MAX_SPEED;
+    }
+
+    private void setMAX_SPEED(double MAX_SPEED) {
+        if (MAX_SPEED >= 0 && MAX_SPEED <= SPEED_OF_LIGHT) {
+            this.MAX_SPEED = MAX_SPEED;
+        }
     }
 
     public void thrust(double dt, double a) {

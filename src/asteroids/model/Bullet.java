@@ -8,7 +8,9 @@ public class Bullet extends Entity {
     protected Ship ship;
     protected Ship source;
     protected int bounces = 0;
+    private int MAX_BOUNCES = 3;
     private static final double MASS_DENSITY = 7.8*Math.pow(10,12);
+    private double MAX_SPEED = SPEED_OF_LIGHT;
 
     /**
      * Create a new ship with the given position, velocity, radius.
@@ -43,6 +45,14 @@ public class Bullet extends Entity {
         }
     }
 
+    public int getMAX_BOUNCES() {
+        return MAX_BOUNCES;
+    }
+
+    private void setMAX_BOUNCES(int MAX_BOUNCES) {
+        this.MAX_BOUNCES = MAX_BOUNCES;
+    }
+
     /**
      * Sets the mass of the bullet.
      * @post ...
@@ -74,6 +84,16 @@ public class Bullet extends Entity {
         }
         else {
             return null;
+        }
+    }
+
+    public double getMAX_SPEED() {
+        return MAX_SPEED;
+    }
+
+    private void setMAX_SPEED(double MAX_SPEED) {
+        if (MAX_SPEED >= 0 && MAX_SPEED <= SPEED_OF_LIGHT) {
+            this.MAX_SPEED = MAX_SPEED;
         }
     }
 

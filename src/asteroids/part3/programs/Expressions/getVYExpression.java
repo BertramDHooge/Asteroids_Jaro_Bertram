@@ -1,7 +1,9 @@
-package asteroids.part3.programs;
+package asteroids.part3.programs.Expressions;
 
 import asteroids.model.Ship;
 import asteroids.part3.programs.Expressions.Expression;
+import asteroids.part3.programs.SourceLocation;
+import asteroids.part3.programs.Type;
 
 /**
  * @author Jaro Deklerck

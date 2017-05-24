@@ -133,7 +133,7 @@ public class Entity {
     public boolean resolveBoundaryCollision(CollisionListener collisionListener) throws WorldException, EntityException {
         collisionEffect(collisionListener, null);
         if (this instanceof Bullet) {
-            if (((Bullet)this).getBounces() >= 2) {
+            if (((Bullet)this).getBounces() > ((Bullet) this).getMAX_BOUNCES()) {
                 this.terminate();
                 return true;
             }
