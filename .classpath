@@ -15,5 +15,6 @@
 			<attribute name="javadoc_location" value="http://www.antlr.org/api/Java/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/Asteroids_Backup"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

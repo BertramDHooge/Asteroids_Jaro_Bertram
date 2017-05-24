@@ -5,10 +5,8 @@
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
@@ -150,8 +148,8 @@ public class AsteroidsProgramParser extends Parser {
 				{
 				{
 				setState(28);
-				((ProgramContext)_localctx).functiondef = functiondef();
-				((ProgramContext)_localctx).funcdef.add(((ProgramContext)_localctx).functiondef);
+				_localctx.functiondef = functiondef();
+				_localctx.funcdef.add(_localctx.functiondef);
 				}
 				}
 				setState(33);
@@ -159,7 +157,7 @@ public class AsteroidsProgramParser extends Parser {
 				_la = _input.LA(1);
 			}
 			setState(34);
-			((ProgramContext)_localctx).programBody = statementSequence();
+			_localctx.programBody = statementSequence();
 			}
 		}
 		catch (RecognitionException re) {
@@ -211,11 +209,11 @@ public class AsteroidsProgramParser extends Parser {
 			setState(36);
 			match(DEF);
 			setState(37);
-			((FunctiondefContext)_localctx).funcname = match(IDENTIFIER);
+			_localctx.funcname = match(IDENTIFIER);
 			setState(38);
 			match(LEFT_BRACE);
 			setState(39);
-			((FunctiondefContext)_localctx).body = statementSequence();
+			_localctx.body = statementSequence();
 			setState(40);
 			match(RIGHT_BRACE);
 			}
@@ -381,11 +379,11 @@ public class AsteroidsProgramParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(51);
-			((AssignmentStatementContext)_localctx).variableName = match(IDENTIFIER);
+			_localctx.variableName = match(IDENTIFIER);
 			setState(52);
 			match(ASSIGN);
 			setState(53);
-			((AssignmentStatementContext)_localctx).value = expression(0);
+			_localctx.value = expression(0);
 			setState(54);
 			match(T__0);
 			}
@@ -441,11 +439,11 @@ public class AsteroidsProgramParser extends Parser {
 			setState(56);
 			match(WHILE);
 			setState(57);
-			((WhileStatementContext)_localctx).condition = expression(0);
+			_localctx.condition = expression(0);
 			setState(58);
 			match(LEFT_BRACE);
 			setState(59);
-			((WhileStatementContext)_localctx).body = statementSequence();
+			_localctx.body = statementSequence();
 			setState(60);
 			match(RIGHT_BRACE);
 			}
@@ -539,7 +537,7 @@ public class AsteroidsProgramParser extends Parser {
 			setState(65);
 			match(RETURN);
 			setState(66);
-			((ReturnStatementContext)_localctx).value = expression(0);
+			_localctx.value = expression(0);
 			setState(67);
 			match(T__0);
 			}
@@ -607,11 +605,11 @@ public class AsteroidsProgramParser extends Parser {
 			setState(69);
 			match(IF);
 			setState(70);
-			((IfStatementContext)_localctx).condition = expression(0);
+			_localctx.condition = expression(0);
 			setState(71);
 			match(LEFT_BRACE);
 			setState(72);
-			((IfStatementContext)_localctx).ifbody = statementSequence();
+			_localctx.ifbody = statementSequence();
 			setState(73);
 			match(RIGHT_BRACE);
 			setState(79);
@@ -624,7 +622,7 @@ public class AsteroidsProgramParser extends Parser {
 				setState(75);
 				match(LEFT_BRACE);
 				setState(76);
-				((IfStatementContext)_localctx).elsebody = statementSequence();
+				_localctx.elsebody = statementSequence();
 				setState(77);
 				match(RIGHT_BRACE);
 				}
@@ -677,7 +675,7 @@ public class AsteroidsProgramParser extends Parser {
 			setState(81);
 			match(PRINT);
 			setState(82);
-			((PrintStatementContext)_localctx).value = expression(0);
+			_localctx.value = expression(0);
 			setState(83);
 			match(T__0);
 			}
@@ -729,8 +727,8 @@ public class AsteroidsProgramParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(85);
-			((StatementSequenceContext)_localctx).statement = statement();
-			((StatementSequenceContext)_localctx).stmts.add(((StatementSequenceContext)_localctx).statement);
+			_localctx.statement = statement();
+			_localctx.stmts.add(_localctx.statement);
 			setState(89);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -738,8 +736,8 @@ public class AsteroidsProgramParser extends Parser {
 				{
 				{
 				setState(86);
-				((StatementSequenceContext)_localctx).statement = statement();
-				((StatementSequenceContext)_localctx).stmts.add(((StatementSequenceContext)_localctx).statement);
+				_localctx.statement = statement();
+				_localctx.stmts.add(_localctx.statement);
 				}
 				}
 				setState(91);
@@ -1709,7 +1707,7 @@ public class AsteroidsProgramParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(154);
-			((FunctionCallContext)_localctx).funcName = match(IDENTIFIER);
+			_localctx.funcName = match(IDENTIFIER);
 			setState(155);
 			match(LEFT_PAREN);
 			setState(164);
@@ -1718,8 +1716,8 @@ public class AsteroidsProgramParser extends Parser {
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NULL) | (1L << SELF) | (1L << SHIP) | (1L << ASTEROID) | (1L << PLANETOID) | (1L << BULLET) | (1L << PLANET) | (1L << ANY) | (1L << GETRADIUS) | (1L << GETX) | (1L << GETY) | (1L << GETVX) | (1L << GETVY) | (1L << GETDIR) | (1L << SQRT) | (1L << NOT) | (1L << SUB) | (1L << NUMBER) | (1L << IDENTIFIER) | (1L << PARAM) | (1L << LEFT_PAREN))) != 0)) {
 				{
 				setState(156);
-				((FunctionCallContext)_localctx).expression = expression(0);
-				((FunctionCallContext)_localctx).actualArgs.add(((FunctionCallContext)_localctx).expression);
+				_localctx.expression = expression(0);
+				_localctx.actualArgs.add(_localctx.expression);
 				setState(161);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -1729,8 +1727,8 @@ public class AsteroidsProgramParser extends Parser {
 					setState(157);
 					match(COMMA);
 					setState(158);
-					((FunctionCallContext)_localctx).expression = expression(0);
-					((FunctionCallContext)_localctx).actualArgs.add(((FunctionCallContext)_localctx).expression);
+					_localctx.expression = expression(0);
+					_localctx.actualArgs.add(_localctx.expression);
 					}
 					}
 					setState(163);

@@ -1,7 +1,5 @@
 package asteroids.model;
 
-import java.security.PrivateKey;
-
 /**
  * @author Jaro Deklerck
  */

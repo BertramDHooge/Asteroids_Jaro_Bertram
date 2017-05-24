@@ -13,10 +13,23 @@ import asteroids.part3.programs.Statements.returnStatement;
 import asteroids.part3.programs.Statements.sequenceStatement;
 import asteroids.part3.programs.Statements.whileStatement;
 import asteroids.part3.programs.Expressions.Expression;
+import asteroids.part3.programs.Expressions.anyExpression;
+import asteroids.part3.programs.Expressions.asteroidExpression;
+import asteroids.part3.programs.Expressions.bulletExpression;
 import asteroids.part3.programs.Expressions.changeSignExpression;
+import asteroids.part3.programs.Expressions.doubleLiteralExpression;
 import asteroids.part3.programs.Expressions.functionCallExpression;
+import asteroids.part3.programs.Expressions.getVXExpression;
+import asteroids.part3.programs.Expressions.getXExpression;
+import asteroids.part3.programs.Expressions.getYExpression;
+import asteroids.part3.programs.Expressions.notExpression;
+import asteroids.part3.programs.Expressions.nullExpression;
+import asteroids.part3.programs.Expressions.planetExpression;
+import asteroids.part3.programs.Expressions.planetoidExpression;
 import asteroids.part3.programs.Expressions.readParameterExpression;
 import asteroids.part3.programs.Expressions.readVariableExpression;
+import asteroids.part3.programs.Expressions.selfExpression;
+import asteroids.part3.programs.Expressions.shipExpression;
 
 public class ProgramFactory implements IProgramFactory <Expression<? extends Type >, Statement, Function, Program >{
 	@Override
@@ -86,82 +99,68 @@ public class ProgramFactory implements IProgramFactory <Expression<? extends Typ
 	}
 
 	@Override
-	public Expression<? extends Type> createNotExpression(Expression<? extends Type> expression,
-			SourceLocation sourceLocation) {
-		// TODO Auto-generated method stub
-		return null;
+	public Expression<? extends Type> createNotExpression(Expression<? extends Type> expression, SourceLocation sourceLocation) {
+		return new notExpression(expression, sourceLocation);
 	}
 
 	@Override
 	public Expression<? extends Type> createDoubleLiteralExpression(double value, SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new doubleLiteralExpression(value, location);
 	}
 
 	@Override
 	public Expression<? extends Type> createNullExpression(SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new nullExpression(location);
 	}
 
 	@Override
 	public Expression<? extends Type> createSelfExpression(SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new selfExpression(location);
 	}
 
 	@Override
 	public Expression<? extends Type> createShipExpression(SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new shipExpression(location);
 	}
 
 	@Override
 	public Expression<? extends Type> createAsteroidExpression(SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new asteroidExpression(location);
 	}
 
 	@Override
 	public Expression<? extends Type> createPlanetoidExpression(SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new planetoidExpression(location);
 	}
 
 	@Override
 	public Expression<? extends Type> createBulletExpression(SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new bulletExpression(location);
 	}
 
 	@Override
 	public Expression<? extends Type> createPlanetExpression(SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new planetExpression(location);
 	}
 
 	@Override
 	public Expression<? extends Type> createAnyExpression(SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new anyExpression(location);
 	}
 
 	@Override
 	public Expression<? extends Type> createGetXExpression(Expression<? extends Type> e, SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new getXExpression(e, location);
 	}
 
 	@Override
 	public Expression<? extends Type> createGetYExpression(Expression<? extends Type> e, SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new getYExpression(e, location);
 	}
 
 	@Override
 	public Expression<? extends Type> createGetVXExpression(Expression<? extends Type> e, SourceLocation location) {
-		// TODO Auto-generated method stub
-		return null;
+		return new getVXExpression(e, location);
 	}
 
 	@Override

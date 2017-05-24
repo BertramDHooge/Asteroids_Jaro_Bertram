@@ -1,7 +1,6 @@
 package asteroids.part3.programs.Expressions;
 
 import asteroids.part3.programs.SourceLocation;
-import asteroids.part3.programs.Type;
 import asteroids.model.Ship;
 
 public interface Expression<T>{

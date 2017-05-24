@@ -142,10 +142,10 @@ public class Entity {
             }
         }
         if (this.boundary == 1 || this.boundary == 3) {
-            this.setVelocity(((double)-1) * this.getVelocity()[0], this.getVelocity()[1]);
+            this.setVelocity((-1) * this.getVelocity()[0], this.getVelocity()[1]);
         }
         else if (this.boundary == 2 || this.boundary == 4){
-            this.setVelocity(this.getVelocity()[0], ((double)-1) * this.getVelocity()[1]);
+            this.setVelocity(this.getVelocity()[0], (-1) * this.getVelocity()[1]);
         }
         return false;
     }
@@ -623,7 +623,7 @@ public class Entity {
         double vr = v[0]*r[0]+v[1]*r[1];
         double d = vr*vr-vv*(rr-Math.pow(entity.radius + this.radius,2));
         double value1 = (vr + Math.sqrt(d));
-        double value = ((double)-1) * (value1 / vv);
+        double value = (-1) * (value1 / vv);
         if (vr >= 0) {
             return Double.POSITIVE_INFINITY;
         }
