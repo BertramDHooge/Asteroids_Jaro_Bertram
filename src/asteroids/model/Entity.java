@@ -1,5 +1,11 @@
 package asteroids.model;
 
+import asteroids.part2.CollisionListener;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 /**
  * @author Jaro Deklerck
  */
@@ -30,7 +36,7 @@ public class Entity {
      */
 
     protected void setPosition(double x, double y) throws EntityException {
-        if (x < Double.POSITIVE_INFINITY && x > Double.NEGATIVE_INFINITY && y < Double.POSITIVE_INFINITY && y > Double.NEGATIVE_INFINITY) {
+        if (x <= Double.POSITIVE_INFINITY && x >= Double.NEGATIVE_INFINITY && y <= Double.POSITIVE_INFINITY && y >= Double.NEGATIVE_INFINITY) {
             this.x = x;
             this.y = y;
         }
@@ -69,6 +75,12 @@ public class Entity {
      */
 
     protected void setVelocity(double xVelocity, double yVelocity) {
+        if (!(xVelocity <= 0 || xVelocity > 0)) {
+            xVelocity = 0;
+        }
+        if (!(yVelocity <= 0 || yVelocity > 0)) {
+            xVelocity = 0;
+        }
         if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) > Math.pow(SPEED_OF_LIGHT, 2)){
             double Speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
             xVelocity = (xVelocity * SPEED_OF_LIGHT) / Speed;
@@ -89,30 +101,13 @@ public class Entity {
     }
 
     /**
-     * Set the radius of the ship
+     * Set the radius of the entity
      * @param radius
-     * @post ...
-     *      | if (radius >= 10)
-     *      |   then new radius == radius
      * @exception EntityException
      */
 
-    protected void setRadius(double radius) throws EntityException {
-        if (this instanceof Bullet) {
-            if (radius >= 1) {
-                this.radius = radius;
-            }
-            else {
-                throw new EntityException("Wrong radius!");
-            }
-        }
-        else {
-            if (radius >= 10) {
-                this.radius = radius;
-            } else {
-                throw new EntityException("Wrong radius!");
-            }
-        }
+    protected void setRadius(double radius) throws EntityException, WorldException {
+
     }
 
     /**
@@ -131,20 +126,165 @@ public class Entity {
 
     public double getMass() {return this.mass;}
 
-    /**
-     * Update ship's position, assuming it moves dt
-     * seconds at its current velocity.
-     * @param dt
-     * 		Amount of time this ship moves.
-     * @post ...
-     * 		|new x == x + (dt * xVelocity)
-     * @post ...
-     * 		|new y == y + (dt * yVelocity)
-     */
+    public void move(double dt) throws WorldException, EntityException {
 
-    public void move(double dt) {
-        x += dt * xVelocity;
-        y += dt * yVelocity;
+    }
+
+    public boolean resolveBoundaryCollision(CollisionListener collisionListener) throws WorldException, EntityException {
+        collisionEffect(collisionListener, null);
+        if (this instanceof Bullet) {
+            if (((Bullet)this).getBounces() >= 2) {
+                this.terminate();
+                return true;
+            }
+            else {
+                ((Bullet)this).addBounce();
+            }
+        }
+        if (this.boundary == 1 || this.boundary == 3) {
+            this.setVelocity(((double)-1) * this.getVelocity()[0], this.getVelocity()[1]);
+        }
+        else if (this.boundary == 2 || this.boundary == 4){
+            this.setVelocity(this.getVelocity()[0], ((double)-1) * this.getVelocity()[1]);
+        }
+        return false;
+    }
+
+    public boolean resolveEntityCollision(Entity entity, CollisionListener collisionListener) throws WorldException, EntityException {
+        double cd = (Math.hypot(entity.x-this.x, entity.y-this.y) - (this.radius + entity.radius));
+        double nd = (Math.hypot((entity.x + 0.000001*entity.xVelocity)-(this.x + 0.000001*this.xVelocity), (entity.y + 0.000001*entity.yVelocity) - (this.y + 0.000001*this.yVelocity)) - (this.radius + entity.radius));
+        if (this != entity && cd >= nd) {
+            if (this instanceof Ship && entity instanceof Ship) {
+                resolveCollision(entity);
+            }
+            else if ((this instanceof Ship || this instanceof Bullet || this instanceof MinorPlanets) && entity instanceof Bullet) {
+                if (((Bullet)entity).getSource() == this) {
+                    ((Ship)this).loadBullet((Bullet)entity, true);
+                    return true;
+                }
+                else {
+                    if (this instanceof Planetoid && ((Planetoid) this).radius >= 30) {
+                        double X = x;
+                        double Y = y;
+                        double r = radius;
+                        double speed = convertSpeed();
+                        World world = this.world;
+                        collisionEffect(collisionListener, entity);
+                        this.terminate();
+                        entity.terminate();
+                        ((Planetoid)this).spawnAsteroids(X, Y, r, speed, world);
+                        return true;
+                    }
+                    else {
+                        collisionEffect(collisionListener, entity);
+                        this.terminate();
+                        entity.terminate();
+                        return true;
+                    }
+                }
+            }
+            else if (this instanceof Bullet && (entity instanceof Ship || entity instanceof Bullet || entity instanceof MinorPlanets)) {
+                if (((Bullet)this).getSource() == entity) {
+                    ((Ship)entity).loadBullet((Bullet)this, true);
+                    return true;
+                }
+                else {
+                    if (entity instanceof Planetoid && ((Planetoid) entity).radius >= 30) {
+                        double X = entity.x;
+                        double Y = entity.y;
+                        double r = entity.radius;
+                        double speed = entity.convertSpeed();
+                        World world = entity.world;
+                        collisionEffect(collisionListener, entity);
+                        this.terminate();
+                        entity.terminate();
+                        ((Planetoid)entity).spawnAsteroids(X, Y, r, speed, world);
+                        return true;
+                    }
+                    else {
+                        collisionEffect(collisionListener, entity);
+                        this.terminate();
+                        entity.terminate();
+                        return true;
+                    }
+                }
+            }
+            else if (this instanceof MinorPlanets && entity instanceof MinorPlanets) {
+                resolveCollision(entity);
+            }
+            else if (this instanceof Ship && entity instanceof Planetoid) {
+                return this.rndTeleport();
+            }
+            else if (this instanceof Planetoid && entity instanceof Ship) {
+                return entity.rndTeleport();
+            }
+            else if (this instanceof Ship && entity instanceof Asteroid) {
+                collisionEffect(collisionListener, entity);
+                this.terminate();
+                return true;
+            }
+            else if (this instanceof Asteroid && entity instanceof Ship) {
+                collisionEffect(collisionListener, entity);
+                entity.terminate();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void collisionEffect(CollisionListener collisionListener, Entity entity) {
+        if (collisionListener != null) {
+            if (entity != null) {
+                double[] coords = this.getPositionCollisionEntity(entity);
+                if (coords == null) {
+                    return;
+                }
+                collisionListener.objectCollision(this, entity, coords[0], coords[1]);
+            }
+            else {
+                double[] coords = this.getPositionCollisionBoundary();
+                if (coords == null) {
+                    return;
+                }
+                collisionListener.boundaryCollision(this, coords[0], coords[1]);
+            }
+        }
+    }
+
+    private double convertSpeed() {
+        return Math.hypot(xVelocity,yVelocity);
+    }
+
+    private void resolveCollision(Entity entity) {
+        double[] r = {entity.x - this.x, entity.y - this.y};
+        double[] v = {entity.xVelocity - this.xVelocity, entity.yVelocity - this.yVelocity};
+        double vr = v[0]*r[0]+v[1]*r[1];
+        double mass1 = this.getMass();
+        double mass2 = entity.getMass();
+        double j = (2 * mass1 * mass2 * vr) / ((this.getRadius()+entity.getRadius())*(mass1 + mass2));
+        double jx = j*r[0] / (this.getRadius()+entity.getRadius());
+        double jy = j*r[1] / (this.getRadius()+entity.getRadius());
+        this.setVelocity(this.getVelocity()[0]+jx/mass1, this.getVelocity()[1]+jy/mass1);
+        entity.setVelocity(entity.getVelocity()[0]-jx/mass2, entity.getVelocity()[1]-jy/mass2);
+    }
+
+    public boolean rndTeleport() throws EntityException, WorldException {
+        double[] size = this.world.getSize();
+        double posX = this.radius + Math.random() * (size[0]-this.radius*2);
+        double posY = this.radius + Math.random() * (size[1]-this.radius*2);
+        setPosition(posX, posY);
+        for (Object entity: this.world.getEntities()) {
+            if (this.overlap((Entity)entity) && this != entity) {
+                if (entity instanceof Bullet && ((Bullet) entity).getSource() == this) {
+                    ((Ship)this).loadBullet((Bullet)entity, true);
+                }
+                else {
+                    this.terminate();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -156,8 +296,56 @@ public class Entity {
         return this.world;
     }
 
-    protected void terminate() throws WorldException{
+    protected void terminate() throws WorldException, EntityException {
 
+    }
+
+    public void addEntityToWorld(World world) throws WorldException, IllegalArgumentException, EntityException {
+
+    }
+
+    public void removeEntityFromWorld(World world) throws WorldException {
+
+    }
+
+    public Set<? extends Entity> getEntities(World world, String ent) {
+        if (Objects.equals(ent, "Ship")) {
+            Set<Ship> entities = new HashSet<>();
+            for (Entity entity: world.entities) {
+                if (entity instanceof Ship) {
+                    entities.add((Ship)entity);
+                }
+            }
+            return entities;
+        }
+        else if (Objects.equals(ent, "Bullet")) {
+            Set<Bullet> entities = new HashSet<>();
+            for (Entity entity: world.entities) {
+                if (entity instanceof Bullet) {
+                    entities.add((Bullet)entity);
+                }
+            }
+            return entities;
+        }
+        else if (Objects.equals(ent, "Planetoid")) {
+            Set<Planetoid> entities = new HashSet<>();
+            for (Entity entity: world.entities) {
+                if (entity instanceof Planetoid) {
+                    entities.add((Planetoid) entity);
+                }
+            }
+            return entities;
+        }
+        else if (Objects.equals(ent, "Asteroid")) {
+            Set<Asteroid> entities = new HashSet<>();
+            for (Entity entity: world.entities) {
+                if (entity instanceof Asteroid) {
+                    entities.add((Asteroid) entity);
+                }
+            }
+            return entities;
+        }
+        return null;
     }
 
     /**
@@ -189,7 +377,7 @@ public class Entity {
         }
         double xDistance = (entity.x - this.x);
         double yDistance = (entity.y - this.y);
-        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance) - 0.99*(entity.radius + this.radius);
+        double distance = Math.sqrt(xDistance*xDistance + yDistance*yDistance);
         return distance;
     }
 
@@ -209,8 +397,8 @@ public class Entity {
         if (entity == null){
             throw new IllegalArgumentException();
         }
-        double d = getDistanceTo(entity) + 0.99*(this.radius + entity.radius);
-        if (d > 0.99*(this.radius + entity.radius) && d < 1.01*(this.radius + entity.radius)){
+        double d = getDistanceTo(entity);
+        if (d >= 0.99*(this.radius + entity.radius) && d <= 1.01*(this.radius + entity.radius)){
             return true;
         }
         if (this == entity){
@@ -254,7 +442,7 @@ public class Entity {
         if (this.xVelocity == ship.xVelocity && this.yVelocity == ship.yVelocity){
         	return Double.POSITIVE_INFINITY;
         }
-        double currentDistance = getDistanceTo(ship);
+        double currentDistance = getDistanceTo(ship) - 0.99 * (this.radius + ship.radius);
         double newDistance = Math.sqrt(Math.pow((ship.x + ship.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((ship.y + ship.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - (this.radius + ship.radius);
         if (currentDistance > newDistance){
             double time = 0.00;
@@ -322,7 +510,6 @@ public class Entity {
         double height = this.getWorld().getSize()[1];
         double timeX;
         double timeY;
-        double radius = this.radius * 1.01;
         if (this.xVelocity > 0){
         	timeX = ((width - this.x) - radius) / this.xVelocity;
         }
@@ -332,6 +519,7 @@ public class Entity {
         else{
         	timeX = Double.POSITIVE_INFINITY;
         }
+        timeX = Math.abs(timeX);
         if (this.yVelocity > 0){
         	timeY = ((height - this.y) - radius) / this.yVelocity;
         }
@@ -341,12 +529,7 @@ public class Entity {
         else{
         	timeY = Double.POSITIVE_INFINITY;
         }
-        if (timeX <= 0.05 && timeX > 0) {
-            timeX = 0;
-        }
-        if (timeY <= 0.05 && timeY > 0) {
-            timeY = 0;
-        }
+        timeY = Math.abs(timeY);
         if (timeX <= timeY){
     	    if (timeX >= 0) {
                 if (this.xVelocity < 0) {
@@ -402,8 +585,8 @@ public class Entity {
         }
     	double thisX = this.x + time*this.xVelocity;
         double thisY = this.y + time*this.yVelocity;
-        double rounding = 0.0000001;
-        double radius = this.radius*0.99;
+        double rounding = 0.00001;
+        double radius = this.radius;
         if (thisX - radius >= -rounding && thisX - radius <= rounding){
         	return new double[] {0.0, thisY};
         }
@@ -447,8 +630,8 @@ public class Entity {
         else if (d <= 0) {
             return Double.POSITIVE_INFINITY;
         }
-        else if (value <= 0) {
-            return Double.POSITIVE_INFINITY;
+        else if (value < 0) {
+            return 0.;
         }
         else {
             return value;
@@ -479,7 +662,7 @@ public class Entity {
             throw new IllegalArgumentException();
         }
         double time = getTimeCollisionEntity(entity);
-        if (getTimeCollisionEntity(entity) >= Double.POSITIVE_INFINITY){
+        if (time >= Double.POSITIVE_INFINITY){
             return null;
         }
         double thisX = this.x + time*this.xVelocity;
@@ -487,7 +670,7 @@ public class Entity {
         double shipX = entity.x + time*entity.xVelocity;
         double shipY = entity.y + time*entity.yVelocity;
         double distance = Math.sqrt(Math.pow(shipX - thisX, 2) + Math.pow(shipY - thisY, 2));
-        double T = (entity.radius / distance);
+        double T = ((entity.radius) / distance);
         double xCollision = (1 - T) * shipX + T * thisX;
         double yCollision = (1 - T) * shipY + T * thisY;
         return new double[] {xCollision, yCollision};
