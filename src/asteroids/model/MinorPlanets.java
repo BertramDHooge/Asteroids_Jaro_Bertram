@@ -7,11 +7,13 @@ public class MinorPlanets extends Entity {
 
     private double MAX_SPEED = SPEED_OF_LIGHT;
 
+    @Override
     public double getMAX_SPEED() {
         return MAX_SPEED;
     }
 
-    private final void setMAX_SPEED(double MAX_SPEED) {
+    @Override
+    protected final void setMAX_SPEED(double MAX_SPEED) {
         if (MAX_SPEED >= 0 && MAX_SPEED <= SPEED_OF_LIGHT) {
             this.MAX_SPEED = MAX_SPEED;
         }

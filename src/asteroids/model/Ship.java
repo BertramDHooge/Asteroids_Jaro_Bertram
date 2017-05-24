@@ -164,11 +164,13 @@ public class Ship extends Entity {
         return totalMass;
     }
 
+    @Override
     public double getMAX_SPEED() {
         return MAX_SPEED;
     }
 
-    private void setMAX_SPEED(double MAX_SPEED) {
+    @Override
+    protected void setMAX_SPEED(double MAX_SPEED) {
         if (MAX_SPEED >= 0 && MAX_SPEED <= SPEED_OF_LIGHT) {
             this.MAX_SPEED = MAX_SPEED;
         }

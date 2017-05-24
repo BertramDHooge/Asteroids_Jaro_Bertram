@@ -81,7 +81,7 @@ public class Entity {
         if (!(yVelocity <= 0 || yVelocity > 0)) {
             xVelocity = 0;
         }
-        if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) > Math.pow(SPEED_OF_LIGHT, 2)){
+        if ((Math.pow(xVelocity, 2) +  Math.pow(yVelocity, 2)) > Math.pow(getMAX_SPEED(), 2)){
             double Speed = Math.sqrt(Math.pow(xVelocity, 2) + Math.pow(yVelocity, 2));
             xVelocity = (xVelocity * SPEED_OF_LIGHT) / Speed;
             yVelocity = (yVelocity * SPEED_OF_LIGHT) / Speed;
@@ -99,6 +99,10 @@ public class Entity {
     public double[] getVelocity() {
         return new double[] {xVelocity, yVelocity};
     }
+
+    public double getMAX_SPEED() {return 0.;}
+
+    protected void setMAX_SPEED(double MAX_SPEED) {}
 
     /**
      * Set the radius of the entity
@@ -133,7 +137,7 @@ public class Entity {
     public boolean resolveBoundaryCollision(CollisionListener collisionListener) throws WorldException, EntityException {
         collisionEffect(collisionListener, null);
         if (this instanceof Bullet) {
-            if (((Bullet)this).getBounces() > ((Bullet) this).getMAX_BOUNCES()) {
+            if (((Bullet)this).getBounces() == ((Bullet) this).getMAX_BOUNCES() - 1) {
                 this.terminate();
                 return true;
             }

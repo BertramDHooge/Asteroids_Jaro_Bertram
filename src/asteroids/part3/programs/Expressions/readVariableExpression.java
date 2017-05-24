@@ -3,6 +3,7 @@ package asteroids.part3.programs.Expressions;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 import asteroids.model.Ship;
+import asteroids.part3.programs.Types.stringType;
 
 public class readVariableExpression implements Expression<Type> {
 	
@@ -34,10 +35,6 @@ public class readVariableExpression implements Expression<Type> {
 
 	@Override
 	public Type evaluate(Ship ship) throws ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+        return new stringType(getVariableName());
 	}
-
-
-	
 }

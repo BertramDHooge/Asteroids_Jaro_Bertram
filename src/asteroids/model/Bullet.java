@@ -50,7 +50,9 @@ public class Bullet extends Entity {
     }
 
     private void setMAX_BOUNCES(int MAX_BOUNCES) {
-        this.MAX_BOUNCES = MAX_BOUNCES;
+        if (MAX_BOUNCES >= 0) {
+            this.MAX_BOUNCES = MAX_BOUNCES;
+        }
     }
 
     /**
@@ -87,11 +89,13 @@ public class Bullet extends Entity {
         }
     }
 
+    @Override
     public double getMAX_SPEED() {
         return MAX_SPEED;
     }
 
-    private void setMAX_SPEED(double MAX_SPEED) {
+    @Override
+    protected void setMAX_SPEED(double MAX_SPEED) {
         if (MAX_SPEED >= 0 && MAX_SPEED <= SPEED_OF_LIGHT) {
             this.MAX_SPEED = MAX_SPEED;
         }
