@@ -155,7 +155,8 @@ public class Bullet extends Entity {
      * @throws WorldException
      */
 
-    public void removeEntityFromWorld(World world) throws WorldException {
+    @Override
+	public void removeEntityFromWorld(World world) throws WorldException {
         if (world.entities.contains(this)) {
             world.entities.remove(this);
             this.world = null;

@@ -8,7 +8,6 @@ import asteroids.model.*;
 import asteroids.part2.CollisionListener;
 import asteroids.part2.facade.IFacadePart2;
 import asteroids.util.ModelException;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 
 public class FacadePart2 implements IFacadePart2{
 

@@ -1,7 +1,5 @@
 package asteroids.part3.programs;
-import java.util.HashMap;
 import java.util.List;
-import asteroids.model.*;
 import asteroids.part3.programs.Statements.Statement;
 
 public class Program {
