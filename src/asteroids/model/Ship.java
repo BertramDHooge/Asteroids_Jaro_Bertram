@@ -54,10 +54,13 @@ public class Ship extends Entity {
 	 */
 	
 	public Ship(double x, double y, double xVelocity, double yVelocity, double radius, double orientation, double mass) throws EntityException {
-		if ((x <= 0 || x > 0) && (y <= 0 || y > 0) && (xVelocity <= 0 || xVelocity > 0) && (yVelocity <= 0 || yVelocity > 0) && (radius <= 0 || radius > 0) && (orientation <= 0 || orientation > 0) && (mass <= 0 || mass > 0)){
+		if ((x <= 0 || x > 0) && (y <= 0 || y > 0) && (radius <= 0 || radius > 0) && (orientation <= 0 || orientation > 0)){
 			setPosition(x, y);
             setVelocity(xVelocity, yVelocity);
 			setRadius(radius);
+			if (orientation < MIN_ANGLE || orientation > MAX_ANGLE) {
+			    throw new EntityException("Invalid orientation");
+            }
             setOrientation(orientation);
             setMass(mass);
 		}
@@ -129,11 +132,21 @@ public class Ship extends Entity {
      */
 
     protected void setMass(double mass) {
-        if (mass >= 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY) {
+        if (mass >= 4/3.*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY) {
             this.mass = mass;
         }
         else {
-            this.mass = 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
+            this.mass = 4/3.*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
+        }
+    }
+
+    @Override
+    protected void setRadius(double radius) throws EntityException {
+        if (radius >= 10) {
+            this.radius = radius;
+        }
+        else {
+            throw new EntityException("Wrong radius!");
         }
     }
 
@@ -170,6 +183,10 @@ public class Ship extends Entity {
         this.thruster = false;
     }
 
+    public void setThruster(boolean active) {
+        thruster = active;
+    }
+
     /**
      * Returns true when the thruster is activated and false when it's deactivated.
      * @return
@@ -183,8 +200,22 @@ public class Ship extends Entity {
      */
 
     public double getAcceleration() {
-        double a = (1.1*Math.pow(10, 21))/this.getTotalMass();
-        return a;
+        if (thruster) {
+            double a = (1.1 * Math.pow(10, 18)) / this.getTotalMass();
+            return a;
+        }
+        else {
+            return 0.0;
+        }
+    }
+
+    @Override
+    public void move(double dt) {
+        x += dt * xVelocity;
+        y += dt * yVelocity;
+        if (this.isThrusterActive()) {
+            this.thrust(dt, this.getAcceleration());
+        }
     }
 	
 	/**
@@ -221,14 +252,22 @@ public class Ship extends Entity {
      * @see implementation
      */
 
-    public void loadBullet(Bullet bullet) throws WorldException {
-        if (bullet.world != null) {
-            bullet.world.removeBulletFromWorld(bullet);
+    public void loadBullet(Bullet bullet, boolean collision) throws WorldException {
+        double d = Math.hypot(this.x - bullet.x, this.y - bullet.y) + bullet.radius;
+        if (d < this.radius || collision) {
+            if (bullet.world != null) {
+                bullet.world.removeFromWorld(bullet);
+            }
+            this.bullets.add(bullet);
+            bullet.ship = this;
+            bullet.world = null;
+            bullet.source = this;
+            bullet.x = x;
+            bullet.y = y;
         }
-        this.bullets.add(bullet);
-        bullet.ship = this;
-        bullet.world = null;
-        bullet.source = this;
+        else {
+            throw new WorldException("Bullet not located in ship");
+        }
     }
 
     /**
@@ -239,14 +278,22 @@ public class Ship extends Entity {
      */
 
     public void loadBullets(Collection<Bullet> bullets) throws WorldException {
-        this.bullets.addAll(bullets);
-        for (Bullet bullet : bullets) {
-            if (bullet.world != null) {
-                bullet.world.removeBulletFromWorld(bullet);
+        if (bullets == null) {
+            throw new WorldException("List is null");
+        }
+        for (Bullet bullet: bullets) {
+            if (bullet != null) {
+                double d = Math.hypot(this.x - bullet.x, this.y - bullet.y) + bullet.radius;
+                if (d > this.radius) {
+                    throw new WorldException("Bullet not located in ship");
+                }
             }
-            bullet.ship = this;
-            bullet.world = null;
-            bullet.source = this;
+            else {
+                throw new WorldException("Bullet is null");
+            }
+        }
+        for (Bullet bullet: bullets) {
+            loadBullet(bullet, false);
         }
     }
 
@@ -273,7 +320,7 @@ public class Ship extends Entity {
      */
 
     public void fireBullet() throws EntityException, WorldException{
-        if (!this.bullets.isEmpty()) {
+        if (!this.bullets.isEmpty() && this.world != null) {
             Bullet bullet = null;
             for (Bullet rndBullet : this.bullets) {
                 bullet = rndBullet;
@@ -283,7 +330,64 @@ public class Ship extends Entity {
             bullet.source = this;
             bullet.setPosition(this.x + Math.cos(orientation) * 1.011 * (radius+bullet.radius), this.y + Math.sin(orientation) * 1.011 * (radius+bullet.radius));
             bullet.setVelocity(Math.cos(orientation)*250, Math.sin(orientation)*250);
-            this.world.addBulletToWorld(bullet);
+            this.world.addToWorld(bullet);
+        }
+    }
+
+    /**
+     * Adds a ship to the world.
+     * @param world
+     *      The world the ship has to be added to.
+     * @see implementation
+     * @throws WorldException
+     */
+    @Override
+    public void addEntityToWorld(World world) throws WorldException, IllegalArgumentException{
+        if (world == null) {
+            throw new IllegalArgumentException();
+        }
+        double check = this.getRadius();
+        if (this.getWorld() == null) {
+            if (this.getPosition()[0] >= check && this.getPosition()[1] >= check && world.getSize()[0] - this.getPosition()[0] >= check && world.getSize()[1] - this.getPosition()[1] >= check) {
+                boolean checkOverlap = false;
+                for (Entity entity : world.entities) {
+                    boolean overlap = this.overlapAddToWorld(entity);
+                    if (overlap) {
+                        checkOverlap = true;
+                        break;
+                    }
+                }
+                if (!checkOverlap) {
+                    world.entities.add(this);
+                    this.world = world;
+                }
+                else {
+                    throw new WorldException("Ship overlaps");
+                }
+            } else {
+                throw new WorldException("Ship not located between boundaries");
+            }
+        }
+        else {
+            throw new WorldException("Ship already has a world!");
+        }
+    }
+
+    /**
+     * Remove a ship from the world.
+     * @param ship
+     *      The ship to be removed
+     * @see implementation
+     * @throws WorldException
+     */
+    @Override
+    public void removeEntityFromWorld(World world) throws WorldException {
+        if (world.entities.contains(this)) {
+            world.entities.remove(this);
+            this.world = null;
+        }
+        else {
+            throw new WorldException("Ship is not in the world");
         }
     }
 
@@ -291,12 +395,15 @@ public class Ship extends Entity {
      * Terminates the ship
      */
     @Override
-    public void terminate() throws WorldException{
+    public void terminate() throws WorldException, EntityException {
         if (this.world != null) {
-            world.removeShipFromWorld(this);
+            world.removeFromWorld(this);
         }
+        bulletTerminateLoop:
         for (Bullet bullet : bullets) {
+            bullet.source = null;
             bullet.terminate();
+            break bulletTerminateLoop;
         }
         this.world = null;
         this.x = Double.NaN;

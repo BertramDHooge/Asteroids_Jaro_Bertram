@@ -1,12 +1,14 @@
 package asteroids.facade;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import asteroids.model.*;
 import asteroids.part2.CollisionListener;
 import asteroids.part2.facade.IFacadePart2;
 import asteroids.util.ModelException;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 public class FacadePart2 implements IFacadePart2{
 
@@ -104,6 +106,8 @@ public class FacadePart2 implements IFacadePart2{
             ship.terminate();
         } catch (WorldException e) {
             throw new ModelException(e);
+        } catch (EntityException e) {
+            e.printStackTrace();
         }
     }
 
@@ -166,6 +170,8 @@ public class FacadePart2 implements IFacadePart2{
             bullet.terminate();
         } catch (WorldException e) {
             throw new ModelException(e);
+        } catch (EntityException e) {
+            e.printStackTrace();
         }
     }
 
@@ -251,31 +257,41 @@ public class FacadePart2 implements IFacadePart2{
 
 	@Override
 	public Set<? extends Ship> getWorldShips(World world) throws ModelException {
-		// TODO Auto-generated method stub		
-		return world.getShips();
+		// TODO Auto-generated method stub
+        Set<Ship> ships = new HashSet<>();
+        for (Entity ship: world.getEntities("Ship")) {
+            ships.add((Ship)ship);
+        }
+		return ships;
 	}
 
 	@Override
 	public Set<? extends Bullet> getWorldBullets(World world) throws ModelException {
 		// TODO Auto-generated method stub
-		return world.getBullets();
+        Set<Bullet> bullets = new HashSet<>();
+        for (Entity bullet: world.getEntities("Bullet")) {
+            bullets.add((Bullet)bullet);
+        }
+		return bullets;
 	}
 
 	@Override
 	public void addShipToWorld(World world, Ship ship) throws ModelException {
 		// TODO Auto-generated method stub
         try {
-            world.addShipToWorld(ship);
+            world.addToWorld(ship);
         } catch (WorldException e) {
             throw new ModelException(e);
+        } catch (EntityException e) {
+            e.printStackTrace();
         }
-	}
+    }
 
 	@Override
 	public void removeShipFromWorld(World world, Ship ship) throws ModelException {
 		// TODO Auto-generated method stub
         try {
-            world.removeShipFromWorld(ship);
+            world.removeFromWorld(ship);
         } catch (WorldException e) {
             throw new ModelException(e);
         }
@@ -285,9 +301,11 @@ public class FacadePart2 implements IFacadePart2{
 	public void addBulletToWorld(World world, Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
         try {
-            world.addBulletToWorld(bullet);
+            world.addToWorld(bullet);
         } catch (WorldException e) {
             throw new ModelException(e);
+        } catch (EntityException e) {
+            e.printStackTrace();
         }
     }
 
@@ -295,7 +313,7 @@ public class FacadePart2 implements IFacadePart2{
 	public void removeBulletFromWorld(World world, Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
         try {
-            world.removeBulletFromWorld(bullet);
+            world.removeFromWorld(bullet);
         } catch (WorldException e) {
             throw new ModelException(e);
         }
@@ -317,7 +335,7 @@ public class FacadePart2 implements IFacadePart2{
 	public void loadBulletOnShip(Ship ship, Bullet bullet) throws ModelException {
 		// TODO Auto-generated method stub
         try {
-            ship.loadBullet(bullet);
+            ship.loadBullet(bullet, false);
         } catch (WorldException e) {
             throw new ModelException(e);
         }
@@ -397,6 +415,8 @@ public class FacadePart2 implements IFacadePart2{
         try {
             world.evolve(dt, collisionListener);
         } catch (WorldException e) {
+            throw new ModelException(e);
+        } catch (EntityException e) {
             throw new ModelException(e);
         }
     }

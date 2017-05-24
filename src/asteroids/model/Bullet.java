@@ -50,7 +50,17 @@ public class Bullet extends Entity {
      */
 
     private void setMass() {
-        this.mass = 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
+        this.mass = 4/3.*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
+    }
+
+    @Override
+    protected void setRadius(double radius) throws EntityException {
+        if (radius >= 1) {
+            this.radius = radius;
+        }
+        else {
+            throw new EntityException("Wrong radius!");
+        }
     }
 
     /**
@@ -84,18 +94,91 @@ public class Bullet extends Entity {
         return this.source;
     }
 
+    @Override
+    public void move(double dt) {
+        x += dt * xVelocity;
+        y += dt * yVelocity;
+    }
+
+    /**
+     * Adds a bullet to the world.
+     * @param bullet
+     *      The bullet to be added
+     * @see implementation
+     * @throws WorldException
+     */
+    @Override
+    public void addEntityToWorld(World world) throws WorldException, IllegalArgumentException, EntityException {
+        if (world == null) {
+            throw new IllegalArgumentException();
+        }
+        double check = this.getRadius();
+        if (this.getWorld() == null) {
+            if (this.getPosition()[0] >= check && this.getPosition()[1] >= check && world.getSize()[0] - this.getPosition()[0] >= check && world.getSize()[1] - this.getPosition()[1] >= check) {
+                boolean checkOverlap = false;
+                Entity ent = null;
+                for (Entity entity : world.entities) {
+                    if (this.overlapAddToWorld(entity)) {
+                        checkOverlap = true;
+                        ent = entity;
+                        break;
+                    }
+                }
+                if (!checkOverlap) {
+                    world.entities.add(this);
+                    this.world = world;
+                }
+                else if (this.getSource() == null && this.ship == null) {
+                    throw new WorldException("Overlap");
+                }
+                else if (ent == this.getSource()) {
+                    ((Ship)ent).loadBullet(this, false);
+                }
+                else {
+                    this.terminate();
+                    ent.terminate();
+                }
+            } else {
+                this.terminate();
+            }
+        }
+        else {
+            throw new WorldException("Bullet is already located in a world!");
+        }
+    }
+
+    /**
+     * Remove a bullet from the world.
+     * @param bullet
+     *      The bullet to be removed
+     * @see implementation
+     * @throws WorldException
+     */
+
+    public void removeEntityFromWorld(World world) throws WorldException {
+        if (world.entities.contains(this)) {
+            world.entities.remove(this);
+            this.world = null;
+        }
+        else {
+            throw new WorldException("Bullet is not in the world");
+        }
+    }
+
+
     /**
      * Terminates the bullet
      */
     @Override
-    public void terminate() throws WorldException{
+    public void terminate() throws WorldException, EntityException {
         if (this.world != null){
-            this.world.bullets.remove(this);
             this.world.entities.remove(this);
         }
         this.world = null;
+        if (this.ship != null) {
+            this.ship.removeBullet(this);
+        }
         this.ship = null;
-        this.source = null;
         this.x = Double.NaN;
         this.y = Double.NaN;
         this.xVelocity = Double.NaN;
