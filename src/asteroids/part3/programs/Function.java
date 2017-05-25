@@ -1,6 +1,9 @@
 package asteroids.part3.programs;
 
+import java.util.List;
+
 import asteroids.part3.programs.SourceLocation;
+import asteroids.part3.programs.Expressions.Expression;
 import asteroids.part3.programs.Statements.Statement;
 
 public class Function {
@@ -10,6 +13,7 @@ public class Function {
 	private Statement body;
 	private String functionName;
 	private Program program;
+	private Type parameter;
 
 	public Function(String functionName, Statement body, SourceLocation sourceLocation) {
 		setFunctionName(functionName);
@@ -51,6 +55,19 @@ public class Function {
 	
 	public Program getProgram(){
 		return this.program;
+	}
+	
+	public void setParameters(Type parameter){
+		this.parameter = parameter;
+	}
+
+	public Type getParameters() {
+		return this.parameter;
+	}
+
+	public Type execute(List<Expression<? extends Type>> actualArgs) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

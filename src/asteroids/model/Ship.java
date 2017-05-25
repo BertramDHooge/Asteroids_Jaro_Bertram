@@ -3,7 +3,10 @@ package asteroids.model;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import asteroids.part3.programs.Type;
 
 public class Ship extends Entity {
 
@@ -441,4 +444,46 @@ public class Ship extends Entity {
             return true;
         }
     }
+    
+    private Program program;
+	
+	/**
+	 * 
+	 * A method to set the given program to this ship.
+	 * @param 	program
+	 * 			The given program, we want the ship to have
+	 * 
+	 * @result 	set this ship with the given program
+	 * 			| this.program = program
+	 * 
+	 * @result 	if the given program is valid, set this ship to the given program
+	 * 			| program.setShip(this);
+	 */
+	public void setProgram(Program program){
+		this.program = program;
+		if (program != null)
+			program.setShip(this);		
+	}
+	
+	/**
+	 * 
+	 * A method that returns the program of this ship.
+	 * 
+	 * @return	the program of this ship
+	 * 			| result == this.program
+	 */
+	public Program getProgram(){
+		return this.program;
+	}
+	
+	/**
+	 * a method that execute the program of this ship
+	 * @param 	duration
+	 * 			the duration we want the program to be executed.
+	 * @return	the executing process
+	 * 			| this.program.execute(duration)
+	 */
+	public List<Object> executeProgram(Double duration) throws ClassNotFoundException{
+		return this.program.execute(duration);
+	}
 }
