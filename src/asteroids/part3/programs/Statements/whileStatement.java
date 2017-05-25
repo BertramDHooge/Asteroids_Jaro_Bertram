@@ -1,27 +1,21 @@
 package asteroids.part3.programs.Statements;
 
+import asteroids.model.Ship;
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 import asteroids.part3.programs.Expressions.Expression;
+import asteroids.part3.programs.Types.booleanType;
 
 public class whileStatement extends Statement {
 	
-	private SourceLocation sourceLocation;
 	private Statement body;
 	private Expression<? extends Type> condition;
 
 	public whileStatement(Expression<? extends Type> condition, Statement body, SourceLocation sourceLocation) {
-		setCondition(condition);
+        super(sourceLocation);
+	    setCondition(condition);
 		setBody(body);
-		setSourceLocation(sourceLocation);
-	}
-
-	private void setSourceLocation(SourceLocation sourceLocation) {
-		this.sourceLocation = sourceLocation;		
-	}
-	
-	public SourceLocation getSourceLocation(){
-		return this.sourceLocation;
 	}
 
 	private void setBody(Statement body) {
@@ -39,4 +33,19 @@ public class whileStatement extends Statement {
 	public Expression<?  extends Type> getCondition(){
 		return this.condition;
 	}
+
+    @Override
+    public void execute() throws ClassNotFoundException {
+        Function func = this.getFunction();
+        Ship ship = this.getProgram().getShip();
+
+        while (((booleanType)this.getCondition().evaluate(ship, func)).getBoolean() && !this.getProgram().getBreaking()) {
+//            this.getBody().setProgram(this.getProgram());
+//            this.getBody().setFunction(this.getFunction());
+            this.getBody().execute();
+        }
+        if (this.getProgram().getBreaking()) {
+            this.getProgram().setBreaking(false);
+        }
+    }
 }

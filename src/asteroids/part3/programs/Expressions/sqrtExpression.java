@@ -40,6 +40,6 @@ public class sqrtExpression implements Expression<Type> {
 
     @Override
     public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
-        return new doubleType(Math.sqrt(((doubleType)this.getE()).getDouble()));
+        return new doubleType(Math.sqrt(((doubleType) this.getE().evaluate(ship, function)).getDouble()));
     }
 }

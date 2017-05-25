@@ -11,14 +11,12 @@ public class skipStatement extends Statement {
     private SourceLocation sourceLocation;
 
     public skipStatement(SourceLocation sourceLocation) {
-        setSourceLocation(sourceLocation);
+        super(sourceLocation);
     }
 
-    public void setSourceLocation(SourceLocation sourceLocation) {
-        this.sourceLocation = sourceLocation;
+    @Override
+    public void execute() throws ClassNotFoundException {
+
     }
 
-    public SourceLocation getSourceLocation() {
-        return sourceLocation;
-    }
 }

@@ -7,26 +7,26 @@ import asteroids.part3.programs.Type;
 import asteroids.part3.programs.Types.objectType;
 
 public class asteroidExpression implements Expression<Type> {
-	
-	private SourceLocation location;
 
-	public asteroidExpression(SourceLocation location){
-		setSourceLocation(location);
-	}
+    private SourceLocation location;
 
-	@Override
-	public void setSourceLocation(SourceLocation location) {
-		this.location = location;
-	}
+    public asteroidExpression(SourceLocation location) {
+        setSourceLocation(location);
+    }
 
-	@Override
-	public SourceLocation getSourceLocation(SourceLocation location) {
-		return this.location;
-	}
+    @Override
+    public void setSourceLocation(SourceLocation location) {
+        this.location = location;
+    }
 
-	@Override
-	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
-		return new objectType(ship.closestAsteroid()) ;
-	}
-	
+    @Override
+    public SourceLocation getSourceLocation(SourceLocation location) {
+        return this.location;
+    }
+
+    @Override
+    public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+        return new objectType(ship.closestAsteroid());
+    }
+
 }

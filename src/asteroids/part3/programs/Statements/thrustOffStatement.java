@@ -7,17 +7,13 @@ import asteroids.part3.programs.SourceLocation;
  */
 public class thrustOffStatement extends Statement {
 
-    private SourceLocation location;
-
     public thrustOffStatement(SourceLocation location) {
-        setLocation(location);
+        super(location);
     }
 
-    public SourceLocation getLocation() {
-        return location;
+    @Override
+    public void execute() throws ClassNotFoundException {
+        this.getProgram().getShip().thrustOff();
     }
 
-    public void setLocation(SourceLocation location) {
-        this.location = location;
-    }
 }

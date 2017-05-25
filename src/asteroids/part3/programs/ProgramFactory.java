@@ -2,6 +2,7 @@ package asteroids.part3.programs;
 
 import java.util.List;
 
+import asteroids.model.Program;
 import asteroids.part3.programs.Expressions.*;
 import asteroids.part3.programs.Statements.*;
 import asteroids.part3.programs.Statements.Statement;
@@ -31,7 +32,7 @@ import asteroids.part3.programs.Expressions.readVariableExpression;
 import asteroids.part3.programs.Expressions.selfExpression;
 import asteroids.part3.programs.Expressions.shipExpression;
 
-public class ProgramFactory implements IProgramFactory <Expression<? extends Type >, Statement, Function, Program >{
+public class ProgramFactory implements IProgramFactory <Expression<? extends Type >, Statement, Function, Program>{
 	@Override
 	public Program createProgram(List<Function> functions, Statement main) {
 		return new Program(functions, main);

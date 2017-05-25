@@ -7,12 +7,10 @@ import asteroids.part3.programs.SourceLocation;
 public class sequenceStatement extends Statement {
 	
 	private List<Statement> statements;
-	private SourceLocation sourceLocation;
-	
 
 	public sequenceStatement(List<Statement> statements, SourceLocation sourceLocation){
-		setStatements(statements);
-		setSourceLocation(sourceLocation);
+        super(sourceLocation);
+	    setStatements(statements);
 	}
 
 	private void setStatements(List<Statement> statements) {
@@ -23,12 +21,12 @@ public class sequenceStatement extends Statement {
 		return this.statements;
 	}
 
-	private void setSourceLocation(SourceLocation sourceLocation) {
-		this.sourceLocation = sourceLocation;
-	}
-	
-	public SourceLocation getSourceLocation(){
-		return this.sourceLocation;
-	}
-
+    @Override
+    public void execute() throws ClassNotFoundException {
+        for (Statement statement: statements) {
+            statement.setProgram(this.getProgram());
+            statement.setFunction(this.getFunction());
+            statement.execute();
+        }
+    }
 }

@@ -44,14 +44,13 @@ public class equalityExpression implements Expression<Type> {
     public SourceLocation getSourceLocation(SourceLocation sourceLocation) {
         return location;
     }
-    
-	@Override
-	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
-		if (((doubleType)this.getE1()).getDouble() == ((doubleType)this.getE2()).getDouble()){
-			return new booleanType(true);
-		}
-		else {
-			return new booleanType(false);
-		}
-	}
+
+    @Override
+    public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+        if (this.getE1().evaluate(ship, function).get() == this.getE2().evaluate(ship, function).get()) {
+            return new booleanType(true);
+        } else {
+            return new booleanType(false);
+        }
+    }
 }

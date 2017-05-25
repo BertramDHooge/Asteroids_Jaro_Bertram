@@ -1,23 +1,22 @@
 package asteroids.part3.programs.Statements;
 
+import asteroids.model.Ship;
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 import asteroids.part3.programs.Expressions.Expression;
+import asteroids.part3.programs.Types.booleanType;
 
 public class ifStatement extends Statement {
 	private Expression<? extends Type> condition;
 	private Statement ifBody;
 	private Statement elseBody;
-	private SourceLocation sourceLocation;
-	
-	
-	
 
 	public ifStatement(Expression<? extends Type> condition, Statement ifBody, Statement elseBody, SourceLocation sourceLocation){
-		setCondition(condition);
+        super(sourceLocation);
+        setCondition(condition);
 		setIfBody(ifBody);
 		setElseBody(elseBody);
-		setSourceLocation(sourceLocation);
 	}
 
 	private void setCondition(Expression<? extends Type> condition) {
@@ -43,17 +42,19 @@ public class ifStatement extends Statement {
 	public Statement getElseBody(){
 		return this.elseBody;
 	}
-	
-	private void setSourceLocation(SourceLocation sourceLocation) {
-		this.sourceLocation = sourceLocation;
-	}
-	
-	public SourceLocation getSourceLocation(){
-		return this.sourceLocation;
-	}
 
-	
 
-	
-	
+    @Override
+    public void execute() throws ClassNotFoundException {
+        Function funct = this.getFunction();
+        Ship ship = this.getProgram().getShip();
+        if (((booleanType) this.getCondition().evaluate(ship, funct)).getBoolean()) {
+            this.getIfBody().setProgram(this.getProgram());
+            this.getIfBody().execute();
+        }
+        else if (this.getElseBody() != null) {
+            this.getElseBody().setProgram(this.getProgram());
+            this.getElseBody().execute();
+        }
+    }
 }

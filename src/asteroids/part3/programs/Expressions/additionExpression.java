@@ -44,8 +44,8 @@ public class additionExpression implements Expression<Type> {
         return location;
     }
 
-	@Override
-	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
-		return new doubleType(((doubleType)this.getE1()).getDouble() + ((doubleType)this.getE2()).getDouble());
-	}
+    @Override
+    public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+        return new doubleType(((doubleType) this.getE1().evaluate(ship, function)).getDouble() + ((doubleType) this.getE2().evaluate(ship, function)).getDouble());
+    }
 }

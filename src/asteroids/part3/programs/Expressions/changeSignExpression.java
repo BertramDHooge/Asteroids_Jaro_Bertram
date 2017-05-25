@@ -7,36 +7,36 @@ import asteroids.part3.programs.Type;
 import asteroids.part3.programs.Types.doubleType;
 
 public class changeSignExpression implements Expression<Type> {
-	
-	private Expression<? extends Type> expression;
-	private SourceLocation sourceLocation;
 
-	public changeSignExpression(Expression<? extends Type> expression, SourceLocation sourceLocation){
-		setExpression(expression);
-		setSourceLocation(sourceLocation);
-	}
+    private Expression<? extends Type> expression;
+    private SourceLocation sourceLocation;
 
-	private void setExpression(Expression<? extends Type> expression) {
-		this.expression = expression;
-	}
-	
-	public Expression<? extends Type> getExpression(){
-		return this.expression;
-	}
+    public changeSignExpression(Expression<? extends Type> expression, SourceLocation sourceLocation) {
+        setExpression(expression);
+        setSourceLocation(sourceLocation);
+    }
 
-	@Override
-	public void setSourceLocation(SourceLocation sourceLocation) {
-		this.sourceLocation = sourceLocation;
-	}
+    private void setExpression(Expression<? extends Type> expression) {
+        this.expression = expression;
+    }
 
-	@Override
-	public SourceLocation getSourceLocation(SourceLocation sourceLocation) {
-		return this.sourceLocation;
-	}
+    public Expression<? extends Type> getExpression() {
+        return this.expression;
+    }
 
-	@Override
-	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
-		return new doubleType(-1.0 * ((doubleType)this.expression).getDouble());
-	}
+    @Override
+    public void setSourceLocation(SourceLocation sourceLocation) {
+        this.sourceLocation = sourceLocation;
+    }
+
+    @Override
+    public SourceLocation getSourceLocation(SourceLocation sourceLocation) {
+        return this.sourceLocation;
+    }
+
+    @Override
+    public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+        return new doubleType(-1.0 * ((doubleType) this.getExpression().evaluate(ship, function)).getDouble());
+    }
 
 }

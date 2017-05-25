@@ -4,6 +4,7 @@ import asteroids.model.*;
 import asteroids.part2.CollisionListener;
 import asteroids.part3.facade.IFacade;
 import asteroids.part3.programs.IProgramFactory;
+import asteroids.part3.programs.ProgramFactory;
 import asteroids.util.ModelException;
 import java.util.Collection;
 import java.util.List;
@@ -174,26 +175,6 @@ public class Facade implements IFacade {
     @Override
     public World getPlanetoidWorld(Planetoid planetoid) throws ModelException {
         return planetoid.getWorld();
-    }
-
-    @Override
-    public Program getShipProgram(Ship ship) throws ModelException {
-        return null;
-    }
-
-    @Override
-    public void loadProgramOnShip(Ship ship, Program program) throws ModelException {
-
-    }
-
-    @Override
-    public List<Object> executeProgram(Ship ship, double dt) throws ModelException {
-        return null;
-    }
-
-    @Override
-    public IProgramFactory<?, ?, ?, ? extends Program> createProgramFactory() throws ModelException {
-        return null;
     }
 
     @Override
@@ -565,5 +546,51 @@ public class Facade implements IFacade {
     public Set<? extends Object> getEntities(World world) throws ModelException {
         // TODO Auto-generated method stub
         return world.getEntities();
+    }
+
+    @Override
+    public Program getShipProgram(Ship ship) throws ModelException {
+        try {
+            return ship.getProgram();
+        }
+        catch (Exception exc) {
+            throw new ModelException(exc.getMessage());
+        }
+        catch (AssertionError exc){
+            throw new ModelException(exc.getMessage());
+        }
+    }
+
+    @Override
+    public void loadProgramOnShip(Ship ship, Program program) throws ModelException {
+        try {
+            ship.setProgram(program);
+        }
+        catch (Exception exc) {
+            throw new ModelException(exc.getMessage());
+        }
+        catch (AssertionError exc){
+            throw new ModelException(exc.getMessage());
+        }
+    }
+
+    @Override
+    public List<Object> executeProgram(Ship ship, double dt) throws ModelException {
+        try{
+            return ship.executeProgram(dt);
+        }
+        catch (Exception exc) {
+            throw new ModelException(exc.getMessage());
+        }
+    }
+
+    @Override
+    public IProgramFactory<?, ?, ?, ? extends Program> createProgramFactory() throws ModelException {
+        try{
+            return new ProgramFactory();
+        }
+        catch (Exception exc) {
+            throw new ModelException(exc.getMessage());
+        }
     }
 }

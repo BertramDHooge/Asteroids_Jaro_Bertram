@@ -1,5 +1,7 @@
 package asteroids.part3.programs.Statements;
 
+import asteroids.model.Ship;
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 import asteroids.part3.programs.Expressions.Expression;
@@ -9,8 +11,8 @@ public class printStatement extends Statement {
 	private Expression<? extends Type> value;
 
 	public printStatement(Expression<? extends Type> value, SourceLocation sourceLocation){
-		setValue(value);
-		setSourceLocation(sourceLocation);
+        super(sourceLocation);
+        setValue(value);
 	}
 
 	private void setValue(Expression<? extends Type> value) {
@@ -21,11 +23,11 @@ public class printStatement extends Statement {
 		return this.value;
 	}
 
-	private void setSourceLocation(SourceLocation sourceLocation) {
-		this.sourceLocation = sourceLocation;
-	}
-	
-	public SourceLocation getSourceLocation(){
-		return this.sourceLocation;
-	}
+    @Override
+    public void execute() throws ClassNotFoundException {
+        Function function = this.getFunction();
+        Ship ship = this.getProgram().getShip();
+        this.getProgram().getExecuteResult().add(this.getValue().evaluate(ship, function).get());
+        System.out.println(this.getValue().evaluate(ship, function).get());
+    }
 }

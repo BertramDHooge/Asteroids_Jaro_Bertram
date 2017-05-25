@@ -1,6 +1,7 @@
 package asteroids.model;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import asteroids.part3.programs.Function;
@@ -13,11 +14,12 @@ import asteroids.part3.programs.Statements.Statement;
 public class Program {
 
 	private Ship ship;
-	private Double getExecuteTime;
+	private Double executeTime = 0.0;
 	private Statement body;
 	private List<Function> functions;
-	private HashMap<String, Expression<?>> variables;
-	private List<Object> executeResult;
+	private HashMap<String, Expression<?>> variables = new HashMap<>();
+	private List<Object> executeResult = new LinkedList<>();
+	private boolean breaking;
 	
 	public Program(List<Function> functions, Statement body){
 		setFunctions(functions);
@@ -64,11 +66,29 @@ public class Program {
 		return this.executeResult;
 	}
 
-	public List<Object> execute(Double duration) {
-		Double executeTime = this.getExecuteTime + duration; 
-		while (executeTime >= 2.0){
-			body.execute();
-		}
+	public List<Object> execute(Double duration) throws ClassNotFoundException {
+		Double executeTime = this.executeTime + duration;
+		body.setProgram(this);
+		body.execute();
+//		while (executeTime >= 2.0){
+//			body.execute();
+//		}
 		return executeResult;
 	}
+
+    public boolean getBreaking() {
+        return breaking;
+    }
+
+    public void setBreaking(boolean breaking) {
+        this.breaking = breaking;
+    }
+
+    public double getExecuteTime() {
+	    return this.executeTime;
+    }
+
+    public void setExecuteTime(Double executeTime) {
+        this.executeTime = executeTime;
+    }
 }
