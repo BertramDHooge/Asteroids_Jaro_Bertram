@@ -247,6 +247,18 @@ public class Ship extends Entity {
 		setOrientation(orientation + angle);
  	}
 
+    public Ship closestShip() {
+        Set<Ship> ships = (Set<Ship>)this.world.getEntities("Ship");
+        double closest = Double.POSITIVE_INFINITY;
+        Ship sh = null;
+        for (Ship ship: ships) {
+            if (this.getDistanceTo(ship) < closest) {
+                sh = ship;
+            }
+        }
+        return sh;
+    }
+
     public Bullet closestBullet() {
         Set<Bullet> bullets = (Set<Bullet>)this.world.getEntities("Bullet");
         double closest = Double.POSITIVE_INFINITY;
