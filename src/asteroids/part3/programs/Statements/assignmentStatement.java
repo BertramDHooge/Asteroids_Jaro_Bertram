@@ -40,4 +40,8 @@ public class assignmentStatement extends Statement{
 		return this.variableName;
 	}
 
+	@Override
+    public void execute() {
+
+    }
 }

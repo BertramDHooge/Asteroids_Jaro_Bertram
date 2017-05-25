@@ -6,7 +6,6 @@ import asteroids.part3.programs.ProgramException;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 import asteroids.part3.programs.Types.booleanType;
-import asteroids.part3.programs.Types.doubleType;
 
 public class notExpression implements Expression<Type> {
 	
@@ -16,6 +15,10 @@ public class notExpression implements Expression<Type> {
 	public notExpression(Expression<? extends Type> expression, SourceLocation sourceLocation){
 		setExpression(expression);
 	}
+
+    public Expression<? extends Type> getExpression() {
+        return expression;
+    }
 
 	private void setExpression(Expression<? extends Type> expression) {
 		this.expression = expression;
@@ -33,7 +36,7 @@ public class notExpression implements Expression<Type> {
 
 	@Override
 	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException, ProgramException {
-		if (((booleanType)this.expression).getBoolean() == true){
+		if (((booleanType) this.getExpression()).getBoolean()){
 			return new booleanType(false);
 		}
 		else {
