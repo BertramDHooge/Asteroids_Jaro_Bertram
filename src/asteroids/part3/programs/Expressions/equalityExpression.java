@@ -1,12 +1,11 @@
 package asteroids.part3.programs.Expressions;
 
 import asteroids.model.Ship;
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
+import asteroids.part3.programs.Types.booleanType;
 
-/**
- * @author Jaro Deklerck
- */
 public class equalityExpression implements Expression<Type> {
 
     private Expression<? extends Type> e1;
@@ -44,9 +43,14 @@ public class equalityExpression implements Expression<Type> {
     public SourceLocation getSourceLocation(SourceLocation sourceLocation) {
         return location;
     }
-
-    @Override
-    public Type evaluate(Ship ship) throws ClassNotFoundException {
-        return null;
-    }
+    
+	@Override
+	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+		if (this.getE1() == this.getE2()){
+			return new booleanType(true);
+		}
+		else {
+			return new booleanType(false);
+		}
+	}
 }

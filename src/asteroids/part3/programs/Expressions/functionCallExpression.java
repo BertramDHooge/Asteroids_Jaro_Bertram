@@ -3,6 +3,7 @@ package asteroids.part3.programs.Expressions;
 import java.util.List;
 
 import asteroids.model.Ship;
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 
@@ -43,10 +44,9 @@ public class functionCallExpression implements Expression<Type> {
 	public SourceLocation getSourceLocation(SourceLocation sourceLocation) {
 		return this.sourceLocation;
 	}
-
+	
 	@Override
-	public Type evaluate(Ship ship) throws ClassNotFoundException {
-		// TODO Auto-generated method stub
+	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
 		return null;
 	}
 

@@ -1,8 +1,10 @@
 package asteroids.part3.programs.Expressions;
 
 import asteroids.model.Ship;
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
+import asteroids.part3.programs.Types.stringType;
 
 public class readParameterExpression implements Expression<Type> {
 	
@@ -22,20 +24,17 @@ public class readParameterExpression implements Expression<Type> {
 		return this.parameterName;
 	}
 
-	@Override
 	public void setSourceLocation(SourceLocation sourceLocation) {
 		this.setSourceLocation(sourceLocation);
 	}
 
-	@Override
 	public SourceLocation getSourceLocation(SourceLocation sourceLocation) {
 		return this.sourceLocation;
 	}
 
 	@Override
-	public Type evaluate(Ship ship) throws ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+		return new stringType(this.getParameterName());
 	}
 
 }

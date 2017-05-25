@@ -1,6 +1,7 @@
 package asteroids.part3.programs.Expressions;
 
 import asteroids.model.Ship;
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 
@@ -23,9 +24,8 @@ public class anyExpression implements Expression<Type> {
 	}
 
 	@Override
-	public Type evaluate(Ship ship) throws ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+		return (Type) ship.getWorld().getEntities();
 	}
 
 }

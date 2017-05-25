@@ -1,9 +1,11 @@
 package asteroids.part3.programs.Expressions;
 
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
+import java.util.HashMap;
 import asteroids.model.Ship;
-import asteroids.part3.programs.Types.stringType;
+import asteroids.part3.programs.Types.doubleType;
 
 public class readVariableExpression implements Expression<Type> {
 	
@@ -34,7 +36,8 @@ public class readVariableExpression implements Expression<Type> {
 	}
 
 	@Override
-	public Type evaluate(Ship ship) throws ClassNotFoundException {
-        return new stringType(getVariableName());
+	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+		HashMap<String, Expression<?>> variables = ship.getProgram().getVariables();
+	    return (Type) variables.get(this.getVariableName()).evaluate(ship, function);
 	}
 }

@@ -12,6 +12,11 @@ public class objectType extends Type {
     public objectType(Object obj) {
         this.obj = obj;
     }
-
-    public Object getObj() {return this.obj;}
-}
+    
+    private void setObject(Object obj){
+    	this.obj = obj;
+    }
+    
+    public Object getObject(){
+    	return this.obj;
+    }}
