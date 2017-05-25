@@ -16,6 +16,10 @@ public class notExpression implements Expression<Type> {
 		setExpression(expression);
 	}
 
+    public Expression<? extends Type> getExpression() {
+        return expression;
+    }
+
 	private void setExpression(Expression<? extends Type> expression) {
 		this.expression = expression;
 	}
@@ -32,7 +36,7 @@ public class notExpression implements Expression<Type> {
 
 	@Override
 	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException, ProgramException {
-		if (((booleanType) this.expression).getBoolean()){
+		if (((booleanType) this.getExpression()).getBoolean()){
 			return new booleanType(false);
 		}
 		else {
