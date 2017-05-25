@@ -10,6 +10,7 @@ import java.util.Set;
 /**
  * @author Jaro Deklerck
  */
+
 public class World {
 
     private double width;
@@ -70,6 +71,7 @@ public class World {
      * followed by the height.
      * @return new double[] {this.width, this.height}
      */
+    
     @Basic
     public double[] getSize() {return new double[] {this.width, this.height};}
 
@@ -93,6 +95,12 @@ public class World {
             }
         }
     }
+    
+    /**
+     * removes entity from world
+     * @param entity
+     * @throws WorldException
+     */
 
     public void removeFromWorld(Entity entity) throws WorldException {
         if (entity == null || !entities.contains(entity)) {
@@ -100,6 +108,12 @@ public class World {
         }
         entity.removeEntityFromWorld(this);
     }
+    
+    /**
+     * removes multiple entities from world
+     * @param entities
+     * @throws WorldException
+     */
 
     @SuppressWarnings("Unnused")
     public void removeMultipleFromWorld(Collection<Entity> entities) throws WorldException {
@@ -113,6 +127,12 @@ public class World {
             entity.removeEntityFromWorld(this);
         }
     }
+    
+    /**
+     * return entity
+     * @param ent
+     * @return
+     */
 
     public Set<? extends Entity> getEntities(String ent) {
         Entity entity = null;
@@ -153,12 +173,22 @@ public class World {
             return true;
         }
     }
+    
+    /**
+     * returns the time until the next collision in world
+     * @return
+     */
 
     public double getTimeNextCollision() {
         double bound = getNextBoundaryCollision();
         double ent = getNextEntityCollision();
         return Math.min(bound, ent);
     }
+    
+    /**
+     * returns the time until the next collision with a world boundary in world
+     * @return
+     */
 
     private double getNextBoundaryCollision() {
         double time = Double.POSITIVE_INFINITY;
@@ -171,6 +201,11 @@ public class World {
         }
         return time;
     }
+    
+    /**
+     * return the time until the next collision between entities in world
+     * @return
+     */
 
     private double getNextEntityCollision() {
         double time = Double.POSITIVE_INFINITY;
@@ -187,6 +222,11 @@ public class World {
         }
         return time;
     }
+    
+    /**
+     * returns the position of the next collision in world
+     * @return
+     */
 
     public double[] getPositionNextCollision() {
         if (this.getTimeNextCollision() != Double.POSITIVE_INFINITY) {
@@ -211,6 +251,14 @@ public class World {
         }
         return null;
     }
+    
+    /**
+     * progresses the world by an amount of time
+     * @param dt
+     * @param collisionListener
+     * @throws WorldException
+     * @throws EntityException
+     */
 
     public void evolve(double dt, CollisionListener collisionListener) throws WorldException, EntityException {
         if (!(dt >= 0 || dt < 0)) {

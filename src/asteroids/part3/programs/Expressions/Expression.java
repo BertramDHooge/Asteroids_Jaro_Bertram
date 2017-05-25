@@ -8,7 +8,9 @@ import asteroids.model.Ship;
 
 public interface Expression<T>{
 	public void setSourceLocation(SourceLocation sourceLocation);
+	
 	public SourceLocation getSourceLocation(SourceLocation sourceLocation);
+	
 	public abstract Type evaluate(Ship ship, Function function) throws ClassNotFoundException, ProgramException;
 }
  

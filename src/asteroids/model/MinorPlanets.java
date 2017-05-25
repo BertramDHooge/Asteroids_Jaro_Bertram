@@ -29,6 +29,7 @@ public class MinorPlanets extends Entity {
      * @see implementation
      * @throws WorldException
      */
+    
     @Override
     public void addEntityToWorld(World world) throws WorldException, IllegalArgumentException{
         if (world == null) {
@@ -68,6 +69,7 @@ public class MinorPlanets extends Entity {
      * @see implementation
      * @throws WorldException
      */
+    
     @Override
     public void removeEntityFromWorld(World world) throws WorldException {
         if (world.entities.contains(this)) {
@@ -79,8 +81,9 @@ public class MinorPlanets extends Entity {
     }
 
     /**
-     * Terminates the ship
+     * Terminates the minor planet
      */
+    
     @Override
     public void terminate() throws WorldException{
         if (this.world != null) {
@@ -94,6 +97,17 @@ public class MinorPlanets extends Entity {
         this.radius = Double.NaN;
         this.mass = Double.NaN;
     }
+    
+    /**
+     * returns whether a MinorPlanet is terminated or not
+     * @return
+     * 		|if ((this.x <= 0 || this.x > 0) && (this.y <= 0 || this.y > 0)) 
+     *      |	return false;
+     *  	|
+     *  	|else 
+     *      |	return true;
+     *	 	|
+     */
 
     @Basic
     public boolean isTerminated() {

@@ -227,6 +227,13 @@ public class Ship extends Entity {
             return 0.0;
         }
     }
+    
+    /**
+     * Moves the ship
+     * @post ...
+     * 		|new x == x + dt * xVelocity
+     * 		|new y == y + dt * yVelocity
+     */
 
     @Override
     public void move(double dt) {
