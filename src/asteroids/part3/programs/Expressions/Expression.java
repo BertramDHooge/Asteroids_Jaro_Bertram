@@ -11,5 +11,6 @@ public interface Expression<T> {
     public SourceLocation getSourceLocation(SourceLocation sourceLocation);
 
     public abstract Type evaluate(Ship ship, Function function) throws ClassNotFoundException;
+
 }
  

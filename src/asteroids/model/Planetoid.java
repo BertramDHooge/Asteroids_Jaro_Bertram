@@ -24,6 +24,11 @@ public class Planetoid extends MinorPlanets {
             throw new EntityException("Values are NaN!");
         }
     }
+    
+    /**
+     * returns the total traveled distance
+     * @return
+     */
 
     @Basic
     public double getTotalTraveledDistance() {
@@ -43,6 +48,12 @@ public class Planetoid extends MinorPlanets {
     private void setMass() {
         this.mass = 4/3.*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
     }
+    
+    /**
+     * sets the radius of the planetoid
+     * @post ...
+     * 		| new radius == radius
+     */
 
     @Override
     protected void setRadius(double radius) throws EntityException, WorldException {
@@ -54,6 +65,22 @@ public class Planetoid extends MinorPlanets {
             terminate();
         }
     }
+    
+    /**
+     * spawn an asteroid in world
+     * @param x
+     * 		X value for the location of the planetoid
+     * @param y
+     * 		Y value for the location of the planetoid
+     * @param radius
+     * 		radius of the planetoid
+     * @param speed
+     * 		speed at which the planetoid moves 
+     * @param world
+     * 		world in which the planetoid is located
+     * @throws EntityException
+     * @throws WorldException
+     */
 
     public void spawnAsteroids(double x, double y, double radius, double speed, World world) throws EntityException, WorldException {
         double orientation = Math.random() * 2*Math.PI;
@@ -77,6 +104,13 @@ public class Planetoid extends MinorPlanets {
                 , newVelX, newVelY, radius / 2);
         ast2.addEntityToWorld(world);
     }
+    
+    /**
+     * moves the planetoid
+     * @post ...
+     * 		|new x == x + dt * xVelocity
+     * 		|new y == y + dt * yVelocity
+     */
 
     @Override
     public void move(double dt) throws WorldException, EntityException {
@@ -88,6 +122,12 @@ public class Planetoid extends MinorPlanets {
         setTotalTraveledDistance(getTotalTraveledDistance()+d);
         setRadius(startRadius-0.000001*getTotalTraveledDistance());
     }
+    
+    /**
+     * terminates a planetoid effectively removing it from the world
+     * @post ...
+     * 		|new planetoid == null
+     */
 
     @Override
     public void terminate() throws WorldException{

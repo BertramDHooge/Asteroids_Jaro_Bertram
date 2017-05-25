@@ -25,7 +25,7 @@ public class Entity {
 
 
     /**
-     * Set the position of the ship
+     * Set the position of the entity
      * @param x
      *      x-coordinate
      * @param y
@@ -48,17 +48,18 @@ public class Entity {
     }
 
     /**
-     * Return the position of ship as an array of length 2, with the
+     * Return the position of entity as an array of length 2, with the
      * x-coordinate at index 0 and the y-coordinate at index 1.
      * @return new double[] {x, y}
      */
+    
     @Basic
     public double[] getPosition() {
         return new double[] {x, y};
     }
 
     /**
-     * Set the velocity of the ship
+     * Set the velocity of the entity
      * @param xVelocity
      * @param yVelocity
      * @post ...
@@ -93,10 +94,11 @@ public class Entity {
     }
 
     /**
-     *  Return the velocity of ship as an array of length 2, with the velocity
+     *  Return the velocity of entity as an array of length 2, with the velocity
      * along the X-axis at index 0 and the velocity along the Y-axis at index 1.
      * @return new double[] {xVelocity, yVelocity}
      */
+    
     @Basic
     public double[] getVelocity() {
         return new double[] {xVelocity, yVelocity};
@@ -119,24 +121,35 @@ public class Entity {
     }
 
     /**
-     * Return the radius of ship.
+     * Return the radius of entity.
      * @return radius
      */
+    
     @Basic
     public double getRadius() {
         return radius;
     }
 
     /**
-     * Returns the mass of the ship
+     * Returns the mass of the entity
      * @return this.mass
      */
+    
     @Basic
     public double getMass() {return this.mass;}
 
     public void move(double dt) throws WorldException, EntityException {
 
     }
+    
+    	/**
+    	 * resolves the collision between an entity and a world boundary
+    	 * @param collisionListener
+    	 * @see implementaion
+    	 * @return
+    	 * @throws WorldException
+    	 * @throws EntityException
+    	 */
 
     public boolean resolveBoundaryCollision(CollisionListener collisionListener) throws WorldException, EntityException {
         collisionEffect(collisionListener, null);
@@ -157,6 +170,16 @@ public class Entity {
         }
         return false;
     }
+    
+    /**
+     * resolves the collision between entities
+     * @param entity
+     * @param collisionListener
+     * @see implementation
+     * @return
+     * @throws WorldException
+     * @throws EntityException
+     */
 
     public boolean resolveEntityCollision(Entity entity, CollisionListener collisionListener) throws WorldException, EntityException {
         double cd = (Math.hypot(entity.x-this.x, entity.y-this.y) - (this.radius + entity.radius));
@@ -239,6 +262,13 @@ public class Entity {
         }
         return false;
     }
+    
+    /**
+     * determines the effect of a collision on an entity
+     * @param collisionListener
+     * @param entity
+     * @see implementation
+     */
 
     private void collisionEffect(CollisionListener collisionListener, Entity entity) {
         if (collisionListener != null) {
@@ -263,6 +293,12 @@ public class Entity {
     private double convertSpeed() {
         return Math.hypot(xVelocity,yVelocity);
     }
+    
+    /**
+     * resolves collision
+     * @param entity
+     * @see implementation
+     */
 
     private void resolveCollision(Entity entity) {
         double[] r = {entity.x - this.x, entity.y - this.y};
@@ -276,6 +312,13 @@ public class Entity {
         this.setVelocity(this.getVelocity()[0]+jx/mass1, this.getVelocity()[1]+jy/mass1);
         entity.setVelocity(entity.getVelocity()[0]-jx/mass2, entity.getVelocity()[1]-jy/mass2);
     }
+    
+    /**
+     * randomly teleport at certain collisions
+     * @return
+     * @throws EntityException
+     * @throws WorldException
+     */
 
     public boolean rndTeleport() throws EntityException, WorldException {
         double[] size = this.world.getSize();
@@ -300,6 +343,7 @@ public class Entity {
      * Returns the world the bullet belongs to (returns null if it is loaded in a ship or to the unbounded two-dimensional space).
      * @return
      */
+    
     @Basic
     public World getWorld() {
         return this.world;
@@ -317,6 +361,14 @@ public class Entity {
     public void removeEntityFromWorld(World world) throws WorldException {
 
     }
+    
+    /**
+     * returns string of entities
+     * @param world
+     * @param ent
+     * @see implementaion
+     * @return
+     */
 
     public Set<? extends Entity> getEntities(World world, String ent) {
         if (Objects.equals(ent, "Ship")) {
@@ -416,6 +468,12 @@ public class Entity {
         }
         else return false;
     }
+    
+    /**
+     * checks whether there is overlap when adding entity to world
+     * @param entity
+     * @return
+     */
 
     public boolean overlapAddToWorld(Entity entity) {
         if (entity == null){
@@ -475,6 +533,7 @@ public class Entity {
         	return Double.POSITIVE_INFINITY;
         	}
     }
+    
     /**
      * Return the first position where this ship and other ship
      * collide, or null if they never collide. A ship never
@@ -511,6 +570,12 @@ public class Entity {
         double yCollision = (1 - T) * shipY + T * thisY;
         return new double[] {xCollision, yCollision};
     }
+    
+    /**
+     * return the time until the next collision with a world boundary in world
+     * @return
+     * @see implementation
+     */
 
     public double getTimeToCollisionBoundary() {
         if (this.getWorld() == null) {
@@ -588,6 +653,12 @@ public class Entity {
         }
     }
     
+    /**
+     * return the position of the next collision with a world boundary in world
+     * @return
+     * @see implementation
+     */
+    
     public double[] getPositionCollisionBoundary() {
     	double time = this.getTimeToCollisionBoundary();
         if (time == Double.POSITIVE_INFINITY) {
@@ -613,6 +684,14 @@ public class Entity {
         	return null;
         }
     }
+    
+    /**
+     * return the time until the next  collision between entities
+     * @param entity
+     * @return
+     * @see implementation
+     * @throws IllegalArgumentException
+     */
     
     public double getTimeCollisionEntity(Entity entity) throws IllegalArgumentException {
         if (entity == null){
@@ -647,6 +726,15 @@ public class Entity {
             return value;
         }
     }
+    
+    /**
+     * return the position of the next collision between entities
+     * @param entity
+     * @return
+     * @see implementaion
+     * @throws IllegalArgumentException
+     */
+    
     public double[] getPositionCollisionEntity(Entity entity) throws IllegalArgumentException {
         if (entity == null){
             throw new IllegalArgumentException();

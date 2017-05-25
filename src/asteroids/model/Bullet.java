@@ -15,17 +15,17 @@ public class Bullet extends Entity {
     private double MAX_SPEED = SPEED_OF_LIGHT;
 
     /**
-     * Create a new ship with the given position, velocity, radius.
+     * Create a new bullet with the given position, velocity, radius.
      * @param x
-     * 		X coordinate for the new ship.
+     * 		X coordinate for the new bullet.
      * @param y
-     * 		Y coordinate for the new ship.
+     * 		Y coordinate for the new bullet.
      * @param xVelocity
-     * 		Starting velocity in X-axis for the new ship.
+     * 		Starting velocity in X-axis for the new bullet.
      * @param yVelocity
-     * 		Starting velocity in Y-axis for the new ship.
+     * 		Starting velocity in Y-axis for the new bullet.
      * @param radius
-     * 		Radius for the new ship.
+     * 		Radius for the new bullet.
      * @post ...
      * 		| (x != IsNaN) && (y != IsNaN) && (xVelocity != IsNaN) && (yVelocity != IsNaN) && (radius != IsNaN)
      * @effect setPosition
@@ -46,11 +46,22 @@ public class Bullet extends Entity {
             throw new EntityException("Values are NaN!");
         }
     }
+    
+    /**
+     * returns the max amount of wallcollisions for a bullet
+     * @return MAX_BOUNCES
+     */
 
     @Basic
     public int getMAX_BOUNCES() {
         return MAX_BOUNCES;
     }
+    
+    /**
+     * sets the max amount of wallcollisions for a bullet
+     * @param MAX_BOUNCES
+     * 		max amount of wallcollisions a bullet can have
+     */
 
     @SuppressWarnings("Unnused")
     private void setMAX_BOUNCES(int MAX_BOUNCES) {
@@ -92,12 +103,24 @@ public class Bullet extends Entity {
             return null;
         }
     }
+    
+    /**
+     * returns the max speed for a bullet
+     * @return MAX_SPEED
+     * 		max speed a bullet is allowed to have
+     */
 
     @Basic
     @Override
     public double getMAX_SPEED() {
         return MAX_SPEED;
     }
+    
+    /**
+     * sets the max speed a bullet can have
+     * @post ...
+     * 		|new MAX_SPEED == MAX_SPEED
+     */
 
     @Override
     protected void setMAX_SPEED(double MAX_SPEED) {
@@ -105,11 +128,22 @@ public class Bullet extends Entity {
             this.MAX_SPEED = MAX_SPEED;
         }
     }
+    
+    /**
+     * increases the counter for wallcollisions by 1
+     * @post ...
+     * 		|new bounces == bounces + 1
+     */
 
     @Basic
     protected void addBounce() {
         this.bounces += 1;
     }
+    
+    /**
+     * returns the amount of wallcollisions a ship has already had
+     * @return bounces
+     */
 
     @Basic
     public int getBounces() {
@@ -118,12 +152,20 @@ public class Bullet extends Entity {
 
     /**
      * Returns the source of the bullet.
-     * @return
+     * @return source
      */
+    
     @Basic
     public Ship getSource() {
         return this.source;
     }
+    
+    /**
+     * moves a bullet
+     * @post ...
+     * 		|new x == x + dt * xVelocity
+     * 		|new y == y + dt * yVelocity
+     */
 
     @Override
     public void move(double dt) {
@@ -138,6 +180,7 @@ public class Bullet extends Entity {
      * @see implementation
      * @throws WorldException
      */
+    
     @Override
     public void addEntityToWorld(World world) throws WorldException, IllegalArgumentException, EntityException {
         if (world == null) {
@@ -200,7 +243,10 @@ public class Bullet extends Entity {
 
     /**
      * Terminates the bullet
+     * @post ...
+     * 		|new bullet == null
      */
+    
     @Override
     public void terminate() throws WorldException, EntityException {
         if (this.world != null){
@@ -224,6 +270,7 @@ public class Bullet extends Entity {
      * Returns the state of the bullet.
      * @return
      */
+    
     @Basic
     public boolean isTerminated() {
         if ((this.x <= 0 || this.x > 0) && (this.y <= 0 || this.y > 0)) {
