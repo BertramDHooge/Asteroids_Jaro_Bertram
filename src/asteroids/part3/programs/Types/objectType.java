@@ -17,6 +17,6 @@ public class objectType extends Type {
     	this.obj = obj;
     }
     
-    public Object getObject(Object obj){
+    public Object getObject(){
     	return this.obj;
     }}

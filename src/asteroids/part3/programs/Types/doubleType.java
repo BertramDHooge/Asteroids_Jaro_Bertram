@@ -15,7 +15,7 @@ public class doubleType extends Type {
     	this.dble = dble;
     }
     
-    public double getDouble(Double dble){
+    public double getDouble(){
     	return this.dble;
     }
 

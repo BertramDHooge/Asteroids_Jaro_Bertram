@@ -2,12 +2,9 @@ package asteroids.part3.programs.Types;
 
 import asteroids.part3.programs.Type;
 
-/**
- * @author Jaro Deklerck
- */
 public class stringType extends Type {
 
-    protected String string;
+	protected String string;
 
     public stringType(String string) {
         this.string = string;

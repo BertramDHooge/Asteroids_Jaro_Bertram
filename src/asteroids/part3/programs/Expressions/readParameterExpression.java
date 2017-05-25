@@ -4,6 +4,7 @@ import asteroids.model.Ship;
 import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
+import asteroids.part3.programs.Types.stringType;
 
 public class readParameterExpression implements Expression<Type> {
 	
@@ -23,19 +24,17 @@ public class readParameterExpression implements Expression<Type> {
 		return this.parameterName;
 	}
 
-	@Override
 	public void setSourceLocation(SourceLocation sourceLocation) {
 		this.setSourceLocation(sourceLocation);
 	}
 
-	@Override
 	public SourceLocation getSourceLocation(SourceLocation sourceLocation) {
 		return this.sourceLocation;
 	}
 
 	@Override
 	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
-		return (Type) ( function.getParameters()).getString(parameterName).evaluate(ship, function);
+		return new stringType(this.getParameterName());
 	}
 
 }

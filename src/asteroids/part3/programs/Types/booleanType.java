@@ -17,7 +17,7 @@ public class booleanType extends Type {
     	this.bool = bool;
     }
     
-    public boolean getBoolean(Boolean bool){
+    public boolean getBoolean(){
     	return this.bool;
     }
 
