@@ -1,6 +1,8 @@
 package asteroids.model;
 
 import asteroids.part2.CollisionListener;
+import be.kuleuven.cs.som.annotate.Basic;
+import be.kuleuven.cs.som.annotate.Value;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -50,7 +52,7 @@ public class Entity {
      * x-coordinate at index 0 and the y-coordinate at index 1.
      * @return new double[] {x, y}
      */
-
+    @Basic
     public double[] getPosition() {
         return new double[] {x, y};
     }
@@ -95,13 +97,15 @@ public class Entity {
      * along the X-axis at index 0 and the velocity along the Y-axis at index 1.
      * @return new double[] {xVelocity, yVelocity}
      */
-
+    @Basic
     public double[] getVelocity() {
         return new double[] {xVelocity, yVelocity};
     }
 
+    @Basic
     public double getMAX_SPEED() {return 0.;}
 
+    @SuppressWarnings("Unnused")
     protected void setMAX_SPEED(double MAX_SPEED) {}
 
     /**
@@ -118,7 +122,7 @@ public class Entity {
      * Return the radius of ship.
      * @return radius
      */
-
+    @Basic
     public double getRadius() {
         return radius;
     }
@@ -127,7 +131,7 @@ public class Entity {
      * Returns the mass of the ship
      * @return this.mass
      */
-
+    @Basic
     public double getMass() {return this.mass;}
 
     public void move(double dt) throws WorldException, EntityException {
@@ -255,6 +259,7 @@ public class Entity {
         }
     }
 
+    @Basic
     private double convertSpeed() {
         return Math.hypot(xVelocity,yVelocity);
     }
@@ -295,11 +300,12 @@ public class Entity {
      * Returns the world the bullet belongs to (returns null if it is loaded in a ship or to the unbounded two-dimensional space).
      * @return
      */
-
+    @Basic
     public World getWorld() {
         return this.world;
     }
 
+    @Basic
     protected void terminate() throws WorldException, EntityException {
 
     }
@@ -640,26 +646,6 @@ public class Entity {
         else {
             return value;
         }
-        /*double currentDistance = getDistanceTo(entity);
-        double newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * 0.01) - (this.x + this.xVelocity * 0.01), 2) + Math.pow((entity.y + entity.yVelocity * 0.01) - (this.y + (this.yVelocity * 0.01)), 2)) - 0.99*(this.radius + entity.radius);
-        if (this.xVelocity == entity.xVelocity && this.yVelocity == entity.yVelocity){
-        	return Double.POSITIVE_INFINITY;
-        }
-        if (currentDistance > newDistance){
-            double time = 0.00;
-            while (currentDistance > newDistance && newDistance > 0.0){
-                time += 0.01;
-                currentDistance = newDistance;
-                newDistance = Math.sqrt(Math.pow((entity.x + entity.xVelocity * (0.01 + time)) - (this.x + this.xVelocity * (0.01 + time)), 2) + Math.pow((entity.y + entity.yVelocity * (0.01 + time)) - (this.y + this.yVelocity * (0.01 + time)), 2)) - 0.99*(this.radius + entity.radius);
-            }
-            if (newDistance <= 0.0){
-                return time;
-            }
-            if (newDistance >= currentDistance){
-                return Double.POSITIVE_INFINITY;
-            }
-        }
-        return Double.POSITIVE_INFINITY;*/
     }
     public double[] getPositionCollisionEntity(Entity entity) throws IllegalArgumentException {
         if (entity == null){

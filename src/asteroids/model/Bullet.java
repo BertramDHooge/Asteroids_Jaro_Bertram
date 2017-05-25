@@ -1,5 +1,7 @@
 package asteroids.model;
 
+import be.kuleuven.cs.som.annotate.Basic;
+
 /**
  * @author Jaro Deklerck
  */
@@ -45,10 +47,12 @@ public class Bullet extends Entity {
         }
     }
 
+    @Basic
     public int getMAX_BOUNCES() {
         return MAX_BOUNCES;
     }
 
+    @SuppressWarnings("Unnused")
     private void setMAX_BOUNCES(int MAX_BOUNCES) {
         if (MAX_BOUNCES >= 0) {
             this.MAX_BOUNCES = MAX_BOUNCES;
@@ -60,7 +64,7 @@ public class Bullet extends Entity {
      * @post ...
      *      | new mass == 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY
      */
-
+    @Basic
     private void setMass() {
         this.mass = 4/3.*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
     }
@@ -79,7 +83,7 @@ public class Bullet extends Entity {
      * Returns the ship the bullet is loaded in (returns null if it belongs to a world).
      * @return
      */
-
+    @Basic
     public Ship getShip() {
         if (this.getWorld() == null) {
             return this.ship;
@@ -89,6 +93,7 @@ public class Bullet extends Entity {
         }
     }
 
+    @Basic
     @Override
     public double getMAX_SPEED() {
         return MAX_SPEED;
@@ -101,10 +106,12 @@ public class Bullet extends Entity {
         }
     }
 
+    @Basic
     protected void addBounce() {
         this.bounces += 1;
     }
 
+    @Basic
     public int getBounces() {
         return bounces;
     }
@@ -113,7 +120,7 @@ public class Bullet extends Entity {
      * Returns the source of the bullet.
      * @return
      */
-
+    @Basic
     public Ship getSource() {
         return this.source;
     }
@@ -217,7 +224,7 @@ public class Bullet extends Entity {
      * Returns the state of the bullet.
      * @return
      */
-
+    @Basic
     public boolean isTerminated() {
         if ((this.x <= 0 || this.x > 0) && (this.y <= 0 || this.y > 0)) {
             return false;

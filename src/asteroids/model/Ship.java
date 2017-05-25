@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import asteroids.part3.programs.Type;
+import be.kuleuven.cs.som.annotate.Basic;
+import be.kuleuven.cs.som.annotate.Value;
 
 public class Ship extends Entity {
 
@@ -102,7 +104,7 @@ public class Ship extends Entity {
 	 *Return the orientation of ship (in radians).
 	 * @return orientation
 	 */
-	
+	@Basic
 	public double getOrientation() {
 		return orientation;
 	}
@@ -167,6 +169,7 @@ public class Ship extends Entity {
         return totalMass;
     }
 
+    @Basic
     @Override
     public double getMAX_SPEED() {
         return MAX_SPEED;
@@ -186,7 +189,7 @@ public class Ship extends Entity {
     /**
      * Turn the thruster on.
      */
-
+    @Basic
     public void thrustOn() {
         this.thruster = true;
     }
@@ -194,7 +197,7 @@ public class Ship extends Entity {
     /**
      * Turn the thruster off.
      */
-
+    @Basic
     public void thrustOff() {
         this.thruster = false;
     }
@@ -207,7 +210,7 @@ public class Ship extends Entity {
      * Returns true when the thruster is activated and false when it's deactivated.
      * @return
      */
-
+    @Basic
     public boolean isThrusterActive() {return this.thruster;}
 
     /**
@@ -320,14 +323,14 @@ public class Ship extends Entity {
      * Returns the bullets on the ship
      * @return Set<Bullet> bullets
      */
-
+    @Basic
     public Set<? extends Bullet> getBullets() {return bullets;}
 
     /**
      * Returns the number of bullets on the ship
      * @return bullets.size()
      */
-
+    @Basic
     public int getNbBullets() {return bullets.size();}
 
     /**
@@ -504,7 +507,7 @@ public class Ship extends Entity {
      * Returns the state of the ship.
      * @return
      */
-
+    @Basic
     public boolean isTerminated() {
         if ((this.x <= 0 || this.x > 0) && (this.y <= 0 || this.y > 0)) {
             return false;
@@ -528,6 +531,7 @@ public class Ship extends Entity {
 	 * @result 	if the given program is valid, set this ship to the given program
 	 * 			| program.setShip(this);
 	 */
+
 	public void setProgram(Program program){
 		this.program = program;
 		if (program != null)
@@ -541,6 +545,7 @@ public class Ship extends Entity {
 	 * @return	the program of this ship
 	 * 			| result == this.program
 	 */
+	@Basic
 	public Program getProgram(){
 		return this.program;
 	}

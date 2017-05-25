@@ -1,6 +1,7 @@
 package asteroids.model;
 
 import asteroids.part2.CollisionListener;
+import be.kuleuven.cs.som.annotate.Basic;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -57,6 +58,7 @@ public class World {
         }
     }
 
+    @SuppressWarnings("Unnused")
     private void setMAX_VALUE(double value) {
         if (value < MAX_VALUE) {
             this.MAX_VALUE = value;
@@ -68,7 +70,7 @@ public class World {
      * followed by the height.
      * @return new double[] {this.width, this.height}
      */
-
+    @Basic
     public double[] getSize() {return new double[] {this.width, this.height};}
 
     public void addToWorld(Entity entity) throws WorldException, EntityException {
@@ -99,6 +101,7 @@ public class World {
         entity.removeEntityFromWorld(this);
     }
 
+    @SuppressWarnings("Unnused")
     public void removeMultipleFromWorld(Collection<Entity> entities) throws WorldException {
         if (entities == null) {
             throw new WorldException("Entity list doesn't exist");
@@ -127,7 +130,7 @@ public class World {
     /**
      * Terminates the World.
      */
-
+    @Basic
     public void terminate() throws WorldException {
         for (Entity entity: entities) {
             entity.world = null;
@@ -141,7 +144,7 @@ public class World {
      * Returns the state of the world.
      * @return
      */
-
+    @Basic
     public boolean isTerminated() {
         if ((width <= 0 || width > 0) && (height <=0 || height > 0)) {
             return false;
@@ -267,6 +270,7 @@ public class World {
         return null;
     }
 
+    @Basic
     public Set<? extends Object> getEntities() {
         Set<Entity> ent = new HashSet<>();
         if (entities == null) {

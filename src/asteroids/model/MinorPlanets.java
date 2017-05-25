@@ -1,5 +1,7 @@
 package asteroids.model;
 
+import be.kuleuven.cs.som.annotate.Basic;
+
 /**
  * @author Jaro Deklerck
  */
@@ -7,6 +9,7 @@ public class MinorPlanets extends Entity {
 
     private double MAX_SPEED = SPEED_OF_LIGHT;
 
+    @Basic
     @Override
     public double getMAX_SPEED() {
         return MAX_SPEED;
@@ -92,6 +95,7 @@ public class MinorPlanets extends Entity {
         this.mass = Double.NaN;
     }
 
+    @Basic
     public boolean isTerminated() {
         if ((this.x <= 0 || this.x > 0) && (this.y <= 0 || this.y > 0)) {
             return false;

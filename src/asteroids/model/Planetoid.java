@@ -1,5 +1,7 @@
 package asteroids.model;
 
+import be.kuleuven.cs.som.annotate.Basic;
+
 /**
  * @author Jaro Deklerck
  */
@@ -23,6 +25,7 @@ public class Planetoid extends MinorPlanets {
         }
     }
 
+    @Basic
     public double getTotalTraveledDistance() {
         return totalTraveledDistance;
     }
@@ -36,7 +39,7 @@ public class Planetoid extends MinorPlanets {
      * @post ...
      *      | new mass == 4/3*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY
      */
-
+    @Basic
     private void setMass() {
         this.mass = 4/3.*Math.PI*Math.pow(this.getRadius(), 3)*MASS_DENSITY;
     }

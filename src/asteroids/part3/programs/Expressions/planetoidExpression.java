@@ -1,8 +1,10 @@
 package asteroids.part3.programs.Expressions;
 
 import asteroids.model.Ship;
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
+import asteroids.part3.programs.Types.objectType;
 
 public class planetoidExpression implements Expression<Type> {
 	
@@ -22,10 +24,8 @@ public class planetoidExpression implements Expression<Type> {
 		return this.location;
 	}
 
-	@Override
-	public Type evaluate(Ship ship) throws ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+    @Override
+    public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+        return new objectType(ship.closestPlanetoid());
+    }
 }
