@@ -244,6 +244,63 @@ public class Ship extends Entity {
 		setOrientation(orientation + angle);
  	}
 
+    public Bullet closestBullet() {
+        Set<Bullet> bullets = (Set<Bullet>)this.world.getEntities("Bullet");
+        double closest = Double.POSITIVE_INFINITY;
+        Bullet bul = null;
+        for (Bullet bullet: bullets) {
+            if (this.getDistanceTo(bullet) < closest) {
+                bul = bullet;
+            }
+        }
+        return bul;
+    }
+
+ 	public Asteroid closestAsteroid() {
+	    Set<Asteroid> asteroids = (Set<Asteroid>)this.world.getEntities("Asteroid");
+	    double closest = Double.POSITIVE_INFINITY;
+	    Asteroid ast = null;
+	    for (Asteroid asteroid: asteroids) {
+	        if (this.getDistanceTo(asteroid) < closest) {
+	            ast = asteroid;
+            }
+        }
+        return ast;
+    }
+
+    public Planetoid closestPlanetoid() {
+        Set<Planetoid> planetoids = (Set<Planetoid>)this.world.getEntities("Planetoid");
+        double closest = Double.POSITIVE_INFINITY;
+        Planetoid plan = null;
+        for (Planetoid planetoid: planetoids) {
+            if (this.getDistanceTo(planetoid) < closest) {
+                plan = planetoid;
+            }
+        }
+        return plan;
+    }
+
+    public MinorPlanets closestMinorPlanet() {
+	    MinorPlanets ast = closestAsteroid();
+	    MinorPlanets plan = closestPlanetoid();
+	    if (ast == null && plan == null) {
+	        return null;
+        }
+        else if (ast == null) {
+	        return plan;
+        }
+        else if (plan == null) {
+	        return ast;
+        }
+        else if (this.getDistanceTo(plan) < this.getDistanceTo(ast)) {
+            return plan;
+        }
+        else {
+	        return ast;
+        }
+    }
+
+
     /**
      * Returns the bullets on the ship
      * @return Set<Bullet> bullets
