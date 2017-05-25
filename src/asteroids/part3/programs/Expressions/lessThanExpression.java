@@ -2,6 +2,10 @@ package asteroids.part3.programs.Expressions;
 
 import asteroids.model.Ship;
 import asteroids.part3.programs.Expressions.Expression;
+import asteroids.part3.programs.Types.booleanType;
+import asteroids.part3.programs.Types.doubleType;
+import asteroids.part3.programs.Function;
+import asteroids.part3.programs.ProgramException;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 
@@ -46,8 +50,13 @@ public class lessThanExpression implements Expression<Type> {
         return location;
     }
 
-    @Override
-    public Type evaluate(Ship ship) throws ClassNotFoundException {
-        return null;
-    }
+	@Override
+	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException, ProgramException {
+		if (((doubleType)this.getE1()).getDouble() < ((doubleType)this.getE2()).getDouble()){
+			return new booleanType(true);
+		}
+		else {
+			return new booleanType(false);
+		}
+	}
 }

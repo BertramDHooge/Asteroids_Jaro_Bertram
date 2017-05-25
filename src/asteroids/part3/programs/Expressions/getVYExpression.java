@@ -2,12 +2,12 @@ package asteroids.part3.programs.Expressions;
 
 import asteroids.model.Ship;
 import asteroids.part3.programs.Expressions.Expression;
+import asteroids.part3.programs.Types.doubleType;
+import asteroids.part3.programs.Function;
+import asteroids.part3.programs.ProgramException;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 
-/**
- * @author Jaro Deklerck
- */
 public class getVYExpression implements Expression<Type> {
 
     private Expression<? extends Type> e;
@@ -36,8 +36,8 @@ public class getVYExpression implements Expression<Type> {
         return location;
     }
 
-    @Override
-    public Type evaluate(Ship ship) throws ClassNotFoundException {
-        return null;
-    }
+	@Override
+	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException, ProgramException {
+		return new doubleType(ship.getVelocity()[1]);
+	}
 }

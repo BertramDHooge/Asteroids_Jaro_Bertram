@@ -5,6 +5,7 @@ import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 import asteroids.part3.programs.Types.booleanType;
+import asteroids.part3.programs.Types.doubleType;
 
 public class equalityExpression implements Expression<Type> {
 
@@ -46,7 +47,7 @@ public class equalityExpression implements Expression<Type> {
     
 	@Override
 	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
-		if (this.getE1() == this.getE2()){
+		if (((doubleType)this.getE1()).getDouble() == ((doubleType)this.getE2()).getDouble()){
 			return new booleanType(true);
 		}
 		else {
