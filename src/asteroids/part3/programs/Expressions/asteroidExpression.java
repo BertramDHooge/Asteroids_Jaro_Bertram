@@ -4,6 +4,7 @@ import asteroids.model.Ship;
 import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
+import asteroids.part3.programs.Types.objectType;
 
 public class asteroidExpression implements Expression<Type> {
 	
