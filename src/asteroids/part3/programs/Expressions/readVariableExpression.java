@@ -38,6 +38,6 @@ public class readVariableExpression implements Expression<Type> {
 	@Override
 	public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
 		HashMap<String, Expression<?>> variables = ship.getProgram().getVariables();
-	    return (Type) variables.get(this.getVariableName()).evaluate(ship, function);
+	    return (Type) variables.get(this.getVariableName());
 	}
 }
