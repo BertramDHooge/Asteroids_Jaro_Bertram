@@ -1,5 +1,6 @@
 package asteroids.part3.programs.Expressions;
 
+import asteroids.model.Entity;
 import asteroids.model.Ship;
 import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
@@ -36,7 +37,7 @@ public class getVXExpression implements Expression<Type> {
 
     @Override
     public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
-        return new doubleType(ship.getVelocity()[0]);
+        return new doubleType(((Entity)this.getExpression().evaluate(ship, function).get()).getVelocity()[0]);
     }
 
 }

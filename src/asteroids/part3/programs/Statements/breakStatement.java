@@ -10,6 +10,12 @@ public class breakStatement extends Statement {
 
     @Override
     public void execute() throws ClassNotFoundException {
+        if (this.getProgram().isNotEnoughTimeLeft()) {
+            return;
+        }
+	    if (!this.getProgram().isInWhile()) {
+	        throw new ClassNotFoundException("Not in while");
+        }
         this.getProgram().setBreaking(true);
     }
 

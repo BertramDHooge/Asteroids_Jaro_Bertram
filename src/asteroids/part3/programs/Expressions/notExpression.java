@@ -35,7 +35,7 @@ public class notExpression implements Expression<Type> {
 
     @Override
     public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
-        if (((booleanType) this.getExpression()).getBoolean()) {
+        if (((booleanType) this.getExpression().evaluate(ship, function)).getBoolean()) {
             return new booleanType(false);
         } else {
             return new booleanType(true);

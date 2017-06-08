@@ -5,6 +5,7 @@ import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
 import asteroids.part3.programs.Expressions.Expression;
+import asteroids.part3.programs.Types.setType;
 
 public class printStatement extends Statement {
 	private SourceLocation sourceLocation;
@@ -25,9 +26,28 @@ public class printStatement extends Statement {
 
     @Override
     public void execute() throws ClassNotFoundException {
+        if (this.getProgram().isNotEnoughTimeLeft()) {
+            this.getProgram().setNotEnoughTimeLeft(false);
+            return;
+        }
         Function function = this.getFunction();
         Ship ship = this.getProgram().getShip();
-        this.getProgram().getExecuteResult().add(this.getValue().evaluate(ship, function).get());
-        System.out.println(this.getValue().evaluate(ship, function).get());
+        Type eval = this.getValue().evaluate(ship, function);
+        if (eval != null) {
+            if (eval instanceof setType && ((setType) eval).getSet().size() == 1) {
+                for (Object obj: ((setType) eval).getSet()) {
+                    this.getProgram().getExecuteResult().add(obj);
+                    System.out.println(obj);
+                }
+            }
+            else {
+                this.getProgram().getExecuteResult().add(eval.get());
+                System.out.println(eval.get());
+            }
+        }
+        else {
+            this.getProgram().getExecuteResult().add(eval);
+            System.out.println(eval);
+        }
     }
 }

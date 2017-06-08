@@ -49,13 +49,18 @@ public class functionCallExpression implements Expression<Type> {
     @Override
     public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
         List<Function> functions = ship.getProgram().getFunctions();
-        for(Function func: functions){
-            if (Objects.equals(func.getFunctionName(), this.getFunctionName()))
+        for(Function func: functions) {
+            if (Objects.equals(func.getFunctionName(), this.getFunctionName())) {
                 func.getBody().setFunction(func);
                 func.getBody().setProgram(ship.getProgram());
-                return func.execute(this.getActualArgs());
+                func.setProgram(ship.getProgram());
+                ship.getProgram().setRecursion(ship.getProgram().getRecursion() + 1);
+                Type exec = func.execute(this.getActualArgs());
+                ship.getProgram().setRecursion(ship.getProgram().getRecursion() - 1);
+                return exec;
+            }
         }
-        return null;
+        throw new ClassNotFoundException("No function found");
     }
 
 }

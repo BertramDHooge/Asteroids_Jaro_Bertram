@@ -10,7 +10,7 @@ public class objectType extends Type {
     protected Object obj;
 
     public objectType(Object obj) {
-        this.obj = obj;
+        setObject(obj);
     }
     
     private void setObject(Object obj){
@@ -19,4 +19,10 @@ public class objectType extends Type {
     
     public Object getObject(){
     	return this.obj;
-    }}
+    }
+
+    @Override
+    public Object get() {
+        return this.getObject();
+    }
+}

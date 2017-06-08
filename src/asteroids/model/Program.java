@@ -20,6 +20,10 @@ public class Program {
 	private HashMap<String, Expression<?>> variables = new HashMap<>();
 	private List<Object> executeResult = new LinkedList<>();
 	private boolean breaking;
+	private int recursion = 0;
+	private boolean inWhile;
+	private boolean notEnoughTimeLeft;
+	private boolean stopProgram;
 	
 	/**
 	 * creates a program to be loaded onto a ship
@@ -131,12 +135,17 @@ public class Program {
 	 */
 
 	public List<Object> execute(Double duration) throws ClassNotFoundException {
-		Double executeTime = this.executeTime + duration;
+	    this.executeResult.clear();
+		this.setExecuteTime(this.getExecuteTime()+duration);
+		double t = this.getExecuteTime();
 		body.setProgram(this);
+		this.setNotEnoughTimeLeft(false);
+		this.setStopProgram(false);
 		body.execute();
-//		while (executeTime >= 2.0){
-//			body.execute();
-//		}
+		if (this.isStopProgram()) {
+		    this.setExecuteTime(t);
+		    return null;
+        }
 		return executeResult;
 	}
 
@@ -154,5 +163,37 @@ public class Program {
 
     public void setExecuteTime(Double executeTime) {
         this.executeTime = executeTime;
+    }
+
+    public int getRecursion() {
+        return recursion;
+    }
+
+    public void setRecursion(int recursion) {
+        this.recursion = recursion;
+    }
+
+    public boolean isInWhile() {
+        return inWhile;
+    }
+
+    public void setInWhile(boolean inWhile) {
+        this.inWhile = inWhile;
+    }
+
+    public boolean isNotEnoughTimeLeft() {
+        return notEnoughTimeLeft;
+    }
+
+    public void setNotEnoughTimeLeft(boolean notEnoughTimeLeft) {
+        this.notEnoughTimeLeft = notEnoughTimeLeft;
+    }
+
+    public boolean isStopProgram() {
+        return stopProgram;
+    }
+
+    public void setStopProgram(boolean stopProgram) {
+        this.stopProgram = stopProgram;
     }
 }

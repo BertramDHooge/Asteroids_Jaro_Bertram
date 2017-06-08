@@ -1,14 +1,10 @@
 package asteroids.model;
 
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import asteroids.part3.programs.Type;
 import be.kuleuven.cs.som.annotate.Basic;
-import be.kuleuven.cs.som.annotate.Value;
+
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Ship extends Entity {
 
@@ -60,14 +56,14 @@ public class Ship extends Entity {
 	 */
 	
 	public Ship(double x, double y, double xVelocity, double yVelocity, double radius, double orientation, double mass) throws EntityException {
-		if ((x <= 0 || x > 0) && (y <= 0 || y > 0) && (radius <= 0 || radius > 0) && (orientation <= 0 || orientation > 0)){
+		if (!Double.isNaN(x) && !Double.isNaN(y) && !Double.isNaN(radius) && !Double.isNaN(orientation)){
 			setPosition(x, y);
             setVelocity(xVelocity, yVelocity);
 			setRadius(radius);
 			if (orientation < MIN_ANGLE || orientation > MAX_ANGLE) {
 			    throw new EntityException("Invalid orientation");
             }
-            setOrientation(orientation);
+            setOrientation(orientation, 0);
             setMass(mass);
 		}
 		else {
@@ -89,15 +85,11 @@ public class Ship extends Entity {
      * 		|		do new orientation == orientation + MAX_ANGLE
      */
 
-	private void setOrientation(double orientation) {
-        assert assertOrientation(orientation);
-        this.orientation = orientation;
-        while (this.orientation > MAX_ANGLE){
-            this.orientation -= MAX_ANGLE;
-        }
+	private void setOrientation(double orientation, double angle) {
         while (orientation < MIN_ANGLE){
-            this.orientation += MAX_ANGLE;
+            orientation += MAX_ANGLE;
         }
+        this.orientation = (orientation + angle) % (MAX_ANGLE);
     }
 
 	/**
@@ -114,13 +106,13 @@ public class Ship extends Entity {
      * @param orientation
      * 		Orientation of the ship
      * @return ...
-     * 		|if (orientation <= MAX_ANGLE && orientation >= MIN_ANGLE)
+     * 		|if (orientation > -MAX_ANGLE)
      * 		|		then return true
      * 		|else return false
      */
 
     private boolean assertOrientation(double orientation) {
-        if (orientation <= MAX_ANGLE && orientation >= MIN_ANGLE) {
+        if (orientation > -MAX_ANGLE) {
             return true;
         }
         return false;
@@ -183,7 +175,9 @@ public class Ship extends Entity {
     }
 
     public void thrust(double dt, double a) {
-        this.setVelocity(xVelocity + a * Math.cos(orientation) * dt, yVelocity + a * Math.sin(orientation) * dt);
+        if (dt >= 0 && a >= 0) {
+            this.setVelocity(xVelocity + a * Math.cos(orientation) * dt, yVelocity + a * Math.sin(orientation) * dt);
+        }
     }
 
     /**
@@ -237,6 +231,13 @@ public class Ship extends Entity {
 
     @Override
     public void move(double dt) {
+        if (this.getProgram() != null) {
+            try {
+                this.getProgram().execute(dt);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
         x += dt * xVelocity;
         y += dt * yVelocity;
         if (this.isThrusterActive()) {
@@ -254,7 +255,8 @@ public class Ship extends Entity {
 	 */
 	
 	public void turn(double angle) {
-		setOrientation(orientation + angle);
+		assert assertOrientation(angle);
+	    setOrientation(orientation, angle);
  	}
 
     public Ship closestShip() {
@@ -262,7 +264,8 @@ public class Ship extends Entity {
         double closest = Double.POSITIVE_INFINITY;
         Ship sh = null;
         for (Ship ship: ships) {
-            if (this.getDistanceTo(ship) < closest) {
+            if (ship != this && this.getDistanceTo(ship) < closest) {
+                closest = this.getDistanceTo(ship);
                 sh = ship;
             }
         }
@@ -275,6 +278,7 @@ public class Ship extends Entity {
         Bullet bul = null;
         for (Bullet bullet: bullets) {
             if (this.getDistanceTo(bullet) < closest) {
+                closest = this.getDistanceTo(bullet);
                 bul = bullet;
             }
         }
@@ -287,6 +291,7 @@ public class Ship extends Entity {
 	    Asteroid ast = null;
 	    for (Asteroid asteroid: asteroids) {
 	        if (this.getDistanceTo(asteroid) < closest) {
+                closest = this.getDistanceTo(asteroid);
 	            ast = asteroid;
             }
         }
@@ -299,6 +304,7 @@ public class Ship extends Entity {
         Planetoid plan = null;
         for (Planetoid planetoid: planetoids) {
             if (this.getDistanceTo(planetoid) < closest) {
+                closest = this.getDistanceTo(planetoid);
                 plan = planetoid;
             }
         }
@@ -331,7 +337,11 @@ public class Ship extends Entity {
      * @return Set<Bullet> bullets
      */
     @Basic
-    public Set<? extends Bullet> getBullets() {return bullets;}
+    public Set<? extends Bullet> getBullets() {
+        Set<Bullet> bul = new HashSet<>();
+        bul.addAll(bullets);
+        return bul;
+    }
 
     /**
      * Returns the number of bullets on the ship
@@ -416,15 +426,12 @@ public class Ship extends Entity {
 
     public void fireBullet() throws EntityException, WorldException{
         if (!this.bullets.isEmpty() && this.world != null) {
-            Bullet bullet = null;
-            for (Bullet rndBullet : this.bullets) {
-                bullet = rndBullet;
-                break;
-            }
+            Bullet bullet = bullets.stream().limit(1).peek(t -> {
+                    t.source = this;
+                    t.setVelocity(Math.cos(orientation)*250, Math.sin(orientation)*250);
+            }).findFirst().get();
             this.removeBullet(bullet);
-            bullet.source = this;
-            bullet.setPosition(this.x + Math.cos(orientation) * 1.011 * (radius+bullet.radius), this.y + Math.sin(orientation) * 1.011 * (radius+bullet.radius));
-            bullet.setVelocity(Math.cos(orientation)*250, Math.sin(orientation)*250);
+            bullet.setPosition(this.x + Math.cos(orientation) * 1.011 * (radius + bullet.radius), this.y + Math.sin(orientation) * 1.011 * (radius + bullet.radius));
             this.world.addToWorld(bullet);
         }
     }

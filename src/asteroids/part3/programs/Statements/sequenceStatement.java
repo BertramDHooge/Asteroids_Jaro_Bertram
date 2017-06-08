@@ -23,6 +23,9 @@ public class sequenceStatement extends Statement {
 
     @Override
     public void execute() throws ClassNotFoundException {
+        if (this.getProgram().isNotEnoughTimeLeft()) {
+            return;
+        }
         for (Statement statement: statements) {
             statement.setProgram(this.getProgram());
             statement.setFunction(this.getFunction());

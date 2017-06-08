@@ -35,7 +35,7 @@ public class bulletExpression implements Expression<Type> {
                 return new objectType(bullet);
             }
         }
-        throw new ClassNotFoundException("No bullets from ship!!!");
+        return null;
     }
 
 }

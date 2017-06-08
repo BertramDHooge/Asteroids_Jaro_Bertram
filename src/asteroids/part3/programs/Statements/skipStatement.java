@@ -16,7 +16,15 @@ public class skipStatement extends Statement {
 
     @Override
     public void execute() throws ClassNotFoundException {
-
+        if (this.getProgram().getExecuteTime() < 0.2) {
+            this.getProgram().setNotEnoughTimeLeft(true);
+            this.getProgram().setStopProgram(true);
+            return;
+        }
+        if (this.getFunction() != null) {
+            throw new ClassNotFoundException("Used in function bode");
+        }
+        this.getProgram().setExecuteTime(this.getProgram().getExecuteTime()-0.2);
     }
 
 }

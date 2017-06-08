@@ -8,7 +8,7 @@ public class doubleType extends Type {
     protected double dble;
 
     public doubleType(double dble) {
-        this.dble = dble;
+        setDouble(dble);
     }
     
     private void setDouble(Double dble){
@@ -19,4 +19,8 @@ public class doubleType extends Type {
     	return this.dble;
     }
 
+    @Override
+    public Object get() {
+        return this.getDouble();
+    }
 }

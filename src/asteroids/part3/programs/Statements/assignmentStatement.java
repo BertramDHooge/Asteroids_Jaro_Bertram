@@ -1,9 +1,11 @@
 package asteroids.part3.programs.Statements;
 
-import asteroids.part3.programs.Expressions.Expression;
-import asteroids.part3.programs.Expressions.doubleLiteralExpression;
+import asteroids.part3.programs.Expressions.*;
+import asteroids.part3.programs.Function;
 import asteroids.part3.programs.SourceLocation;
 import asteroids.part3.programs.Type;
+
+import java.util.Objects;
 
 public class assignmentStatement extends Statement{
 
@@ -34,22 +36,34 @@ public class assignmentStatement extends Statement{
 
 	@Override
     public void execute() throws ClassNotFoundException{
+	    if (this.getProgram().isNotEnoughTimeLeft()) {
+	        return;
+        }
+        if (this.getValue() instanceof selfExpression) {
+	        throw new ClassNotFoundException("Improper type");
+        }
+	    for (Function function: this.getProgram().getFunctions()) {
+            if (this.getFunction() == null && Objects.equals(function.getFunctionName(), this.getVariableName())){
+                throw new ClassNotFoundException("Name in use for function");
+            }
+        }
+	    Expression<? extends Type> exp = this.getValue();
 	    if (this.getFunction() == null) {
-	        if (this.getValue() instanceof doubleLiteralExpression) {
-                this.getProgram().getVariables().put(this.getVariableName(), this.getValue());
+	        if (exp instanceof additionExpression || exp instanceof changeSignExpression || exp instanceof multiplicationExpression || exp instanceof sqrtExpression || exp instanceof functionCallExpression || exp instanceof readParameterExpression) {
+                exp = new doubleLiteralExpression((double)exp.evaluate(this.getProgram().getShip(), this.getFunction()).get(), sourceLocation);
+                this.getProgram().getVariables().put(this.getVariableName(), exp);
             }
             else {
-	            this.setValue(new doubleLiteralExpression((double)this.getValue().evaluate(this.getProgram().getShip(), this.getFunction()).get(), sourceLocation));
-                this.getProgram().getVariables().put(this.getVariableName(), this.getValue());
+                this.getProgram().getVariables().put(this.getVariableName(), exp);
             }
         }
         else {
-            if (this.getValue() instanceof doubleLiteralExpression) {
-                this.getProgram().getVariables().put("local_"+this.getVariableName(), this.getValue());
+            if (exp instanceof additionExpression || exp instanceof changeSignExpression || exp instanceof multiplicationExpression || exp instanceof sqrtExpression || exp instanceof functionCallExpression || exp instanceof readParameterExpression) {
+                exp = new doubleLiteralExpression((double)exp.evaluate(this.getProgram().getShip(), this.getFunction()).get(), sourceLocation);
+                this.getProgram().getVariables().put("local_"+this.getVariableName()+this.getProgram().getRecursion(), exp);
             }
             else {
-                this.setValue(new doubleLiteralExpression((double)this.getValue().evaluate(this.getProgram().getShip(), this.getFunction()).get(), sourceLocation));
-                this.getProgram().getVariables().put("local_"+this.getVariableName(), this.getValue());
+                this.getProgram().getVariables().put("local_"+this.getVariableName()+this.getProgram().getRecursion(), exp);
             }
         }
     }

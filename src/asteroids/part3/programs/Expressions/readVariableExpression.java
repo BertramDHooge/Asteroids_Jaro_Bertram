@@ -41,7 +41,12 @@ public class readVariableExpression implements Expression<Type> {
             return ship.getProgram().getVariables().get(this.getVariableName()).evaluate(ship, function);
         }
         else {
-            return ship.getProgram().getVariables().get("local_"+this.getVariableName()).evaluate(ship, function);
+            if (ship.getProgram().getVariables().containsKey("local_"+this.getVariableName()+ship.getProgram().getRecursion())) {
+                return ship.getProgram().getVariables().get("local_" + this.getVariableName()+ship.getProgram().getRecursion()).evaluate(ship, function);
+            }
+            else {
+                return ship.getProgram().getVariables().get(this.getVariableName()).evaluate(ship, function);
+            }
         }
     }
 }

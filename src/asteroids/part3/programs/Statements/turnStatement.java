@@ -29,8 +29,25 @@ public class turnStatement extends Statement {
 
     @Override
     public void execute() throws ClassNotFoundException {
+        if (this.getProgram().getExecuteTime() < 0.2) {
+            this.getProgram().setNotEnoughTimeLeft(true);
+            this.getProgram().setStopProgram(true);
+            return;
+        }
+        if (this.getFunction() !=  null) {
+            throw new ClassNotFoundException("Used in function body");
+        }
         Function func = this.getFunction();
         Ship ship = this.getProgram().getShip();
-        ship.turn(((doubleType)this.getAngle().evaluate(ship, func)).getDouble());
+        double angle = ((doubleType)this.getAngle().evaluate(ship, func)).getDouble();
+        if (angle > -2*Math.PI && angle < 2*Math.PI) {
+            for (int i = 0; i < 5; i++) {
+                ship.turn(angle * 0.2);
+            }
+        }
+        else {
+            throw new ClassNotFoundException("Invalid Angle");
+        }
+        this.getProgram().setExecuteTime(this.getProgram().getExecuteTime()-0.2);
     }
 }

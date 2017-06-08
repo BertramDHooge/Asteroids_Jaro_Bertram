@@ -46,14 +46,19 @@ public class ifStatement extends Statement {
 
     @Override
     public void execute() throws ClassNotFoundException {
+        if (this.getProgram().isNotEnoughTimeLeft()) {
+            return;
+        }
         Function funct = this.getFunction();
         Ship ship = this.getProgram().getShip();
         if (((booleanType) this.getCondition().evaluate(ship, funct)).getBoolean()) {
             this.getIfBody().setProgram(this.getProgram());
+            this.getIfBody().setFunction(this.getFunction());
             this.getIfBody().execute();
         }
         else if (this.getElseBody() != null) {
             this.getElseBody().setProgram(this.getProgram());
+            this.getElseBody().setFunction(this.getFunction());
             this.getElseBody().execute();
         }
     }

@@ -47,6 +47,21 @@ public class equalityExpression implements Expression<Type> {
 
     @Override
     public Type evaluate(Ship ship, Function function) throws ClassNotFoundException {
+        if (this.getE1().evaluate(ship, function) == null && this.getE2().evaluate(ship, function) == null) {
+            return new booleanType(true);
+        }
+        else if (this.getE2().evaluate(ship, function) == null && this.getE1().evaluate(ship, function).get() == null) {
+            return new booleanType(true);
+        }
+        else if (this.getE1().evaluate(ship, function) == null && this.getE2().evaluate(ship, function).get() == null) {
+            return new booleanType(true);
+        }
+        else if (this.getE2().evaluate(ship, function) == null && this.getE1().evaluate(ship, function).get() != null) {
+            return new booleanType(false);
+        }
+        else if (this.getE1().evaluate(ship, function) == null && this.getE2().evaluate(ship, function).get() != null) {
+            return new booleanType(false);
+        }
         if (this.getE1().evaluate(ship, function).get() == this.getE2().evaluate(ship, function).get()) {
             return new booleanType(true);
         } else {

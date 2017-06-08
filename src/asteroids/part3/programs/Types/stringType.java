@@ -7,7 +7,7 @@ public class stringType extends Type {
 	protected String string;
 
     public stringType(String string) {
-        this.string = string;
+        setString(string);
     }
 
     public void setString(String string){
@@ -16,5 +16,10 @@ public class stringType extends Type {
     
     public String getString(){
     	return string;
+    }
+
+    @Override
+    public Object get() {
+        return this.getString();
     }
 }

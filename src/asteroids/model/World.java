@@ -272,7 +272,18 @@ public class World {
             double next = getTimeNextCollision();
             if (next < t) {
                 for (Entity entity: entities) {
-                    entity.move(next);
+                    if (!(entity instanceof Ship && ((Ship)entity).getProgram() != null)) {
+                        entity.move(next);
+                    }
+                }
+                for (Entity entity: entities) {
+                    if (entity instanceof Ship && ((Ship)entity).getProgram() != null) {
+                        double s = entities.size();
+                        entity.move(next);
+                        if (s != entities.size()) {
+                            break;
+                        }
+                    }
                 }
                 for (Entity entity: entities) {
                     double tb = entity.getTimeToCollisionBoundary();
@@ -302,7 +313,18 @@ public class World {
             }
             else {
                 for (Entity entity: entities) {
-                    entity.move(t);
+                    if (!(entity instanceof Ship && ((Ship)entity).getProgram() != null)) {
+                        entity.move(t);
+                    }
+                }
+                for (Entity entity: entities) {
+                    if (entity instanceof Ship && ((Ship)entity).getProgram() != null) {
+                        double s = entities.size();
+                        entity.move(t);
+                        if (s != entities.size()) {
+                            break;
+                        }
+                    }
                 }
                 t = 0;
             }
@@ -324,9 +346,7 @@ public class World {
         if (entities == null) {
             return ent;
         }
-        for (Entity entity: entities) {
-            ent.add(entity);
-        }
+        ent.addAll(entities);
         return ent;
     }
 }

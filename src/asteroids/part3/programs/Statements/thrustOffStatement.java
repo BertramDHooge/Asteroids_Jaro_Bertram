@@ -13,7 +13,18 @@ public class thrustOffStatement extends Statement {
 
     @Override
     public void execute() throws ClassNotFoundException {
-        this.getProgram().getShip().thrustOff();
+        if (this.getProgram().getExecuteTime() < 0.2) {
+            this.getProgram().setNotEnoughTimeLeft(true);
+            this.getProgram().setStopProgram(true);
+            return;
+        }
+        if (this.getFunction() == null) {
+            this.getProgram().getShip().thrustOff();
+        }
+        else {
+            throw new ClassNotFoundException("Thrust in function body");
+        }
+        this.getProgram().setExecuteTime(this.getProgram().getExecuteTime()-0.2);
     }
 
 }

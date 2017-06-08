@@ -24,6 +24,9 @@ public class returnStatement extends Statement {
 
     @Override
     public void execute() throws ClassNotFoundException {
+        if (this.getProgram().isNotEnoughTimeLeft()) {
+            return;
+        }
         Function func = this.getFunction();
         Ship ship = this.getProgram().getShip();
         func.setReturnValue(this.getValue().evaluate(ship, func));

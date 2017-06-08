@@ -36,14 +36,21 @@ public class whileStatement extends Statement {
 
     @Override
     public void execute() throws ClassNotFoundException {
+        if (this.getProgram().isNotEnoughTimeLeft()) {
+            return;
+        }
         Function func = this.getFunction();
         Ship ship = this.getProgram().getShip();
-
         while (((booleanType)this.getCondition().evaluate(ship, func)).getBoolean() && !this.getProgram().getBreaking()) {
-//            this.getBody().setProgram(this.getProgram());
-//            this.getBody().setFunction(this.getFunction());
+            if (this.getProgram().isNotEnoughTimeLeft()) {
+                return;
+            }
+            this.getProgram().setInWhile(true);
+            this.getBody().setProgram(this.getProgram());
+            this.getBody().setFunction(this.getFunction());
             this.getBody().execute();
         }
+        this.getProgram().setInWhile(false);
         if (this.getProgram().getBreaking()) {
             this.getProgram().setBreaking(false);
         }

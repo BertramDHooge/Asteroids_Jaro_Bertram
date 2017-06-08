@@ -273,18 +273,23 @@ public class Entity {
     private void collisionEffect(CollisionListener collisionListener, Entity entity) {
         if (collisionListener != null) {
             if (entity != null) {
-                double[] coords = this.getPositionCollisionEntity(entity);
-                if (coords == null) {
-                    return;
-                }
-                collisionListener.objectCollision(this, entity, coords[0], coords[1]);
+                double posX = (this.getPosition()[0]+entity.getPosition()[0]+Math.abs(this.getRadius()-entity.getRadius()))/2;
+                double posY = (this.getPosition()[1]+entity.getPosition()[1]+Math.abs(this.getRadius()-entity.getRadius()))/2;
+                collisionListener.objectCollision(this, entity, posX, posY);
             }
             else {
-                double[] coords = this.getPositionCollisionBoundary();
-                if (coords == null) {
-                    return;
+                if (this.boundary == 1) {
+                    collisionListener.boundaryCollision(this, this.getPosition()[0]-this.getRadius(), this.getPosition()[1]);
                 }
-                collisionListener.boundaryCollision(this, coords[0], coords[1]);
+                else if (this.boundary == 3) {
+                    collisionListener.boundaryCollision(this, this.getPosition()[0]+this.getRadius(), this.getPosition()[1]);
+                }
+                else if (this.boundary == 2) {
+                    collisionListener.boundaryCollision(this, this.getPosition()[0], this.getPosition()[1]-this.getRadius());
+                }
+                else if (this.boundary == 4) {
+                    collisionListener.boundaryCollision(this, this.getPosition()[0], this.getPosition()[1]+this.getRadius());
+                }
             }
         }
     }
@@ -460,7 +465,7 @@ public class Entity {
             throw new IllegalArgumentException();
         }
         double d = getDistanceTo(entity);
-        if (d >= 0.99*(this.radius + entity.radius) && d <= 1.01*(this.radius + entity.radius)){
+        if (d >= -1.01*(this.radius + entity.radius) && d <= 1.01*(this.radius + entity.radius)){
             return true;
         }
         if (this == entity){

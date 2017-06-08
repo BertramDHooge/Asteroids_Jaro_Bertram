@@ -10,7 +10,7 @@ public class booleanType extends Type {
     protected boolean bool;
 
     public booleanType(Boolean bool) {
-        this.bool = bool;
+        setBoolean(bool);
     }
     
     private void setBoolean(Boolean bool){
@@ -21,4 +21,8 @@ public class booleanType extends Type {
     	return this.bool;
     }
 
+    @Override
+    public Object get() {
+        return this.getBoolean();
+    }
 }
