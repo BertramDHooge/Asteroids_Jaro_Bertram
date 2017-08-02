@@ -62,7 +62,7 @@ public class equalityExpression implements Expression<Type> {
         else if (this.getE1().evaluate(ship, function) == null && this.getE2().evaluate(ship, function).get() != null) {
             return new booleanType(false);
         }
-        if (this.getE1().evaluate(ship, function).get() == this.getE2().evaluate(ship, function).get()) {
+        if (this.getE1().evaluate(ship, function).get().equals(this.getE2().evaluate(ship, function).get())) {
             return new booleanType(true);
         } else {
             return new booleanType(false);
