@@ -24,6 +24,7 @@ public class Program {
 	private boolean inWhile;
 	private boolean notEnoughTimeLeft;
 	private boolean stopProgram;
+	private boolean assertCheck;
 	
 	/**
 	 * creates a program to be loaded onto a ship
@@ -134,7 +135,8 @@ public class Program {
 	 * @return
 	 */
 
-	public List<Object> execute(Double duration) throws ClassNotFoundException {
+	public List<Object> execute(Double duration, boolean assertCheck) throws ClassNotFoundException {
+	    this.setAssertCheck(assertCheck);
 	    this.executeResult.clear();
 		this.setExecuteTime(this.getExecuteTime()+duration);
 		double t = this.getExecuteTime();
@@ -195,5 +197,13 @@ public class Program {
 
     public void setStopProgram(boolean stopProgram) {
         this.stopProgram = stopProgram;
+    }
+
+    public boolean isAssertCheck() {
+        return assertCheck;
+    }
+
+    public void setAssertCheck(boolean assertCheck) {
+        this.assertCheck = assertCheck;
     }
 }

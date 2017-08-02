@@ -259,6 +259,14 @@ public class Entity {
                 entity.terminate();
                 return true;
             }
+            else if (this instanceof BlackHole && (entity instanceof Ship || entity instanceof MinorPlanets)) {
+                entity.terminate();
+                return true;
+            }
+            else if ((this instanceof Ship || this instanceof MinorPlanets) && entity instanceof BlackHole) {
+                this.terminate();
+                return true;
+            }
         }
         return false;
     }
@@ -352,6 +360,11 @@ public class Entity {
     @Basic
     public World getWorld() {
         return this.world;
+    }
+
+    @Basic
+    protected void setWorld(World w) {
+        this.world = w;
     }
 
     @Basic
@@ -701,6 +714,9 @@ public class Entity {
     public double getTimeCollisionEntity(Entity entity) throws IllegalArgumentException {
         if (entity == null){
              throw new IllegalArgumentException();
+        }
+        if (this instanceof BlackHole && entity instanceof Bullet || this instanceof Bullet && entity instanceof BlackHole) {
+            return Double.POSITIVE_INFINITY;
         }
         double cd = (Math.hypot(entity.x-this.x, entity.y-this.y) - (this.radius + entity.radius));
         double nd = (Math.hypot((entity.x + 0.000001*entity.xVelocity)-(this.x + 0.000001*this.xVelocity), (entity.y + 0.000001*entity.yVelocity) - (this.y + 0.000001*this.yVelocity)) - (this.radius + entity.radius));

@@ -233,7 +233,7 @@ public class Ship extends Entity {
     public void move(double dt) {
         if (this.getProgram() != null) {
             try {
-                this.getProgram().execute(dt);
+                this.getProgram().execute(dt, this.getProgram().isAssertCheck());
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -572,6 +572,10 @@ public class Ship extends Entity {
 	 * 			| this.program.execute(duration)
 	 */
 	public List<Object> executeProgram(Double duration) throws ClassNotFoundException{
-		return this.program.execute(duration);
+		return this.program.execute(duration, false);
 	}
+
+    public List<Object> executeProgram(Double duration, boolean assertCheck) throws ClassNotFoundException{
+        return this.program.execute(duration, assertCheck);
+    }
 }

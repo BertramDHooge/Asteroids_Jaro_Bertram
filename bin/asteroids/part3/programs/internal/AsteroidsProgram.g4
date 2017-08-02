@@ -30,10 +30,10 @@ statement:    assignmentStatement
             | actionStatement
 ; 
 
-assignmentStatement:   variableName=IDENTIFIER ASSIGN value=expression ';'
+assignmentStatement:   variableName=IDENTIFIER ASSIGN value=bool ';'
 ;
 
-whileStatement:    WHILE condition=expression LEFT_BRACE
+whileStatement:    WHILE condition=bool LEFT_BRACE
                       body=statementSequence
                    RIGHT_BRACE
 ;
@@ -41,17 +41,17 @@ whileStatement:    WHILE condition=expression LEFT_BRACE
 breakStatement: BREAK ';'
 ;
 
-returnStatement: RETURN value=expression ';'
+returnStatement: RETURN value=bool ';'
 ;
 
-ifStatement: IF condition=expression LEFT_BRACE
+ifStatement: IF condition=bool LEFT_BRACE
                 ifbody=statementSequence
              RIGHT_BRACE
             (ELSE LEFT_BRACE
             	elsebody=statementSequence RIGHT_BRACE)?
 ;
 
-printStatement: PRINT value=expression ';'
+printStatement: PRINT value=bool ';'
 ;
 
 statementSequence: stmts+=statement (stmts+=statement)*
@@ -59,30 +59,30 @@ statementSequence: stmts+=statement (stmts+=statement)*
 
 actionStatement:  THRUSTON ';' #thrustOnAction
                 | THRUSTOFF ';' #thrustOffAction
-                | TURN angle=expression ';' #turnAction
+                | TURN angle=bool ';' #turnAction
                 | FIRE ';' #fireAction
                 | SKIP_ACTION ';' #skipAction
 ;
 
-expression:   number=NUMBER #numberExpression
+bool:   number=NUMBER #numberExpression
             | variable=IDENTIFIER #readVariableExpression
             | parameter=PARAM #readParameterExpression
             | entit=entity #entityExpression
-            | LEFT_PAREN subExpr=expression RIGHT_PAREN #parenExpression
-            | SUB operand=expression #changeSignExpression
-            | leftAdd=expression ADD rightAdd=expression #addExpression
-            | leftMul=expression MUL rightMult=expression #mulExpression
+            | LEFT_PAREN subExpr=bool RIGHT_PAREN #parenExpression
+            | SUB operand=bool #changeSignExpression
+            | leftAdd=bool ADD rightAdd=bool #addExpression
+            | leftMul=bool MUL rightMult=bool #mulExpression
             | functCall=functionCall #functCall
-            | NOT expr=expression  #notExpression
-            | SQRT expr=expression  #sqrtExpression
-            | GETX expr=expression #getXExpression
-            | GETY expr=expression #getYExpression
-            | GETVX expr=expression #getVXExpression
-            | GETVY expr=expression #getVYExpression
-            | GETRADIUS expr=expression #getRadiusExpression
+            | NOT expr=bool  #notExpression
+            | SQRT expr=bool  #sqrtExpression
+            | GETX expr=bool #getXExpression
+            | GETY expr=bool #getYExpression
+            | GETVX expr=bool #getVXExpression
+            | GETVY expr=bool #getVYExpression
+            | GETRADIUS expr=bool #getRadiusExpression
             | dir=GETDIR #getDirectionExpression
-            | leftEq=expression EQ rightEq=expression #equalExpression
-            | leftLt=expression LT rightLt=expression #lessThanExpression
+            | leftEq=bool EQ rightEq=bool #equalExpression
+            | leftLt=bool LT rightLt=bool #lessThanExpression
 ;
 
 entity:   NULL
@@ -96,7 +96,7 @@ entity:   NULL
 ;
 
 functionCall: funcName=IDENTIFIER LEFT_PAREN
-                  (actualArgs+=expression (COMMA actualArgs+=expression)*)?
+                  (actualArgs+=bool (COMMA actualArgs+=bool)*)?
               RIGHT_PAREN
 ;
             
