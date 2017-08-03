@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="131ed65f-b898-45ee-9141-c60ae966d3e4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../src/asteroids/model/BlackHole.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/conditionalExpression.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/AssertStatement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/AssertStatement.java" afterPath="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/assertStatement.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src-provided/asteroids/part3/programs/internal/AsteroidsProgram.g4" afterPath="$PROJECT_DIR$/../src-provided/asteroids/part3/programs/internal/AsteroidsProgram.g4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/asteroids/model/Entity.java" afterPath="$PROJECT_DIR$/../src/asteroids/model/Entity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/asteroids/model/Program.java" afterPath="$PROJECT_DIR$/../src/asteroids/model/Program.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/asteroids/model/Ship.java" afterPath="$PROJECT_DIR$/../src/asteroids/model/Ship.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/equalityExpression.java" afterPath="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/equalityExpression.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../tests/asteroids/tests.java" afterPath="$PROJECT_DIR$/../tests/asteroids/tests.java" />
     </list>
     <ignored path="Asteroids_Jaro_Bertram.iws" />
@@ -40,17 +33,62 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Program.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Program.java">
+      <file leaf-file-name="Asteroid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Asteroid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="137" column="25" lean-forward="true" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="25" />
-              <folding>
-                <element signature="e#3805#3806#0" expanded="true" />
-                <element signature="e#3839#3840#0" expanded="true" />
-                <element signature="e#3894#3895#0" expanded="true" />
-                <element signature="e#3940#3941#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="220">
+              <caret line="83" column="9" lean-forward="false" selection-start-line="83" selection-start-column="9" selection-end-line="84" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bullet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Bullet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="193" column="51" lean-forward="false" selection-start-line="193" selection-start-column="51" selection-end-line="193" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Planetoid.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Planetoid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MinorPlanets.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../src/asteroids/model/MinorPlanets.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="41" column="51" lean-forward="false" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="World.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../src/asteroids/model/World.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Ship.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Ship.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2079">
+              <caret line="235" column="79" lean-forward="false" selection-start-line="235" selection-start-column="79" selection-end-line="235" selection-end-column="79" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -58,110 +96,18 @@
       <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Entity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
+            <state relative-caret-position="11137">
               <caret line="718" column="44" lean-forward="false" selection-start-line="718" selection-start-column="44" selection-end-line="718" selection-end-column="44" />
-              <folding>
-                <element signature="e#13151#13152#0" expanded="true" />
-                <element signature="e#13184#13185#0" expanded="true" />
-                <element signature="e#13235#13236#0" expanded="true" />
-                <element signature="e#13265#13266#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="conditionalExpression.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/conditionalExpression.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#970#971#0" expanded="true" />
-                <element signature="e#1002#1003#0" expanded="true" />
-                <element signature="e#1053#1054#0" expanded="true" />
-                <element signature="e#1080#1081#0" expanded="true" />
-                <element signature="e#1140#1141#0" expanded="true" />
-                <element signature="e#1172#1173#0" expanded="true" />
-                <element signature="e#1226#1227#0" expanded="true" />
-                <element signature="e#1256#1257#0" expanded="true" />
-                <element signature="e#1322#1323#0" expanded="true" />
-                <element signature="e#1360#1361#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="equalityExpression.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/equalityExpression.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="64" column="107" lean-forward="false" selection-start-line="64" selection-start-column="107" selection-end-line="64" selection-end-column="107" />
-              <folding>
-                <element signature="e#740#741#0" expanded="true" />
-                <element signature="e#765#766#0" expanded="true" />
-                <element signature="e#898#899#0" expanded="true" />
-                <element signature="e#923#924#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AssertStatement.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/AssertStatement.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="40" column="65" lean-forward="false" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tests.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../tests/asteroids/tests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="297" column="22" lean-forward="false" selection-start-line="297" selection-start-column="22" selection-end-line="297" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="doubleLiteralExpression.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/doubleLiteralExpression.java">
+      <file leaf-file-name="BlackHole.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../src/asteroids/model/BlackHole.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="doubleType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Types/doubleType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <element signature="e#184#185#0" expanded="true" />
-                <element signature="e#215#216#0" expanded="true" />
-                <element signature="e#261#262#0" expanded="true" />
-                <element signature="e#290#291#0" expanded="true" />
-                <element signature="e#326#327#0" expanded="true" />
-                <element signature="e#355#356#0" expanded="true" />
-                <element signature="e#435#436#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Type.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Type.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state relative-caret-position="204">
+              <caret line="49" column="51" lean-forward="false" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -200,11 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/ProgramFactory.java" />
-        <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/lessThanExpression.java" />
-        <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/additionExpression.java" />
-        <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/changeSignExpression.java" />
-        <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/multiplicationExpression.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/sqrtExpression.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/Expression.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/anyExpression.java" />
@@ -232,7 +173,6 @@
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/assignmentStatement.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/fireStatement.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/turnStatement.java" />
-        <option value="$PROJECT_DIR$/../src/asteroids/model/World.java" />
         <option value="$PROJECT_DIR$/../src-provided/asteroids/part3/internal/WorldView3.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Type.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Types/setType.java" />
@@ -243,14 +183,20 @@
         <option value="$PROJECT_DIR$/../src/asteroids/facade/FacadePart1.java" />
         <option value="$PROJECT_DIR$/../tests/asteroids/Part_1_test.java" />
         <option value="$PROJECT_DIR$/../tests/asteroids/Part3TestFull.java" />
-        <option value="$PROJECT_DIR$/../src/asteroids/model/BlackHole.java" />
-        <option value="$PROJECT_DIR$/../src/asteroids/model/Entity.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/model/Program.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/AssertStatement.java" />
-        <option value="$PROJECT_DIR$/../src/asteroids/model/Ship.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/conditionalExpression.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/equalityExpression.java" />
+        <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/assertStatement.java" />
         <option value="$PROJECT_DIR$/../tests/asteroids/tests.java" />
+        <option value="$PROJECT_DIR$/../src/asteroids/model/Planetoid.java" />
+        <option value="$PROJECT_DIR$/../src/asteroids/model/Asteroid.java" />
+        <option value="$PROJECT_DIR$/../src/asteroids/model/MinorPlanets.java" />
+        <option value="$PROJECT_DIR$/../src/asteroids/model/World.java" />
+        <option value="$PROJECT_DIR$/../src/asteroids/model/Ship.java" />
+        <option value="$PROJECT_DIR$/../src/asteroids/model/Entity.java" />
+        <option value="$PROJECT_DIR$/../src/asteroids/model/Bullet.java" />
+        <option value="$PROJECT_DIR$/../src/asteroids/model/BlackHole.java" />
       </list>
     </option>
   </component>
@@ -260,7 +206,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
+    <option name="width" value="1370" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -573,84 +519,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="programs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Types" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Asteroids_Jaro_Bertram" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Asteroids_Jaro_Bertram" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="asteroids" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="programs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Statements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Asteroids_Jaro_Bertram" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Asteroids_Jaro_Bertram" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="asteroids" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="programs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Expressions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Asteroids_Jaro_Bertram" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Asteroids_Jaro_Bertram" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="asteroids" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -729,8 +597,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.tests.testConditionalExpressionFalse">
-    <configuration default="false" name="tests.testAddBlackHoleToWorldOutsideBoundary" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Part3">
+    <configuration default="false" name="tests.testAssertStatementCondFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="asteroids.*" />
@@ -742,7 +610,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="asteroids" />
       <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
-      <option name="METHOD_NAME" value="testAddBlackHoleToWorldOutsideBoundary" />
+      <option name="METHOD_NAME" value="testAssertStatementCondFalse" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -756,7 +624,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="tests.testEvolveBlackHoleCollisionEntities" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="tests.testAssertStatementAssertOffCondFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="asteroids.*" />
@@ -768,7 +636,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="asteroids" />
       <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
-      <option name="METHOD_NAME" value="testEvolveBlackHoleCollisionEntities" />
+      <option name="METHOD_NAME" value="testAssertStatementAssertOffCondFalse" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -808,7 +676,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="tests.testConditionalExpressionTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="Part3TestFull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="asteroids.*" />
@@ -819,9 +687,9 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="asteroids" />
-      <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
-      <option name="METHOD_NAME" value="testConditionalExpressionTrue" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="asteroids.Part3TestFull" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -834,30 +702,24 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="tests.testConditionalExpressionFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="Part3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="asteroids.*" />
+          <option name="PATTERN" value="asteroids.part3.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <module name="OGP1617-Asteroids" />
+      <option name="MAIN_CLASS_NAME" value="asteroids.part3.Part3" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="asteroids" />
-      <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
-      <option name="METHOD_NAME" value="testConditionalExpressionFalse" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
+      <module name="OGP1617-Asteroids" />
       <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -1065,19 +927,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.tests.testAddBlackHoleToWorldOutsideBoundary" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.tests.testEvolveBlackHoleCollisionEntities" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.tests.testAssertStatementCondFalse" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.tests.testAssertStatementAssertOffCondFalse" />
       <item index="2" class="java.lang.String" itemvalue="JUnit.tests" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.tests.testConditionalExpressionTrue" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.tests.testConditionalExpressionFalse" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.Part3TestFull" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Part3" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.tests.testConditionalExpressionFalse" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.tests.testConditionalExpressionTrue" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.tests" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.tests.testEvolveBlackHoleCollisionEntities" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.tests.testAddBlackHoleToWorldOutsideBoundary" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Part3" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.tests" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.Part3TestFull" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.tests.testAssertStatementAssertOffCondFalse" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.tests.testAssertStatementCondFalse" />
       </list>
     </recent_temporary>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -1124,39 +986,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="tests - 2017.08.02 at 14h 53m 29s.xml">
+    <history-entry file="Part3TestFull - 2017.08.03 at 12h 59m 47s.xml">
+      <configuration name="Part3TestFull" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Part3TestFull - 2017.08.03 at 13h 30m 02s.xml">
+      <configuration name="Part3TestFull" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Part3TestFull - 2017.08.03 at 13h 31m 25s.xml">
+      <configuration name="Part3TestFull" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Part3TestFull - 2017.08.03 at 13h 36m 48s.xml">
+      <configuration name="Part3TestFull" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="tests - 2017.08.03 at 12h 59m 29s.xml">
       <configuration name="tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests - 2017.08.02 at 14h 54m 13s.xml">
+    <history-entry file="tests - 2017.08.03 at 13h 02m 36s.xml">
       <configuration name="tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests_testConditionalExpressionFalse - 2017.08.02 at 15h 28m 57s.xml">
-      <configuration name="tests.testConditionalExpressionFalse" configurationId="JUnit" />
+    <history-entry file="tests - 2017.08.03 at 13h 29m 42s.xml">
+      <configuration name="tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests_testConditionalExpressionTrue - 2017.08.02 at 15h 21m 22s.xml">
-      <configuration name="tests.testConditionalExpressionTrue" configurationId="JUnit" />
+    <history-entry file="tests - 2017.08.03 at 13h 37m 00s.xml">
+      <configuration name="tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests_testConditionalExpressionTrue - 2017.08.02 at 15h 24m 31s.xml">
-      <configuration name="tests.testConditionalExpressionTrue" configurationId="JUnit" />
+    <history-entry file="tests_testAssertStatementAssertOffCondFalse - 2017.08.03 at 12h 58m 47s.xml">
+      <configuration name="tests.testAssertStatementAssertOffCondFalse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests_testConditionalExpressionTrue - 2017.08.02 at 15h 27m 21s.xml">
-      <configuration name="tests.testConditionalExpressionTrue" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="tests_testConditionalExpressionTrue - 2017.08.02 at 15h 27m 30s.xml">
-      <configuration name="tests.testConditionalExpressionTrue" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="tests_testEvolveBlackHoleCollisionEntities - 2017.08.02 at 14h 20m 40s.xml">
-      <configuration name="tests.testEvolveBlackHoleCollisionEntities" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="tests_testEvolveBlackHoleCollisionEntities - 2017.08.02 at 14h 22m 42s.xml">
-      <configuration name="tests.testEvolveBlackHoleCollisionEntities" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="tests_testEvolveBlackHoleCollisionEntities - 2017.08.02 at 14h 24m 31s.xml">
-      <configuration name="tests.testEvolveBlackHoleCollisionEntities" configurationId="JUnit" />
+    <history-entry file="tests_testAssertStatementAssertOffCondFalse - 2017.08.03 at 12h 59m 13s.xml">
+      <configuration name="tests.testAssertStatementAssertOffCondFalse" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1168,13 +1030,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.50292826" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3420622" sideWeight="0.49707174" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3420622" sideWeight="0.49707174" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2700454" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27251908" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1264,27 +1126,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/turnStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/breakStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="12" column="8" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="14" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/returnStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="28" column="9" lean-forward="false" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/lang/StrictMath.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -1359,13 +1200,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/printStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1489,13 +1323,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/notExpression.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../src-provided/asteroids/part3/programs/SourceLocation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="634">
@@ -1528,24 +1355,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Bullet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="281" column="5" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="281" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/BlackHole.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="115" column="73" lean-forward="false" selection-start-line="115" selection-start-column="73" selection-end-line="115" selection-end-column="73" />
-          <folding>
-            <element signature="e#1171#1198#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Types/booleanType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1575,43 +1384,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../tests/asteroids/Part3TestFull.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-42387">
-          <caret line="37" column="2" lean-forward="true" selection-start-line="37" selection-start-column="2" selection-end-line="40" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Ship.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="574" column="51" lean-forward="false" selection-start-line="574" selection-start-column="51" selection-end-line="574" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="293" column="34" lean-forward="true" selection-start-line="293" selection-start-column="34" selection-end-line="293" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="718" column="44" lean-forward="false" selection-start-line="718" selection-start-column="44" selection-end-line="718" selection-end-column="44" />
-          <folding>
-            <element signature="e#13151#13152#0" expanded="true" />
-            <element signature="e#13184#13185#0" expanded="true" />
-            <element signature="e#13235#13236#0" expanded="true" />
-            <element signature="e#13265#13266#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/changeSignExpression.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1625,26 +1397,6 @@
         <state relative-caret-position="228">
           <caret line="51" column="8" lean-forward="true" selection-start-line="51" selection-start-column="8" selection-end-line="52" selection-end-column="48" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/conditionalExpression.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#970#971#0" expanded="true" />
-            <element signature="e#1002#1003#0" expanded="true" />
-            <element signature="e#1053#1054#0" expanded="true" />
-            <element signature="e#1080#1081#0" expanded="true" />
-            <element signature="e#1140#1141#0" expanded="true" />
-            <element signature="e#1172#1173#0" expanded="true" />
-            <element signature="e#1226#1227#0" expanded="true" />
-            <element signature="e#1256#1257#0" expanded="true" />
-            <element signature="e#1322#1323#0" expanded="true" />
-            <element signature="e#1360#1361#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1669,13 +1421,47 @@
         <state relative-caret-position="157">
           <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
-            <element signature="e#184#185#0" expanded="true" />
-            <element signature="e#215#216#0" expanded="true" />
-            <element signature="e#261#262#0" expanded="true" />
-            <element signature="e#290#291#0" expanded="true" />
-            <element signature="e#326#327#0" expanded="true" />
-            <element signature="e#355#356#0" expanded="true" />
-            <element signature="e#435#436#0" expanded="true" />
+            <element signature="e#184#185#0" expanded="false" />
+            <element signature="e#215#216#0" expanded="false" />
+            <element signature="e#261#262#0" expanded="false" />
+            <element signature="e#290#291#0" expanded="false" />
+            <element signature="e#326#327#0" expanded="false" />
+            <element signature="e#355#356#0" expanded="false" />
+            <element signature="e#435#436#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/printStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/notExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-196">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../tests/asteroids/Part3TestFull.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="2673" column="34" lean-forward="true" selection-start-line="2673" selection-start-column="34" selection-end-line="2673" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/assertStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="40" column="65" lean-forward="false" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1693,20 +1479,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/AssertStatement.java">
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/conditionalExpression.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="40" column="65" lean-forward="false" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
+        <state relative-caret-position="113">
+          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#970#971#0" expanded="true" />
+            <element signature="e#1002#1003#0" expanded="true" />
+            <element signature="e#1053#1054#0" expanded="true" />
+            <element signature="e#1080#1081#0" expanded="true" />
+            <element signature="e#1140#1141#0" expanded="true" />
+            <element signature="e#1172#1173#0" expanded="true" />
+            <element signature="e#1226#1227#0" expanded="true" />
+            <element signature="e#1256#1257#0" expanded="true" />
+            <element signature="e#1322#1323#0" expanded="true" />
+            <element signature="e#1360#1361#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/MinorPlanets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="41" column="51" lean-forward="false" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/BlackHole.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="49" column="51" lean-forward="false" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11137">
+          <caret line="718" column="44" lean-forward="false" selection-start-line="718" selection-start-column="44" selection-end-line="718" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Ship.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2079">
+          <caret line="235" column="79" lean-forward="false" selection-start-line="235" selection-start-column="79" selection-end-line="235" selection-end-column="79" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../tests/asteroids/tests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="297" column="22" lean-forward="false" selection-start-line="297" selection-start-column="22" selection-end-line="297" selection-end-column="22" />
+        <state relative-caret-position="-1258">
+          <caret line="252" column="0" lean-forward="false" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Asteroid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="83" column="9" lean-forward="false" selection-start-line="83" selection-start-column="9" selection-end-line="84" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Bullet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="193" column="51" lean-forward="false" selection-start-line="193" selection-start-column="51" selection-end-line="193" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Planetoid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
           <folding />
         </state>
       </provider>

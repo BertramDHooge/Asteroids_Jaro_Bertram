@@ -4,20 +4,19 @@ import static org.junit.Assert.*;
 
 import asteroids.model.*;
 import asteroids.part3.facade.IFacade;
-import asteroids.part3.programs.Expressions.Expression;
-import asteroids.part3.programs.Expressions.conditionalExpression;
-import asteroids.part3.programs.Expressions.doubleLiteralExpression;
-import asteroids.part3.programs.Expressions.equalityExpression;
+import asteroids.part3.programs.Expressions.*;
 import asteroids.part3.programs.IProgramFactory;
+import asteroids.part3.programs.Statements.assertStatement;
+import asteroids.part3.programs.Statements.Statement;
+import asteroids.part3.programs.Statements.printStatement;
+import asteroids.part3.programs.Statements.sequenceStatement;
 import asteroids.part3.programs.Type;
-import asteroids.part3.programs.internal.ProgramParser;
 import org.junit.Before;
 import org.junit.Test;
 
-import asteroids.facade.FacadePart1;
-import asteroids.part1.facade.IFacadePart1;
 import asteroids.util.ModelException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class tests {
@@ -296,5 +295,50 @@ public class tests {
         Expression<Type> cond = new conditionalExpression(bool, then, elseExp, null);
         double r = (double)cond.evaluate(null,null).get();
         assertEquals(2, r, EPSILON);
+    }
+
+    @Test
+    public void testAssertStatementCondTrue() throws ClassNotFoundException {
+        Expression<Type> bool = new equalityExpression(new doubleLiteralExpression(5, null), new doubleLiteralExpression(5, null), null);
+        Statement a = new assertStatement(bool, null);
+        Statement p = new printStatement(bool, null);
+        List<Statement> l = new ArrayList<>();
+        l.add(a);
+        l.add(p);
+        Statement s = new sequenceStatement(l, null);
+        Program program = new Program(null, s);
+        List<Object> results = program.execute(5., true);
+        List<Object> expected = new ArrayList<>();
+        expected.add(true);
+        assertEquals(expected, results);
+    }
+
+    @Test (expected = ClassNotFoundException.class)
+    public void testAssertStatementCondFalse() throws ClassNotFoundException {
+        Expression<Type> bool = new equalityExpression(new doubleLiteralExpression(4, null), new doubleLiteralExpression(5, null), null);
+        Statement a = new assertStatement(bool, null);
+        Statement p = new printStatement(bool, null);
+        List<Statement> l = new ArrayList<>();
+        l.add(a);
+        l.add(p);
+        Statement s = new sequenceStatement(l, null);
+        Program program = new Program(null, s);
+        program.execute(5., true);
+    }
+
+    @Test
+    public void testAssertStatementAssertOffCondFalse() throws ClassNotFoundException {
+        Expression<Type> bool = new equalityExpression(new doubleLiteralExpression(4, null), new doubleLiteralExpression(5, null), null);
+        Statement a = new assertStatement(bool, null);
+        Statement p = new printStatement(bool, null);
+        List<Statement> l = new ArrayList<>();
+        l.add(a);
+        l.add(p);
+        Statement s = new sequenceStatement(l, null);
+        Program program = new Program(null, s);
+        List<Object> results = program.execute(5., false);
+        List<Object> expected = new ArrayList<>();
+        expected.add(false);
+        assertEquals(expected, results);
     }
 }
