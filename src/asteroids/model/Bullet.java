@@ -2,9 +2,7 @@ package asteroids.model;
 
 import be.kuleuven.cs.som.annotate.Basic;
 
-/**
- * @author Jaro Deklerck
- */
+
 public class Bullet extends Entity {
 
     protected Ship ship;
@@ -183,7 +181,8 @@ public class Bullet extends Entity {
     
     @Override
     public void addEntityToWorld(World world) throws WorldException, IllegalArgumentException, EntityException {
-        if (world == null) {
+        //TODO herschrijven
+    	if (world == null) {
             throw new IllegalArgumentException();
         }
         double check = this.getRadius();

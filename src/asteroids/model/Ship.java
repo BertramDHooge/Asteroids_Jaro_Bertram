@@ -528,7 +528,8 @@ public class Ship extends Entity {
      */
     @Override
     public void addEntityToWorld(World world) throws WorldException, IllegalArgumentException{
-        if (world == null) {
+        //TODO herschrijven
+    	if (world == null) {
             throw new IllegalArgumentException();
         }
         double check = this.getRadius();
