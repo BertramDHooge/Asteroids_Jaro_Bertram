@@ -74,6 +74,7 @@ public class Ship extends Entity {
     /**
      * Set the orientation of the ship
      * @param orientation
+     * 		orientation of the ship
      * @effect assertOrientation
      * @post ...
      *      | new orientation == orientation
@@ -96,6 +97,7 @@ public class Ship extends Entity {
 	 *Return the orientation of ship (in radians).
 	 * @return orientation
 	 */
+	
 	@Basic
 	public double getOrientation() {
 		return orientation;
@@ -115,7 +117,9 @@ public class Ship extends Entity {
         if (orientation > -MAX_ANGLE) {
             return true;
         }
-        return false;
+        else {
+        	return false;
+        }
     }
 
     /**
@@ -138,6 +142,15 @@ public class Ship extends Entity {
         }
     }
 
+    /**
+     * Sets the radius of the ship
+     * @param radius
+     * 		radius of the ship
+     * @post ...
+     * 		|radius >= 10
+     * @throws EntityException
+     */
+    
     @Override
     protected void setRadius(double radius) throws EntityException {
         if (radius >= 10) {
@@ -161,12 +174,25 @@ public class Ship extends Entity {
         return totalMass;
     }
 
+    /**
+     * Returns the max speed a ship can have
+     * @return
+     */
+    
     @Basic
     @Override
     public double getMAX_SPEED() {
         return MAX_SPEED;
     }
 
+    /**
+     * Sets the max speed a ship can have
+     * @param MAX_SPEED
+     * 		the max speed a ship  can have
+     * @post ...
+     * 		|MAX_SPEED <= SPEED_OF_LIGHT
+     */
+    
     @Override
     protected void setMAX_SPEED(double MAX_SPEED) {
         if (MAX_SPEED >= 0 && MAX_SPEED <= SPEED_OF_LIGHT) {
@@ -174,6 +200,12 @@ public class Ship extends Entity {
         }
     }
 
+    /**
+     * Accelerates the ship in its orientation
+     * @post ...
+     * 		|new velocity == velocity
+     */
+    
     public void thrust(double dt, double a) {
         if (dt >= 0 && a >= 0) {
             this.setVelocity(xVelocity + a * Math.cos(orientation) * dt, yVelocity + a * Math.sin(orientation) * dt);
@@ -183,6 +215,7 @@ public class Ship extends Entity {
     /**
      * Turn the thruster on.
      */
+    
     @Basic
     public void thrustOn() {
         this.thruster = true;
@@ -191,6 +224,7 @@ public class Ship extends Entity {
     /**
      * Turn the thruster off.
      */
+    
     @Basic
     public void thrustOff() {
         this.thruster = false;
@@ -204,6 +238,7 @@ public class Ship extends Entity {
      * Returns true when the thruster is activated and false when it's deactivated.
      * @return
      */
+    
     @Basic
     public boolean isThrusterActive() {return this.thruster;}
 
@@ -258,6 +293,11 @@ public class Ship extends Entity {
 		assert assertOrientation(angle);
 	    setOrientation(orientation, angle);
  	}
+	
+	/**
+	 * Returns the closest other ship
+	 * @return
+	 */
 
     public Ship closestShip() {
         Set<Ship> ships = (Set<Ship>)this.world.getEntities("Ship");
@@ -272,6 +312,11 @@ public class Ship extends Entity {
         return sh;
     }
 
+    /**
+     * returns the closest bullet to the ship
+     * @return
+     */
+    
     public Bullet closestBullet() {
         Set<Bullet> bullets = (Set<Bullet>)this.world.getEntities("Bullet");
         double closest = Double.POSITIVE_INFINITY;
@@ -284,6 +329,11 @@ public class Ship extends Entity {
         }
         return bul;
     }
+    
+    /**
+     * Returns the closest asteroid to the ship
+     * @return
+     */
 
  	public Asteroid closestAsteroid() {
 	    Set<Asteroid> asteroids = (Set<Asteroid>)this.world.getEntities("Asteroid");
@@ -297,6 +347,11 @@ public class Ship extends Entity {
         }
         return ast;
     }
+ 	
+ 	/**
+ 	 * Returns the closest planetoid to the ship
+ 	 * @return
+ 	 */
 
     public Planetoid closestPlanetoid() {
         Set<Planetoid> planetoids = (Set<Planetoid>)this.world.getEntities("Planetoid");
@@ -310,6 +365,11 @@ public class Ship extends Entity {
         }
         return plan;
     }
+    
+    /**
+     * Returns the closest minor planet to the ship
+     * @return
+     */
 
     public MinorPlanets closestMinorPlanet() {
 	    MinorPlanets ast = closestAsteroid();
@@ -331,11 +391,11 @@ public class Ship extends Entity {
         }
     }
 
-
     /**
      * Returns the bullets on the ship
      * @return Set<Bullet> bullets
      */
+    
     @Basic
     public Set<? extends Bullet> getBullets() {
         Set<Bullet> bul = new HashSet<>();
@@ -347,6 +407,7 @@ public class Ship extends Entity {
      * Returns the number of bullets on the ship
      * @return bullets.size()
      */
+    
     @Basic
     public int getNbBullets() {return bullets.size();}
 
@@ -354,7 +415,17 @@ public class Ship extends Entity {
      * Loads a bullet on a ship.
      * @param bullet
      *      The bullet to be loaded.
-     * @see implementation
+     * @effect
+     * 		if (bullet.world != null)
+     *           bullet.world.removeFromWorld(bullet)
+     *      this.bullets.add(bullet)
+     * @post ...      
+     *      | bullet.ship == this
+     *      | bullet.world == null
+     *      | bullet.source == this
+     *      | bullet.x == x
+     *      | bullet.y == y
+     * @throws WorldException
      */
 
     public void loadBullet(Bullet bullet, boolean collision) throws WorldException {
@@ -406,8 +477,12 @@ public class Ship extends Entity {
      * Removes a bullet from the ship.
      * @param bullet
      *      The bullet to be removed.
+     * @effect 
+     * 		if this.bullets.contains(bullet)
+     * 			this.bullets.remove(bullet
+     * @post ...
+     * 		| bullet.ship == null
      * @throws BulletException
-     * @see implementation
      */
 
     public void removeBullet(Bullet bullet) throws EntityException{
@@ -421,7 +496,13 @@ public class Ship extends Entity {
     }
 
     /**
-     *
+     *Fires a bullet from the ship
+     *@param
+     *		The bullet to be fired
+     *@effect
+     *		this.removeBullet(bullet)
+     *      bullet.setPosition(this.x + Math.cos(orientation) * 1.011 * (radius + bullet.radius), this.y + Math.sin(orientation) * 1.011 * (radius + bullet.radius))
+     *      this.world.addToWorld(bullet)
      */
 
     public void fireBullet() throws EntityException, WorldException{
@@ -440,7 +521,9 @@ public class Ship extends Entity {
      * Adds a ship to the world.
      * @param world
      *      The world the ship has to be added to.
-     * @see implementation
+     * @post ...
+     * 		| overlap == false
+     * 		| new ship.world == world
      * @throws WorldException
      */
     @Override
@@ -479,9 +562,13 @@ public class Ship extends Entity {
      * Remove a ship from the world.
      * @param ship
      *      The ship to be removed
-     * @see implementation
+     * @param world
+     * 		The world from which the ship will be removed
+     * @post ...
+     * 		| new ship.world == null
      * @throws WorldException
      */
+    
     @Override
     public void removeEntityFromWorld(World world) throws WorldException {
         if (world.entities.contains(this)) {
@@ -495,7 +582,21 @@ public class Ship extends Entity {
 
     /**
      * Terminates the ship
+     * @param ship
+     * 		The ship to be terminated
+     * @effect
+     * 		world.removeFromWorld(ship)
+     * @post ...
+     * 		| new ship.world == null
+     * 		| new ship.x == NaN
+     * 		| new ship.y == NaN
+     * 		| new ship.xVelocity == NaN
+     * 		| new ship.yVelocity == NaN
+     * 		| new ship.orientation == NaN
+     * 		| new ship.radius == NaN
+     * 		| new ship.mass == NaN
      */
+    
     @Override
     public void terminate() throws WorldException, EntityException {
         if (this.world != null) {
@@ -521,6 +622,7 @@ public class Ship extends Entity {
      * Returns the state of the ship.
      * @return
      */
+    
     @Basic
     public boolean isTerminated() {
         if ((this.x <= 0 || this.x > 0) && (this.y <= 0 || this.y > 0)) {
@@ -534,10 +636,9 @@ public class Ship extends Entity {
     private Program program;
 	
 	/**
-	 * 
 	 * A method to set the given program to this ship.
 	 * @param 	program
-	 * 			The given program, we want the ship to have
+	 * 			The given program, which we want the ship to have
 	 * 
 	 * @result 	set this ship with the given program
 	 * 			| this.program = program
@@ -553,9 +654,7 @@ public class Ship extends Entity {
 	}
 	
 	/**
-	 * 
 	 * A method that returns the program of this ship.
-	 * 
 	 * @return	the program of this ship
 	 * 			| result == this.program
 	 */
@@ -565,7 +664,7 @@ public class Ship extends Entity {
 	}
 	
 	/**
-	 * a method that execute the program of this ship
+	 * a method that executes the program of this ship
 	 * @param 	duration
 	 * 			the duration we want the program to be executed.
 	 * @return	the executing process

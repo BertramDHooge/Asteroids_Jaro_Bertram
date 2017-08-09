@@ -2321,6 +2321,10 @@ public class Part3TestFull {
     Set<? extends Object> allEntities = facade.getEntities(world);
     facade.loadProgramOnShip(ship1, program);
     List<Object> results = facade.executeProgram(ship1, 1.0);
+    System.out.println("-----------");
+    System.out.println(results);
+    System.out.println(results.get(0));
+    System.out.println(allEntities);
     assertEquals(1, results.size());
     assertTrue(allEntities.contains(results.get(0)));
     score += 10;

@@ -175,8 +175,7 @@ public class Entity {
      * resolves the collision between entities
      * @param entity
      * @param collisionListener
-     * @see implementation
-     * @return
+     * @return 
      * @throws WorldException
      * @throws EntityException
      */
@@ -478,7 +477,7 @@ public class Entity {
             throw new IllegalArgumentException();
         }
         double d = getDistanceTo(entity);
-        if (d >= -1.01*(this.radius + entity.radius) && d <= 1.01*(this.radius + entity.radius)){
+        if (d <= 1.01*(this.radius + entity.radius)){
             return true;
         }
         if (this == entity){

@@ -9,12 +9,12 @@ import asteroids.part3.programs.Type;
 /**
  * @author Jaro Deklerck
  */
-public class assertStatement extends Statement {
+public class AssertStatement extends Statement {
 
     private Expression<? extends Type> bool;
     private SourceLocation sourceLocation;
 
-    public assertStatement(Expression<? extends Type> bool , SourceLocation sourceLocation) {
+    public AssertStatement(Expression<? extends Type> bool , SourceLocation sourceLocation) {
         super(sourceLocation);
         this.setBool(bool);
 

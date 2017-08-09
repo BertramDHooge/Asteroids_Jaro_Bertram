@@ -164,6 +164,7 @@ public class World {
      * Returns the state of the world.
      * @return
      */
+    
     @Basic
     public boolean isTerminated() {
         if ((width <= 0 || width > 0) && (height <=0 || height > 0)) {

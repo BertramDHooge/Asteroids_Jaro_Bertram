@@ -2,10 +2,9 @@ package asteroids.model;
 
 import be.kuleuven.cs.som.annotate.Basic;
 
-/**
- * @author Jaro Deklerck
- */
 public class BlackHole extends Entity {
+	
+	protected double radiusChange;
 
     /**
      * Create a new black hole with the given position and radius.
@@ -15,24 +14,38 @@ public class BlackHole extends Entity {
      * 		Y coordinate for the new black hole.
      * @param radius
      * 		Radius for the new black hole.
+     * @param radiusChange
+     * 		Value by which the radius is to be changed
      * @post ...
      * 		| (x != IsNaN) && (y != IsNaN) && (radius != IsNaN)
      * @effect setPosition
      * @effect setRadius
+     * @effect setRadiusChange
      * @throws EntityException
      */
 
+	
+	
     public BlackHole(double x, double y, double radius) throws EntityException {
         if (!Double.isNaN(x) && !Double.isNaN(y) && !Double.isNaN(radius)){
             setPosition(x, y);
             setVelocity(0, 0);
             setRadius(radius);
+            setRadiusChange(radiusChange);
         }
         else {
             throw new EntityException("Values are NaN!");
         }
     }
-
+    
+    /**
+     * Sets the radius of the black hole
+     * @param radius
+     * @post ...
+     * 		| radius >= 100
+     * @throws EnityException
+     */
+    
     @Override
     protected void setRadius(double radius) throws EntityException {
         if (radius >= 100) {
@@ -42,9 +55,39 @@ public class BlackHole extends Entity {
             throw new EntityException("Wrong radius!");
         }
     }
+    
+    /**
+     * 	
+     * @param radiusChange
+     */
+    
+    protected void setRadiusChange(double radiusChange) {
+    	// Currently empty because there are no means to change radius	
+    }
+    
+    public double getRadiusChange() {
+    	return radiusChange;
+    }
+    
+    protected void changeRadius() {
+    	this.radius += radiusChange;
+    }
 
+    /**
+     * Checks for overlap when the radius of the black hole gets changed and acts depending upon the type of entity with which there is overlap
+     * @param radius
+     * @param blackHole
+     * 		Black hole for which the overlap will be checked
+     * @param entity
+     * 		Entity with which overlap will be checked
+     * @effect
+     * 		
+     * 		
+     */
+    
     @SuppressWarnings("unused")
-    protected void changeRadius(double radius) throws WorldException, EntityException {
+    protected void resolveBlackHoleCollision(double radius) throws WorldException, EntityException {
+    	//TODO herschrijven voor duidelijkheid
         if (this.getWorld() != null) {
             if (this.getPosition()[0] >= radius && this.getPosition()[1] >= radius && world.getSize()[0] - this.getPosition()[0] >= radius && world.getSize()[1] - this.getPosition()[1] >= radius) {
                 for (Entity entity : world.entities) {
@@ -70,7 +113,7 @@ public class BlackHole extends Entity {
                 throw new WorldException("Black hole outside boundaries.");
             }
         }
-        else {
+        else {	
             throw new WorldException("Black hole not located in world.");
         }
     }
@@ -79,7 +122,8 @@ public class BlackHole extends Entity {
      * Adds a black hole to the world.
      * @param world
      *      The world the black hole has to be added to.
-     * @see implementation
+     * @post ...
+     * 		| new this.world == world
      * @throws WorldException
      */
 
@@ -125,7 +169,8 @@ public class BlackHole extends Entity {
      * Remove a black hole from the world.
      * @param world
      *      The world the black hole has to be removed from.
-     * @see implementation
+     * @post ...
+     * 		| new this.world == null
      * @throws WorldException
      */
 
@@ -144,7 +189,10 @@ public class BlackHole extends Entity {
     /**
      * Terminates the black hole.
      * @post ...
-     * 		|new blackhole == null
+     * 		|new this.world == null
+     * 		|new this.x == NaN
+     * 		|new this.y == NaN
+     * 		|new this.radius == NaN
      */
 
     @Override
