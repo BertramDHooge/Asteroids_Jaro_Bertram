@@ -2,9 +2,10 @@ package asteroids.model;
 
 import be.kuleuven.cs.som.annotate.Basic;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 public class BlackHole extends Entity {
-	
-	protected double radiusChange;
 
     /**
      * Create a new black hole with the given position and radius.
@@ -14,8 +15,6 @@ public class BlackHole extends Entity {
      * 		Y coordinate for the new black hole.
      * @param radius
      * 		Radius for the new black hole.
-     * @param radiusChange
-     * 		Value by which the radius is to be changed
      * @post ...
      * 		| (x != IsNaN) && (y != IsNaN) && (radius != IsNaN)
      * @effect setPosition
@@ -31,7 +30,6 @@ public class BlackHole extends Entity {
             setPosition(x, y);
             setVelocity(0, 0);
             setRadius(radius);
-            setRadiusChange(radiusChange);
         }
         else {
             throw new EntityException("Values are NaN!");
@@ -55,34 +53,20 @@ public class BlackHole extends Entity {
             throw new EntityException("Wrong radius!");
         }
     }
-    
-    /**
-     * 	
-     * @param radiusChange
-     */
-    
-    protected void setRadiusChange(double radiusChange) {
-    	// Currently empty because there are no means to change radius	
-    }
-    
-    public double getRadiusChange() {
-    	return radiusChange;
-    }
-    
-    protected void changeRadius() {
-    	this.radius += radiusChange;
-    }
 
     /**
      * Checks for overlap when the radius of the black hole gets changed and acts depending upon the type of entity with which there is overlap
      * @param radius
-     * @param blackHole
-     * 		Black hole for which the overlap will be checked
-     * @param entity
-     * 		Entity with which overlap will be checked
-     * @effect
-     * 		
-     * 		
+     *      The new radius for the Black Hole.
+     * @post
+     *      | if (new radius between boundaries)
+     *      |   then c = false
+     *      |   ent = new Set
+     *      |   for (all entities)
+     *      |       do if (overlap with new radius)
+     *      |           then handle collision
+     * @throws WorldException
+     * @throws EntityException
      */
     
     @SuppressWarnings("unused")
@@ -90,6 +74,8 @@ public class BlackHole extends Entity {
     	//TODO herschrijven voor duidelijkheid
         if (this.getWorld() != null) {
             if (this.getPosition()[0] >= radius && this.getPosition()[1] >= radius && world.getSize()[0] - this.getPosition()[0] >= radius && world.getSize()[1] - this.getPosition()[1] >= radius) {
+                boolean c = false;
+                Collection<Entity> ent = new HashSet<>();
                 for (Entity entity : world.entities) {
                     if (Math.hypot(entity.x-this.x,entity.y-this.y)-(entity.radius+radius) < 0 && this != entity) {
                         if (entity instanceof BlackHole) {
@@ -98,15 +84,24 @@ public class BlackHole extends Entity {
                             this.terminate();
                             entity.terminate();
                             bh.addEntityToWorld(w);
+                            break;
                         }
                         else if (entity instanceof Bullet) {
-                            this.setRadius(radius);
+                            c = true;
                         }
                         else {
-                            entity.terminate();
-                            this.setRadius(radius);
+                            ent.add(entity);
+                            c = true;
                         }
                     }
+                }
+                if (c) {
+                    if (!ent.isEmpty()) {
+                        for (Entity e: ent) {
+                            e.terminate();
+                        }
+                    }
+                    this.setRadius(radius);
                 }
             }
             else {

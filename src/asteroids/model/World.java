@@ -256,7 +256,25 @@ public class World {
     /**
      * progresses the world by an amount of time
      * @param dt
+     *      The amount of time to progress the world.
      * @param collisionListener
+     *      The collision listener for eventual graphics or sounds.
+     * @post
+     *      | while (dt > 0)
+     *      |   do next == getTimeNextCollision()
+     *      |   if (next < dt)
+     *      |       then move all entities
+     *      |       handle all collisions
+     *      |       dt -= next
+     *      |   else
+     *      |       then move all entities
+     *      |       dt == 0
+     * @effect getTimeNextCollision
+     * @effect move
+     * @effect getTimeToCollisionBoundary
+     * @effect resolveBoundaryCollision
+     * @effect getTimeCollisionEntity
+     * @effect resolveEntityCollision
      * @throws WorldException
      * @throws EntityException
      */
