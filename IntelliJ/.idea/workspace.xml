@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="131ed65f-b898-45ee-9141-c60ae966d3e4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/asteroids/model/BlackHole.java" afterPath="$PROJECT_DIR$/../src/asteroids/model/BlackHole.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/asteroids/model/World.java" afterPath="$PROJECT_DIR$/../src/asteroids/model/World.java" />
     </list>
     <ignored path="Asteroids_Jaro_Bertram.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -117,8 +115,8 @@
       <file leaf-file-name="BlackHole.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../src/asteroids/model/BlackHole.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="820">
-              <caret line="66" column="45" lean-forward="false" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
+            <state relative-caret-position="172">
+              <caret line="72" column="31" lean-forward="false" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1938#1965#0" expanded="true" />
@@ -1512,8 +1510,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/asteroids/model/BlackHole.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="820">
-          <caret line="66" column="45" lean-forward="false" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
+        <state relative-caret-position="172">
+          <caret line="72" column="31" lean-forward="false" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1938#1965#0" expanded="true" />

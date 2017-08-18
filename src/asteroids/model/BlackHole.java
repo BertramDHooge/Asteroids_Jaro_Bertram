@@ -70,7 +70,7 @@ public class BlackHole extends Entity {
      */
     
     @SuppressWarnings("unused")
-    protected void resolveBlackHoleCollision(double radius) throws WorldException, EntityException {
+    protected void changeRadius(double radius) throws WorldException, EntityException {
     	//TODO herschrijven voor duidelijkheid
         if (this.getWorld() != null) {
             if (this.getPosition()[0] >= radius && this.getPosition()[1] >= radius && world.getSize()[0] - this.getPosition()[0] >= radius && world.getSize()[1] - this.getPosition()[1] >= radius) {
