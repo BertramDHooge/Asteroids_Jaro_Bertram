@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="131ed65f-b898-45ee-9141-c60ae966d3e4" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/AssertStatement.java" afterPath="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/assertStatement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/asteroids/model/BlackHole.java" afterPath="$PROJECT_DIR$/../src/asteroids/model/BlackHole.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../tests/asteroids/tests.java" afterPath="$PROJECT_DIR$/../tests/asteroids/tests.java" />
     </list>
     <ignored path="Asteroids_Jaro_Bertram.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,7 +37,7 @@
       <file leaf-file-name="Asteroid.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Asteroid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1377">
+            <state relative-caret-position="220">
               <caret line="83" column="9" lean-forward="false" selection-start-line="83" selection-start-column="9" selection-end-line="84" selection-end-column="29" />
               <folding />
             </state>
@@ -64,7 +67,14 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1819">
               <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="e#1116#1117#0" expanded="false" />
+                <element signature="e#1160#1161#0" expanded="false" />
+                <element signature="e#1217#1218#0" expanded="false" />
+                <element signature="e#1265#1266#0" expanded="false" />
+                <element signature="e#1459#1460#0" expanded="false" />
+                <element signature="e#1542#1543#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,21 +115,30 @@
       <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Entity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9311">
-              <caret line="717" column="44" lean-forward="false" selection-start-line="717" selection-start-column="44" selection-end-line="717" selection-end-column="44" />
+            <state relative-caret-position="240">
+              <caret line="498" column="62" lean-forward="false" selection-start-line="498" selection-start-column="19" selection-end-line="498" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BlackHole.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tests.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../tests/asteroids/tests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="316" column="57" lean-forward="false" selection-start-line="316" selection-start-column="57" selection-end-line="316" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BlackHole.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../src/asteroids/model/BlackHole.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="72" column="31" lean-forward="false" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
+            <state relative-caret-position="112">
+              <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1938#1965#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -200,7 +219,6 @@
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/conditionalExpression.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Expressions/equalityExpression.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/assertStatement.java" />
-        <option value="$PROJECT_DIR$/../tests/asteroids/tests.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/model/Planetoid.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/model/Asteroid.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/model/MinorPlanets.java" />
@@ -209,6 +227,7 @@
         <option value="$PROJECT_DIR$/../src/asteroids/model/Bullet.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/model/World.java" />
         <option value="$PROJECT_DIR$/../src/asteroids/model/BlackHole.java" />
+        <option value="$PROJECT_DIR$/../tests/asteroids/tests.java" />
       </list>
     </option>
   </component>
@@ -529,6 +548,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="programs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Statements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Asteroids_Jaro_Bertram" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Asteroids_Jaro_Bertram" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="asteroids" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -609,59 +654,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Part3">
-    <configuration default="false" name="tests.testAssertStatementCondFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="asteroids.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="OGP1617-Asteroids" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="asteroids" />
-      <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
-      <option name="METHOD_NAME" value="testAssertStatementCondFalse" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="tests.testAssertStatementAssertOffCondFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="asteroids.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="OGP1617-Asteroids" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="asteroids" />
-      <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
-      <option name="METHOD_NAME" value="testAssertStatementAssertOffCondFalse" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.tests">
     <configuration default="false" name="tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -688,7 +681,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="Part3TestFull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="tests.testChangeRadiusBlackHoleNoEntities" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="asteroids.*" />
@@ -699,9 +692,9 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="asteroids" />
-      <option name="MAIN_CLASS_NAME" value="asteroids.Part3TestFull" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
+      <option name="METHOD_NAME" value="testChangeRadiusBlackHoleNoEntities" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -714,24 +707,82 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="Part3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="tests.testChangeRadiusBlackHoleOtherEntities" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="asteroids.part3.*" />
+          <option name="PATTERN" value="asteroids.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="asteroids.part3.Part3" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <module name="OGP1617-Asteroids" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="PACKAGE_NAME" value="asteroids" />
+      <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
+      <option name="METHOD_NAME" value="testChangeRadiusBlackHoleOtherEntities" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="OGP1617-Asteroids" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
       <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="tests.testEvolveBlackHoleCollisionEntities" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="asteroids.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="OGP1617-Asteroids" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="asteroids" />
+      <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
+      <option name="METHOD_NAME" value="testEvolveBlackHoleCollisionEntities" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="tests.testChangeRadiusBlackHoleOtherBlackHole" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="asteroids.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="OGP1617-Asteroids" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="asteroids" />
+      <option name="MAIN_CLASS_NAME" value="asteroids.tests" />
+      <option name="METHOD_NAME" value="testChangeRadiusBlackHoleOtherBlackHole" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -939,19 +990,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.tests.testAssertStatementCondFalse" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.tests.testAssertStatementAssertOffCondFalse" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.tests" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.Part3TestFull" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Part3" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.tests" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.tests.testChangeRadiusBlackHoleNoEntities" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.tests.testChangeRadiusBlackHoleOtherEntities" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.tests.testEvolveBlackHoleCollisionEntities" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.tests.testChangeRadiusBlackHoleOtherBlackHole" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Part3" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.tests" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.Part3TestFull" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.tests.testAssertStatementAssertOffCondFalse" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.tests.testAssertStatementCondFalse" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.tests" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.tests.testChangeRadiusBlackHoleOtherBlackHole" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.tests.testChangeRadiusBlackHoleOtherEntities" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.tests.testEvolveBlackHoleCollisionEntities" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.tests.testChangeRadiusBlackHoleNoEntities" />
       </list>
     </recent_temporary>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -998,35 +1049,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Part3TestFull - 2017.08.03 at 12h 59m 47s.xml">
-      <configuration name="Part3TestFull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Part3TestFull - 2017.08.03 at 13h 30m 02s.xml">
-      <configuration name="Part3TestFull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Part3TestFull - 2017.08.03 at 13h 31m 25s.xml">
-      <configuration name="Part3TestFull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Part3TestFull - 2017.08.03 at 13h 36m 48s.xml">
-      <configuration name="Part3TestFull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="tests - 2017.08.03 at 12h 59m 29s.xml">
+    <history-entry file="tests - 2017.08.18 at 15h 55m 01s.xml">
       <configuration name="tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests - 2017.08.03 at 13h 02m 36s.xml">
-      <configuration name="tests" configurationId="JUnit" />
+    <history-entry file="tests_testChangeRadiusBlackHoleNoEntities - 2017.08.18 at 15h 40m 18s.xml">
+      <configuration name="tests.testChangeRadiusBlackHoleNoEntities" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests - 2017.08.03 at 13h 29m 42s.xml">
-      <configuration name="tests" configurationId="JUnit" />
+    <history-entry file="tests_testChangeRadiusBlackHoleNoEntities - 2017.08.18 at 15h 42m 15s.xml">
+      <configuration name="tests.testChangeRadiusBlackHoleNoEntities" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests - 2017.08.03 at 13h 37m 00s.xml">
-      <configuration name="tests" configurationId="JUnit" />
+    <history-entry file="tests_testChangeRadiusBlackHoleNoEntities - 2017.08.18 at 15h 42m 24s.xml">
+      <configuration name="tests.testChangeRadiusBlackHoleNoEntities" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests_testAssertStatementAssertOffCondFalse - 2017.08.03 at 12h 58m 47s.xml">
-      <configuration name="tests.testAssertStatementAssertOffCondFalse" configurationId="JUnit" />
+    <history-entry file="tests_testChangeRadiusBlackHoleOtherBlackHole - 2017.08.18 at 15h 54m 44s.xml">
+      <configuration name="tests.testChangeRadiusBlackHoleOtherBlackHole" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="tests_testAssertStatementAssertOffCondFalse - 2017.08.03 at 12h 59m 13s.xml">
-      <configuration name="tests.testAssertStatementAssertOffCondFalse" configurationId="JUnit" />
+    <history-entry file="tests_testChangeRadiusBlackHoleOtherEntities - 2017.08.18 at 15h 44m 20s.xml">
+      <configuration name="tests.testChangeRadiusBlackHoleOtherEntities" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="tests_testChangeRadiusBlackHoleOtherEntities - 2017.08.18 at 15h 45m 53s.xml">
+      <configuration name="tests.testChangeRadiusBlackHoleOtherEntities" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="tests_testChangeRadiusBlackHoleOtherEntities - 2017.08.18 at 15h 47m 37s.xml">
+      <configuration name="tests.testChangeRadiusBlackHoleOtherEntities" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="tests_testChangeRadiusBlackHoleOtherEntities - 2017.08.18 at 15h 54m 01s.xml">
+      <configuration name="tests.testChangeRadiusBlackHoleOtherEntities" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="tests_testEvolveBlackHoleCollisionEntities - 2017.08.18 at 15h 52m 50s.xml">
+      <configuration name="tests.testEvolveBlackHoleCollisionEntities" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -1036,12 +1087,13 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.50292826" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3420622" sideWeight="0.49707174" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3420622" sideWeight="0.49707174" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1059,7 +1111,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290469" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1128,8 +1179,20 @@
           <properties />
           <option name="timeStamp" value="355" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../src/asteroids/model/BlackHole.java</url>
+          <line>74</line>
+          <properties />
+          <option name="timeStamp" value="385" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../src/asteroids/model/BlackHole.java</url>
+          <line>137</line>
+          <properties />
+          <option name="timeStamp" value="388" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="385" />
+      <option name="time" value="389" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1412,10 +1475,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/AssertStatement.java">
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/part3/programs/Statements/assertStatement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="293">
           <caret line="40" column="65" lean-forward="false" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1433,17 +1499,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../tests/asteroids/tests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1258">
-          <caret line="252" column="0" lean-forward="false" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Asteroid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1377">
+        <state relative-caret-position="220">
           <caret line="83" column="9" lean-forward="false" selection-start-line="83" selection-start-column="9" selection-end-line="84" selection-end-column="29" />
           <folding />
         </state>
@@ -1469,15 +1527,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1819">
           <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9311">
-          <caret line="717" column="44" lean-forward="false" selection-start-line="717" selection-start-column="44" selection-end-line="717" selection-end-column="44" />
-          <folding />
+          <folding>
+            <element signature="e#1116#1117#0" expanded="false" />
+            <element signature="e#1160#1161#0" expanded="false" />
+            <element signature="e#1217#1218#0" expanded="false" />
+            <element signature="e#1265#1266#0" expanded="false" />
+            <element signature="e#1459#1460#0" expanded="false" />
+            <element signature="e#1542#1543#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1510,12 +1567,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/asteroids/model/BlackHole.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="72" column="31" lean-forward="false" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
+        <state relative-caret-position="112">
+          <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1938#1965#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../src/asteroids/model/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="498" column="62" lean-forward="false" selection-start-line="498" selection-start-column="19" selection-end-line="498" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../tests/asteroids/tests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="316" column="57" lean-forward="false" selection-start-line="316" selection-start-column="57" selection-end-line="316" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>

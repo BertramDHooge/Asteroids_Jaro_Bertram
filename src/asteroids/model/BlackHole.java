@@ -70,30 +70,33 @@ public class BlackHole extends Entity {
      */
     
     @SuppressWarnings("unused")
-    protected void changeRadius(double radius) throws WorldException, EntityException {
+    public void changeRadius(double radius) throws WorldException, EntityException {
     	//TODO herschrijven voor duidelijkheid
         if (this.getWorld() != null) {
             if (this.getPosition()[0] >= radius && this.getPosition()[1] >= radius && world.getSize()[0] - this.getPosition()[0] >= radius && world.getSize()[1] - this.getPosition()[1] >= radius) {
                 boolean c = false;
                 Collection<Entity> ent = new HashSet<>();
-                for (Entity entity : world.entities) {
-                    if (Math.hypot(entity.x-this.x,entity.y-this.y)-(entity.radius+radius) < 0 && this != entity) {
-                        if (entity instanceof BlackHole) {
-                            BlackHole bh = new BlackHole((this.x+entity.x)/2, (this.y+entity.y)/2, radius+entity.radius);
-                            World w = this.getWorld();
-                            this.terminate();
-                            entity.terminate();
-                            bh.addEntityToWorld(w);
-                            break;
-                        }
-                        else if (entity instanceof Bullet) {
-                            c = true;
-                        }
-                        else {
-                            ent.add(entity);
-                            c = true;
+                if (world.entities.size() > 1) {
+                    for (Entity entity : world.entities) {
+                        if (Math.hypot(entity.x - this.x, entity.y - this.y) - (entity.radius + radius) < 0 && this != entity) {
+                            if (entity instanceof BlackHole) {
+                                BlackHole bh = new BlackHole((this.x + entity.x) / 2, (this.y + entity.y) / 2, radius + entity.radius);
+                                World w = this.getWorld();
+                                this.terminate();
+                                entity.terminate();
+                                bh.addEntityToWorld(w);
+                                break;
+                            } else if (entity instanceof Bullet) {
+                                c = true;
+                            } else {
+                                ent.add(entity);
+                                c = true;
+                            }
                         }
                     }
+                }
+                else {
+                    c = true;
                 }
                 if (c) {
                     if (!ent.isEmpty()) {
@@ -139,11 +142,13 @@ public class BlackHole extends Entity {
                             entity.terminate();
                             bh.addEntityToWorld(world);
                             c = false;
+                            break;
                         }
                         else if (entity instanceof Bullet) {
                         }
                         else {
                             entity.terminate();
+                            break;
                         }
                     }
                 }

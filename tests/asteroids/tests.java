@@ -272,9 +272,49 @@ public class tests {
         s.addEntityToWorld(w);
         b.addEntityToWorld(w);
         bh.addEntityToWorld(w);
+        assertEquals(3, w.getEntities().size(), EPSILON);
         w.evolve(2, null);
         assertEquals(2, w.getEntities().size(), EPSILON);
         assertEquals(b, w.getEntityAt(500,350));
+    }
+
+    @Test
+    public void testChangeRadiusBlackHoleNoEntities() throws WorldException, EntityException {
+        World w = new World(1000,1000);
+        BlackHole bh = new BlackHole(500,500,100);
+        bh.addEntityToWorld(w);
+        assertEquals(100, bh.getRadius(), EPSILON);
+        bh.changeRadius(120);
+        assertEquals(120, bh.getRadius(), EPSILON);
+    }
+
+    @Test
+    public void testChangeRadiusBlackHoleOtherEntities() throws WorldException, EntityException, ModelException {
+        World w = new World(1000,1000);
+        BlackHole bh = new BlackHole(500,500,100);
+        Ship s = facade.createShip(500,650,0,200,50,Math.PI);
+        Bullet b = new Bullet(500, 397, 0, -200, 5);
+        s.addEntityToWorld(w);
+        b.addEntityToWorld(w);
+        bh.addEntityToWorld(w);
+        assertEquals(100, bh.getRadius(), EPSILON);
+        assertEquals(3, w.getEntities().size(), EPSILON);
+        bh.changeRadius(120);
+        assertEquals(120, bh.getRadius(), EPSILON);
+        assertEquals(2, w.getEntities().size(), EPSILON);
+    }
+
+    @Test
+    public void testChangeRadiusBlackHoleOtherBlackHole() throws EntityException, WorldException {
+        World w = new World(1000,1000);
+        BlackHole bh1 = new BlackHole(500,400,100);
+        BlackHole bh2 = new BlackHole(500,600,100);
+        bh1.addEntityToWorld(w);
+        bh2.addEntityToWorld(w);
+        assertEquals(2, w.getEntities().size(), EPSILON);
+        bh1.changeRadius(200);
+        assertEquals(1, w.getEntities().size(), EPSILON);
+        assertEquals(300, ((Entity)w.getEntityAt(500, 500)).getRadius(), EPSILON);
     }
 
     @Test
